@@ -1,223 +1,310 @@
-
-# author @maapte
+import json
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from StandalonePage import StandalonePage
-from vrg import Vrg
-from app import AppVRG
-from FormsPage import FormsPage
-from StepsPage import StepsPage
+from Download import Download
+from Form import Form
+from GenerateVRG import GenerateVRG
 from InteractionPage import InteractionPage
-from Download import  Download
+from StandalonePage import StandalonePage
+from Steps import Steps
+from VRGObject import VRGObject
 
 
-import json
+class VRGAutomation(object):
 
-class Ui_c(object):
-
-    # obj is an object of the class Vrg
     def __init__(self):
-        self.vrg = Vrg()
-        self.counter = 0
-        self.formObj = FormsPage()
+        self.vrg = VRGObject()
+        self.formObj = Form()
 
     def close(self):
-        QtWidgets.QWidget.close()
+        QtWidgets.QWidget.close(self)
 
     def save_form_page(self):
-        # print(self.formObj[0])
-        self.formObj.set_formName(self.formName.text().lower())
-        self.formObj.set_noOfSteps(self.noOfSteps.text())
+        self.formObj.set_form_name(self.formName.text().lower())
+        self.formSteps.setChecked(True)
+        self.formSteps.setEnabled(False)
+        self.formObj.set_no_of_steps(self.noOfSteps.text())
         self.formObj.steps = []
         self.formGroupBox.setEnabled(False)
         self.stepGroupBox.setEnabled(True)
-        self.formSteps.setChecked(True)
-        self.formSteps.setEnabled(False)
         if self.productCheckbox.isChecked():
             self.productGroupBoxSteps.setEnabled(True)
-            self.formObj.isProductExist = str(self.productCheckbox.isChecked())
+            self.formObj.is_product_exist = str(self.productCheckbox.isChecked())
         else:
             self.productGroupBoxSteps.setEnabled(False)
         if self.transactionCheckbox.isChecked():
             self.transactionGroupBoxSteps.setEnabled(True)
-            self.formObj.isTransactionExist = str(self.transactionCheckbox.isChecked())
+            self.formObj.is_transaction_exist = str(
+                self.transactionCheckbox.isChecked())
         else:
             self.transactionGroupBoxSteps.setEnabled(False)
 
     def save_steps_information(self):
         noOfSteps = int(self.noOfSteps.text()) - 1
-        stepsObj = StepsPage()
+        stepsObj = Steps()
         self.step = ''
         if len(self.formObj.steps) == 0:
-            stepsObj.set_stepName(self.stepNameTextbox.text())
+            stepsObj.set_step_name(self.stepNameTextbox.text())
 
             if self.appliType_combo.currentText() == "Ember":
-                stepsObj.set_pageName(str(self.pageHierSteps.text().lower().replace(" ", "-")))
-                stepsObj.pagePath = str(self.pageHierSteps.text().lower().replace(" ","-"))
-                stepsObj.pageHierarchy = str(self.pageHierSteps.text().lower().replace(" ","-").split('.'))
-            if self.appliType_combo.currentText() == "Angular" or self.appliType_combo.currentText() == "Mobile JSON":
-                stepsObj.set_pageName(str(self.pageNameStepsTextbox.text().lower().replace(" ","-")))
-                stepsObj.pageHierarchy = str(self.pageHierSteps.text().lower().replace(" ","-")).split('.')
-                stepsObj.pagePath = str(self.pageNameStepsTextbox.text().lower().replace(" ","-"))
-            stepsObj.set_FromTransaction(self.formStepTextBox.text())
+                stepsObj.set_page_name(
+                    str(self.pageHierSteps.text().lower().replace(" ", "-")))
+                stepsObj.page_path = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-"))
+                stepsObj.page_hierarchy = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-").split(
+                        '.'))
+            if self.appliType_combo.currentText() == "Angular" or \
+                    self.appliType_combo.currentText() == "Mobile JSON":
+                stepsObj.set_page_name(str(
+                    self.pageNameStepsTextbox.text().lower().replace(" ",
+                                                                     "-")))
+                stepsObj.page_hierarchy = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-")).split(
+                    '.')
+                stepsObj.page_path = str(
+                    self.pageNameStepsTextbox.text().lower().replace(" ", "-"))
+            stepsObj.set_from_transaction(self.formStepTextBox.text())
             stepsObj.set_ToTransaction(self.lineEdit_13.text())
-            stepsObj.isExternal =  str(self.isExternalCheckbox.isChecked())
+            stepsObj.is_external = str(self.isExternalCheckbox.isChecked())
 
-            stepsObj.set_formView(str(self.formView.isChecked()).lower())
-            stepsObj.set_formQualify(str(self.formQualify.isChecked()).lower())
-            stepsObj.set_formsubmit(str(self.formSubmit.isChecked()).lower())
-            stepsObj.set_formSteps('true')
+            stepsObj.set_form_view(str(self.formView.isChecked()).lower())
+            stepsObj.set_form_qualify(str(self.formQualify.isChecked()).lower())
+            stepsObj.set_form_submit(str(self.formSubmit.isChecked()).lower())
+            stepsObj.set_form_steps('true')
 
-            stepsObj.set_productId(str(self.productId.text()).lower().replace(" ","-"))
-            stepsObj.set_parentProduct(str(self.parentProduct.text()).lower().replace(" ","-"))
-            stepsObj.set_adjudication(str(self.adjudication.text()).lower().replace(" ","-"))
+            stepsObj.set_productId(
+                str(self.productId.text()).lower().replace(" ", "-"))
+            stepsObj.set_parentProduct(
+                str(self.parentProduct.text()).lower().replace(" ", "-"))
+            stepsObj.set_adjudication(
+                str(self.adjudication.text()).lower().replace(" ", "-"))
 
-            if (str(self.positioning_combobox.currentText()) !='Not Applicable'):
-                stepsObj.set_productPositioning(str(self.positioning_combobox.currentText()).lower().replace(" ","-"))
-            if (str(self.grouping_combobox.currentText()) !='Not Applicable'):
-                stepsObj.set_productGrouping(str(self.grouping_combobox.currentText()).lower().replace(" ","-"))
-            if (str(self.fulfillment_comboBox.currentText()) !='Not Applicable'):
-                stepsObj.set_fulfillment(str(self.fulfillment_comboBox.currentText()).lower().replace(" ","-"))
+            if (str(
+                    self.positioning_combobox.currentText()) != 'Not '
+                                                                'Applicable'):
+                stepsObj.set_productPositioning(str(
+                    self.positioning_combobox.currentText()).lower().replace(
+                    " ", "-"))
+            if (str(self.grouping_combobox.currentText()) != 'Not Applicable'):
+                stepsObj.set_productGrouping(
+                    str(self.grouping_combobox.currentText()).lower().replace(
+                        " ", "-"))
+            if (str(
+                    self.fulfillment_comboBox.currentText()) != 'Not '
+                                                                'Applicable'):
+                stepsObj.set_fulfillment(str(
+                    self.fulfillment_comboBox.currentText()).lower().replace(
+                    " ", "-"))
             stepsObj.set_isPaperless(str(self.isPaperless.isChecked()).lower())
-            stepsObj.set_personalDetails(str(self.personalDetails.isChecked()).lower())
-            stepsObj.set_productRecommendation(str((self.productRecommendation.isChecked())).lower())
+            stepsObj.set_personalDetails(
+                str(self.personalDetails.isChecked()).lower())
+            stepsObj.set_product_recommendation(
+                str((self.productRecommendation.isChecked())).lower())
             stepsObj.set_summary(str(self.summary.isChecked()).lower())
-            stepsObj.set_confirmation(str(self.confirmation.isChecked()).lower())
-            stepsObj.set_termsandCondition(str(self.termsandcondition.isChecked()).lower())
+            stepsObj.set_confirmation(
+                str(self.confirmation.isChecked()).lower())
+            stepsObj.set_termsAndCondition(
+                str(self.termsandcondition.isChecked()).lower())
 
-            if self.yesLoginSteps.isChecked() or self.bothLoginSteps.isChecked():
-                stepsObj.set_UserId("{dynamic}")
+            if self.yesLoginSteps.isChecked() or \
+                    self.bothLoginSteps.isChecked():
+                stepsObj.set_user_id("{dynamic}")
                 if self.yesLoginSteps.isChecked():
-                    stepsObj.set_UserAuthState("authenticated")
+                    stepsObj.set_user_auth_state("authenticated")
                 elif self.bothLoginSteps.isChecked():
-                    stepsObj.set_UserAuthState("non-authenticated")
-                stepsObj.set_UserType("{dynamic}")
+                    stepsObj.set_user_auth_state("non-authenticated")
+                stepsObj.set_user_type("{dynamic}")
             if self.yesErrorSteps.isChecked():
-                stepsObj.eventError = "true"
-                stepsObj.errorMessage = "{dynamic}"
-                stepsObj.errorsCode = "{dynamic}"
-                stepsObj.errorsSubType = "{dynamic}"
-                stepsObj.errorsType = "{dynamic}"
-                stepsObj.errorsField = "{dynamic}"
+                stepsObj.event_error = "true"
+                stepsObj.error_message = "{dynamic}"
+                stepsObj.errors_code = "{dynamic}"
+                stepsObj.errors_sub_type = "{dynamic}"
+                stepsObj.errors_type = "{dynamic}"
+                stepsObj.errors_field = "{dynamic}"
             if noOfSteps == len(self.formObj.steps):
                 self.stepGroupBox.setEnabled(False)
             self.step = json.dumps(stepsObj.__dict__)
             self.formObj.steps.append(json.loads(self.step))
         elif len(self.formObj.steps) < noOfSteps:
-            stepsObj.set_stepName(self.stepNameTextbox.text())
+            stepsObj.set_step_name(self.stepNameTextbox.text())
             if self.appliType_combo.currentText() == "Ember":
-                stepsObj.set_pageName(str(self.pageHierSteps.text().lower().replace(" ", "-")))
-                stepsObj.pagePath = str(self.pageHierSteps.text().lower().replace(" ","-"))
-                stepsObj.pageHierarchy = str(self.pageHierSteps.text().lower().replace(" ","-").split('.'))
-            if self.appliType_combo.currentText() == "Angular" or self.appliType_combo.currentText() == "Mobile JSON":
-                stepsObj.set_pageName(str(self.pageNameStepsTextbox.text().lower().replace(" ","-")))
-                stepsObj.pageHierarchy = str(self.pageHierSteps.text().lower().replace(" ","-").split('.'))
+                stepsObj.set_page_name(
+                    str(self.pageHierSteps.text().lower().replace(" ", "-")))
+                stepsObj.page_path = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-"))
+                stepsObj.page_hierarchy = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-").split(
+                        '.'))
+            if self.appliType_combo.currentText() == "Angular" or \
+                    self.appliType_combo.currentText() == "Mobile JSON":
+                stepsObj.set_page_name(str(
+                    self.pageNameStepsTextbox.text().lower().replace(" ",
+                                                                     "-")))
+                stepsObj.page_hierarchy = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-").split(
+                        '.'))
 
-            stepsObj.set_FromTransaction(self.formStepTextBox.text())
+            stepsObj.set_from_transaction(self.formStepTextBox.text())
             stepsObj.set_ToTransaction(self.lineEdit_13.text())
-            stepsObj.isExternal =  str(self.isExternalCheckbox.isChecked())
+            stepsObj.is_external = str(self.isExternalCheckbox.isChecked())
 
-            stepsObj.set_formView(str(self.formView.isChecked()).lower())
-            stepsObj.set_formQualify(str(self.formQualify.isChecked()).lower())
-            stepsObj.set_formsubmit(str(self.formSubmit.isChecked()).lower())
-            stepsObj.set_formSteps('true')
+            stepsObj.set_form_view(str(self.formView.isChecked()).lower())
+            stepsObj.set_form_qualify(str(self.formQualify.isChecked()).lower())
+            stepsObj.set_form_submit(str(self.formSubmit.isChecked()).lower())
+            stepsObj.set_form_steps('true')
 
-            stepsObj.set_productId(str(self.productId.text()).lower().replace(" ","-"))
-            stepsObj.set_parentProduct(str(self.parentProduct.text()).lower().replace(" ","-"))
-            stepsObj.set_adjudication(str(self.adjudication.text()).lower().replace(" ","-"))
+            stepsObj.set_productId(
+                str(self.productId.text()).lower().replace(" ", "-"))
+            stepsObj.set_parentProduct(
+                str(self.parentProduct.text()).lower().replace(" ", "-"))
+            stepsObj.set_adjudication(
+                str(self.adjudication.text()).lower().replace(" ", "-"))
 
-            if (str(self.positioning_combobox.currentText()) !='Not Applicable'):
-                stepsObj.set_productPositioning(str(self.positioning_combobox.currentText()).lower().replace(" ","-"))
-            if (str(self.grouping_combobox.currentText()) !='Not Applicable'):
-                stepsObj.set_productGrouping(str(self.grouping_combobox.currentText()).lower().replace(" ","-"))
-            if (str(self.fulfillment_comboBox.currentText()) !='Not Applicable'):
-                stepsObj.set_fulfillment(str(self.fulfillment_comboBox.currentText()).lower().replace(" ","-"))
+            if (str(
+                    self.positioning_combobox.currentText()) != 'Not '
+                                                                'Applicable'):
+                stepsObj.set_productPositioning(str(
+                    self.positioning_combobox.currentText()).lower().replace(
+                    " ", "-"))
+            if (str(self.grouping_combobox.currentText()) != 'Not Applicable'):
+                stepsObj.set_productGrouping(
+                    str(self.grouping_combobox.currentText()).lower().replace(
+                        " ", "-"))
+            if (str(
+                    self.fulfillment_comboBox.currentText()) != 'Not '
+                                                                'Applicable'):
+                stepsObj.set_fulfillment(str(
+                    self.fulfillment_comboBox.currentText()).lower().replace(
+                    " ", "-"))
             stepsObj.set_isPaperless(str(self.isPaperless.isChecked()).lower())
-            stepsObj.set_personalDetails(str(self.personalDetails.isChecked()).lower())
-            stepsObj.set_productRecommendation(str((self.productRecommendation.isChecked())).lower())
+            stepsObj.set_personalDetails(
+                str(self.personalDetails.isChecked()).lower())
+            stepsObj.set_product_recommendation(
+                str((self.productRecommendation.isChecked())).lower())
             stepsObj.set_summary(str(self.summary.isChecked()).lower())
-            stepsObj.set_confirmation(str(self.confirmation.isChecked()).lower())
-            stepsObj.set_termsandCondition(str(self.termsandcondition.isChecked()).lower())
+            stepsObj.set_confirmation(
+                str(self.confirmation.isChecked()).lower())
+            stepsObj.set_termsAndCondition(
+                str(self.termsandcondition.isChecked()).lower())
 
-            if self.yesLoginSteps.isChecked() or self.bothLoginSteps.isChecked():
-                stepsObj.set_UserId("{dynamic}")
+            if self.yesLoginSteps.isChecked() or \
+                    self.bothLoginSteps.isChecked():
+                stepsObj.set_user_id("{dynamic}")
                 if self.yesLoginSteps.isChecked():
-                    stepsObj.set_UserAuthState("authenticated")
+                    stepsObj.set_user_auth_state("authenticated")
                 elif self.bothLoginSteps.isChecked():
-                    stepsObj.set_UserAuthState("non-authenticated")
-                stepsObj.set_UserType("{dynamic}")
+                    stepsObj.set_user_auth_state("non-authenticated")
+                stepsObj.set_user_type("{dynamic}")
             if self.yesErrorSteps.isChecked():
-                stepsObj.eventError = "true"
-                stepsObj.errorMessage = "{dynamic}"
-                stepsObj.errorsCode = "{dynamic}"
-                stepsObj.errorsSubType = "{dynamic}"
-                stepsObj.errorsType = "{dynamic}"
-                stepsObj.errorsField = "{dynamic}"
+                stepsObj.event_error = "true"
+                stepsObj.error_message = "{dynamic}"
+                stepsObj.errors_code = "{dynamic}"
+                stepsObj.errors_sub_type = "{dynamic}"
+                stepsObj.errors_type = "{dynamic}"
+                stepsObj.errors_field = "{dynamic}"
             self.step = json.dumps(stepsObj.__dict__)
             self.formObj.steps.append(json.loads(self.step))
         else:
-            stepsObj.set_stepName(self.stepNameTextbox.text())
+            stepsObj.set_step_name(self.stepNameTextbox.text())
             if self.appliType_combo.currentText() == "Ember":
-                stepsObj.set_pageName(str(self.pageHierSteps.text().lower().replace(" ", "-")))
-                stepsObj.pagePath = str(self.pageHierSteps.text().lower().replace(" ","-"))
-                stepsObj.pageHierarchy = str(self.pageHierSteps.text().lower().replace(" ","-").split('.'))
-            if self.appliType_combo.currentText() == "Angular" or self.appliType_combo.currentText() == "Mobile JSON":
-                stepsObj.set_pageName(str(self.pageNameStepsTextbox.text().lower().replace(" ","-")))
-                stepsObj.pagePath =str(self.pageNameStepsTextbox.text().lower().replace(" ","-"))
-                stepsObj.pageHierarchy = str(self.pageHierSteps.text().lower().replace(" ","-").split('.'))
-            stepsObj.set_FromTransaction(self.formStepTextBox.text())
+                stepsObj.set_page_name(
+                    str(self.pageHierSteps.text().lower().replace(" ", "-")))
+                stepsObj.page_path = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-"))
+                stepsObj.page_hierarchy = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-").split(
+                        '.'))
+            if self.appliType_combo.currentText() == "Angular" or \
+                    self.appliType_combo.currentText() == "Mobile JSON":
+                stepsObj.set_page_name(str(
+                    self.pageNameStepsTextbox.text().lower().replace(" ",
+                                                                     "-")))
+                stepsObj.page_path = str(
+                    self.pageNameStepsTextbox.text().lower().replace(" ", "-"))
+                stepsObj.page_hierarchy = str(
+                    self.pageHierSteps.text().lower().replace(" ", "-").split(
+                        '.'))
+            stepsObj.set_from_transaction(self.formStepTextBox.text())
             stepsObj.set_ToTransaction(self.lineEdit_13.text())
-            stepsObj.isExternal =  str(self.isExternalCheckbox.isChecked())
+            stepsObj.is_external = str(self.isExternalCheckbox.isChecked())
 
-            stepsObj.set_formView(str(self.formView.isChecked()).lower())
-            stepsObj.set_formQualify(str(self.formQualify.isChecked()).lower())
-            stepsObj.set_formsubmit(str(self.formSubmit.isChecked()).lower())
-            stepsObj.set_formSteps('true')
+            stepsObj.set_form_view(str(self.formView.isChecked()).lower())
+            stepsObj.set_form_qualify(str(self.formQualify.isChecked()).lower())
+            stepsObj.set_form_submit(str(self.formSubmit.isChecked()).lower())
+            stepsObj.set_form_steps('true')
 
-            stepsObj.set_productId(str(self.productId.text()).lower().replace(" ","-"))
-            stepsObj.set_parentProduct(str(self.parentProduct.text()).lower().replace(" ","-"))
-            stepsObj.set_adjudication(str(self.adjudication.text()).lower().replace(" ","-"))
+            stepsObj.set_productId(
+                str(self.productId.text()).lower().replace(" ", "-"))
+            stepsObj.set_parentProduct(
+                str(self.parentProduct.text()).lower().replace(" ", "-"))
+            stepsObj.set_adjudication(
+                str(self.adjudication.text()).lower().replace(" ", "-"))
 
-            if (str(self.positioning_combobox.currentText()) !='Not Applicable'):
-                stepsObj.set_productPositioning(str(self.positioning_combobox.currentText()).lower().replace(" ","-"))
+            if (str(
+                    self.positioning_combobox.currentText()) != 'Not '
+                                                                'Applicable'):
+                stepsObj.set_productPositioning(str(
+                    self.positioning_combobox.currentText()).lower().replace(
+                    " ", "-"))
 
-            if (str(self.grouping_combobox.currentText()) !='Not Applicable'):
-                stepsObj.set_productGrouping(str(self.grouping_combobox.currentText()).lower().replace(" ","-"))
+            if (str(self.grouping_combobox.currentText()) != 'Not Applicable'):
+                stepsObj.set_productGrouping(
+                    str(self.grouping_combobox.currentText()).lower().replace(
+                        " ", "-"))
 
-            if (str(self.fulfillment_comboBox.currentText()) !='Not Applicable'):
-                stepsObj.set_fulfillment(str(self.fulfillment_comboBox.currentText()).lower().replace(" ","-"))
+            if (str(
+                    self.fulfillment_comboBox.currentText()) != 'Not '
+                                                                'Applicable'):
+                stepsObj.set_fulfillment(str(
+                    self.fulfillment_comboBox.currentText()).lower().replace(
+                    " ", "-"))
 
             stepsObj.set_isPaperless(str(self.isPaperless.isChecked()).lower())
-            stepsObj.set_personalDetails(str(self.personalDetails.isChecked()).lower())
-            stepsObj.set_productRecommendation(str((self.productRecommendation.isChecked())).lower())
+            stepsObj.set_personalDetails(
+                str(self.personalDetails.isChecked()).lower())
+            stepsObj.set_product_recommendation(
+                str((self.productRecommendation.isChecked())).lower())
             stepsObj.set_summary(str(self.summary.isChecked()).lower())
-            stepsObj.set_confirmation(str(self.confirmation.isChecked()).lower())
-            stepsObj.set_termsandCondition(str(self.termsandcondition.isChecked()).lower())
-            if self.yesLoginSteps.isChecked() or self.bothLoginSteps.isChecked():
-                stepsObj.set_UserId("{dynamic}")
-                stepsObj.set_UserAuthState("authenticated")
-                stepsObj.set_UserType("{dynamic}")
+            stepsObj.set_confirmation(
+                str(self.confirmation.isChecked()).lower())
+            stepsObj.set_termsAndCondition(
+                str(self.termsandcondition.isChecked()).lower())
+            if self.yesLoginSteps.isChecked() or \
+                    self.bothLoginSteps.isChecked():
+                stepsObj.set_user_id("{dynamic}")
+                stepsObj.set_user_auth_state("authenticated")
+                stepsObj.set_user_type("{dynamic}")
             if self.yesErrorSteps.isChecked():
-                stepsObj.eventError = "true"
-                stepsObj.errorMessage = "{dynamic}"
-                stepsObj.errorsCode = "{dynamic}"
-                stepsObj.errorsSubType = "{dynamic}"
-                stepsObj.errorsType = "{dynamic}"
-                stepsObj.errorsField = "{dynamic}"
+                stepsObj.event_error = "true"
+                stepsObj.error_message = "{dynamic}"
+                stepsObj.errors_code = "{dynamic}"
+                stepsObj.errors_sub_type = "{dynamic}"
+                stepsObj.errors_type = "{dynamic}"
+                stepsObj.errors_field = "{dynamic}"
 
             self.step = json.dumps(stepsObj.__dict__)
             self.formObj.steps.append(json.loads(self.step))
             form = json.dumps(self.formObj.__dict__)
             self.vrg.forms.append(json.loads(form))
-            self.stepGroupBox.setEnabled(False)
-            self.formName.setText('')
-            self.noOfSteps.setText('')
-            self.addFlow.setEnabled(True)
-            self.addButton.setEnabled(True)
-            self.interButton.setEnabled(True)
-            self.downloadButton.setEnabled(True)
+            self.clearFormDetails()
         self.clearResetFormFields()
+
+    def clearFormDetails(self):
+        self.stepGroupBox.setEnabled(False)
+        self.formName.setText('')
+        self.noOfSteps.setText('')
+        self.addFlow.setEnabled(True)
+        self.addButton.setEnabled(True)
+        self.interButton.setEnabled(True)
+        self.downloadButton.setEnabled(True)
+        self.productId.setText('')
+        self.parentProduct.setText('')
+        self.adjudication.setText('')
+        self.fulfillment_comboBox.setCurrentIndex(0)
+        self.grouping_combobox.setCurrentIndex(0)
+        self.positioning_combobox.setCurrentIndex(0)
 
     def clearResetFormFields(self):
         self.stepNameTextbox.setText('')
@@ -225,26 +312,32 @@ class Ui_c(object):
         self.pageHierSteps.setText('')
         self.formStepTextBox.setText('')
         self.lineEdit_13.setText('')
-        #self.productId.setText('')
-        #self.parentProduct.setText('')
-        #self.adjudication.setText('')
         self.yesLoginSteps.setChecked(False)
         self.bothLoginSteps.setChecked(False)
         self.nologinSteps.setChecked(False)
+        self.isPaperless.setChecked(False)
+        self.personalDetails.setChecked(False)
+        self.productRecommendation.setChecked(False)
+        self.summary.setChecked(False)
+        self.confirmation.setChecked(False)
+        self.termsandcondition.setChecked(False)
 
     def generateVrgDocument(self):
-        obj = Vrg()
-        self.vrg.set_ProjectName(self.projectName.text().lower().replace(" ","-"))
+        obj = VRGObject()
+        self.vrg.set_ProjectName(
+            self.projectName.text().lower().replace(" ", "-"))
         self.vrg.set_UserName(self.userName.text().lower())
-        self.vrg.set_SiteName(self.siteName.text().lower().replace(" ","-"))
-        self.vrg.set_SiteBrand(self.brand_combobox.currentText().lower().replace(" ","-"))
-        self.vrg.set_ApplicationTypes(self.appliType_combo.currentText().lower().replace(" ","-"))
-        self.vrg.set_SiteType(self.comboBox.currentText().lower().replace(" ","-"))
+        self.vrg.set_SiteName(self.siteName.text().lower().replace(" ", "-"))
+        self.vrg.set_SiteBrand(
+            self.brand_combobox.currentText().lower().replace(" ", "-"))
+        self.vrg.set_ApplicationTypes(
+            self.appliType_combo.currentText().lower().replace(" ", "-"))
+        self.vrg.set_SiteType(
+            self.comboBox.currentText().lower().replace(" ", "-"))
         obj = self.vrg
         json_page = json.dumps(obj.__dict__)
-        app = AppVRG()
+        app = GenerateVRG()
         val = json.loads(json_page)
-        print(val)
         app.generate_VRG(val)
 
     def addFlow_Page(self):
@@ -317,15 +410,15 @@ class Ui_c(object):
 
     def saveDownloadInfo(self):
         obj = Download()
-        obj.download_filename = str(self.downName.text().lower().replace(" ", "-"))
-        obj.download_filetype = str(self.downTypeCB.currentText().lower().replace(" ","-"))
+        obj.download_file_name = str(
+            self.downName.text().lower().replace(" ", "-"))
+        obj.download_file_type = str(
+            self.downTypeCB.currentText().lower().replace(" ", "-"))
         downloadSection = json.dumps(obj.__dict__)
 
         self.vrg.download.append(json.loads(downloadSection))
         self.downName.setText('')
         self.downTypeCB.setCurrentIndex(0)
-        print(downloadSection)
-
         self.DownloadGroupBox.setEnabled(False)
         self.addButton.setEnabled(True)
         self.interButton.setEnabled(True)
@@ -333,14 +426,12 @@ class Ui_c(object):
         self.addFlow.setEnabled(True)
 
     def saveInterInfo(self):
-        interaction = InteractionPage()
-        interaction.siteInteractionEvent = "true"
-        interaction.interactionName = self.interName.text()
-        #convert interaction  object to JSON Object
-        interactionAction = json.dumps(interaction.__dict__)
+        obj_interaction = InteractionPage()
+        obj_interaction.site_interaction_event = "true"
+        obj_interaction.interaction_name = self.interName.text()
+        interactionAction = json.dumps(obj_interaction.__dict__)
 
         self.vrg.interaction.append(json.loads(interactionAction))
-        #Reset the value from Interaction Section
         self.interName.setText('')
 
         self.InterGroupBox.setEnabled(False)
@@ -350,35 +441,40 @@ class Ui_c(object):
         self.addFlow.setEnabled(True)
 
     def saveStandalonePage(self):
-        # Pages Object
         obj1 = StandalonePage()
         if self.appliType_combo.currentText() == "Ember":
-            obj1.set_pageName(str(self.pageHier.text().lower().replace(" ", "-")))
-            obj1.set_pagePath(str(self.pageHier.text().lower().replace(" ", "-")))
-            obj1.pageHierarchy = str(self.pageHier.text().lower().replace(" ","-").split('.'))
-        if self.appliType_combo.currentText() == "Angular" or self.appliType_combo.currentText() == "Mobile JSON":
-            obj1.set_pageName(str(self.pageName_2.text().lower().replace(" ","-")))
-            obj1.pageHierarchy = str(self.pageHier.text().lower().replace(" ","-").split('.'))
-            obj1.set_pagePath(str(self.pageName_2.text().lower().replace(" ", "-")))
+            obj1.set_page_name(
+                str(self.pageHier.text().lower().replace(" ", "-")))
+            obj1.set_page_path(
+                str(self.pageHier.text().lower().replace(" ", "-")))
+            obj1.page_hierarchy = str(
+                self.pageHier.text().lower().replace(" ", "-").split('.'))
+        if self.appliType_combo.currentText() == "Angular" or \
+                self.appliType_combo.currentText() == "Mobile JSON":
+            obj1.set_page_name(
+                str(self.pageName_2.text().lower().replace(" ", "-")))
+            obj1.page_hierarchy = str(
+                self.pageHier.text().lower().replace(" ", "-").split('.'))
+            obj1.set_page_path(
+                str(self.pageName_2.text().lower().replace(" ", "-")))
 
-        # Error Code Checked or Unchecked
         if (self.yes.isChecked()):
-            obj1.eventError = "true"
-            obj1.errorMessage = "{dynamic}"
-            obj1.errorsCode = "{dynamic}"
-            obj1.errorsType = "{dynamic}"
-            obj1.errorsSubType = "{dynamic}"
-            obj1.errorsField = "{dynamic}"
+            obj1.event_error = "true"
+            obj1.error_message = "{dynamic}"
+            obj1.errors_code = "{dynamic}"
+            obj1.errors_type = "{dynamic}"
+            obj1.errors_sub_type = "{dynamic}"
+            obj1.errors_field = "{dynamic}"
 
         # Login Code Checked or Unchecked
         if (self.yes_2.isChecked() or self.both.isChecked()):
-            obj1.set_UserId("{dynamic}")
-            obj1.set_UserAuthState("authenticated")
+            obj1.set_user_id("{dynamic}")
+            obj1.set_user_auth_state("authenticated")
             obj1.set_UserType("{dynamic}")
-            obj1.loginEvent = "true"
+            obj1.login_event = "true"
         elif (self.no_2.isChecked()):
-            obj1.set_UserId("")
-            obj1.set_UserAuthState("non-authenticated")
+            obj1.set_user_id("")
+            obj1.set_user_auth_state("non-authenticated")
             obj1.set_UserType("")
 
         page = json.dumps(obj1.__dict__)
@@ -483,7 +579,7 @@ class Ui_c(object):
 
         self.pageName = QtWidgets.QLabel(self.standAlonePageBox)
         self.pageName.setGeometry(QtCore.QRect(50, 40, 91, 28))
-        self.pageName.setObjectName("pageName")
+        self.pageName.setObjectName("page_name")
 
         self.pageName_2 = QtWidgets.QLineEdit(self.standAlonePageBox)
         self.pageName_2.setGeometry(QtCore.QRect(185, 40, 191, 28))
@@ -563,22 +659,22 @@ class Ui_c(object):
         self.label_4.setObjectName("label_4")
         self.formName = QtWidgets.QLineEdit(self.formGroupBox)
         self.formName.setGeometry(QtCore.QRect(150, 50, 201, 28))
-        self.formName.setObjectName("formName")
+        self.formName.setObjectName("form_name")
         self.label_5 = QtWidgets.QLabel(self.formGroupBox)
         self.label_5.setGeometry(QtCore.QRect(40, 130, 91, 28))
         self.label_5.setObjectName("label_5")
         self.noOfSteps = QtWidgets.QLineEdit(self.formGroupBox)
         self.noOfSteps.setGeometry(QtCore.QRect(150, 120, 201, 28))
-        self.noOfSteps.setObjectName("noOfSteps")
+        self.noOfSteps.setObjectName("no_of_steps")
         self.productCheckbox = QtWidgets.QCheckBox(self.formGroupBox)
         self.productCheckbox.setGeometry(QtCore.QRect(50, 200, 81, 20))
         self.productCheckbox.setObjectName("productCheckbox")
         self.transactionCheckbox = QtWidgets.QCheckBox(self.formGroupBox)
         self.transactionCheckbox.setGeometry(QtCore.QRect(160, 200, 111, 20))
         self.transactionCheckbox.setObjectName("transactionCheckbox")
-        #self.dsr = QtWidgets.QCheckBox(self.formGroupBox)
-        #self.dsr.setGeometry(QtCore.QRect(290, 200, 81, 20))
-        #self.dsr.setObjectName("dsr")
+        # self.dsr = QtWidgets.QCheckBox(self.formGroupBox)
+        # self.dsr.setGeometry(QtCore.QRect(290, 200, 81, 20))
+        # self.dsr.setObjectName("dsr")
         self.generateSteps = QtWidgets.QPushButton(self.formGroupBox)
         self.generateSteps.setGeometry(QtCore.QRect(120, 260, 121, 28))
         self.generateSteps.setObjectName("generateSteps")
@@ -628,16 +724,16 @@ class Ui_c(object):
         self.formGroupBoxSteps.setObjectName("formGroupBoxSteps")
         self.formView = QtWidgets.QCheckBox(self.formGroupBoxSteps)
         self.formView.setGeometry(QtCore.QRect(130, 20, 121, 20))
-        self.formView.setObjectName("formView")
+        self.formView.setObjectName("form_view")
         self.formSubmit = QtWidgets.QCheckBox(self.formGroupBoxSteps)
         self.formSubmit.setGeometry(QtCore.QRect(130, 60, 121, 20))
-        self.formSubmit.setObjectName("formSubmit")
+        self.formSubmit.setObjectName("form_submit")
         self.formQualify = QtWidgets.QCheckBox(self.formGroupBoxSteps)
         self.formQualify.setGeometry(QtCore.QRect(390, 20, 161, 20))
-        self.formQualify.setObjectName("formQualify")
+        self.formQualify.setObjectName("form_qualify")
         self.formSteps = QtWidgets.QCheckBox(self.formGroupBoxSteps)
         self.formSteps.setGeometry(QtCore.QRect(390, 60, 101, 20))
-        self.formSteps.setObjectName("formSteps")
+        self.formSteps.setObjectName("form_steps")
         self.groupBox_5 = QtWidgets.QGroupBox(self.formGroupBoxSteps)
         self.groupBox_5.setGeometry(QtCore.QRect(630, 90, 301, 80))
         self.groupBox_5.setObjectName("groupBox_5")
@@ -650,39 +746,44 @@ class Ui_c(object):
         self.productGroupBoxSteps = QtWidgets.QGroupBox(self.stepGroupBox)
         self.productGroupBoxSteps.setGeometry(QtCore.QRect(40, 400, 971, 301))
         self.productGroupBoxSteps.setObjectName("productGroupBoxSteps")
-        self.productAppGroupboxSteps = QtWidgets.QGroupBox(self.productGroupBoxSteps)
-        self.productAppGroupboxSteps.setGeometry(QtCore.QRect(30, 140, 891, 131))
+        self.productAppGroupboxSteps = QtWidgets.QGroupBox(
+            self.productGroupBoxSteps)
+        self.productAppGroupboxSteps.setGeometry(
+            QtCore.QRect(30, 140, 891, 131))
         self.productAppGroupboxSteps.setObjectName("productAppGroupboxSteps")
-        self.personalDetails = QtWidgets.QCheckBox(self.productAppGroupboxSteps)
+        self.personalDetails = QtWidgets.QCheckBox(
+            self.productAppGroupboxSteps)
         self.personalDetails.setGeometry(QtCore.QRect(100, 30, 171, 20))
-        self.personalDetails.setObjectName("personalDetails")
+        self.personalDetails.setObjectName("personal_details")
         self.summary = QtWidgets.QCheckBox(self.productAppGroupboxSteps)
         self.summary.setGeometry(QtCore.QRect(340, 30, 120, 21))
         self.summary.setObjectName("summary")
         self.confirmation = QtWidgets.QCheckBox(self.productAppGroupboxSteps)
         self.confirmation.setGeometry(QtCore.QRect(550, 30, 131, 20))
         self.confirmation.setObjectName("confirmation")
-        self.productRecommendation = QtWidgets.QCheckBox(self.productAppGroupboxSteps)
+        self.productRecommendation = QtWidgets.QCheckBox(
+            self.productAppGroupboxSteps)
         self.productRecommendation.setGeometry(QtCore.QRect(100, 60, 171, 20))
-        self.productRecommendation.setObjectName("productRecommendation")
-        self.termsandcondition = QtWidgets.QCheckBox(self.productAppGroupboxSteps)
+        self.productRecommendation.setObjectName("product_recommendation")
+        self.termsandcondition = QtWidgets.QCheckBox(
+            self.productAppGroupboxSteps)
         self.termsandcondition.setGeometry(QtCore.QRect(340, 60, 180, 20))
         self.termsandcondition.setObjectName("termsandcondition")
         self.isPaperless = QtWidgets.QCheckBox(self.productAppGroupboxSteps)
         self.isPaperless.setGeometry(QtCore.QRect(550, 60, 131, 20))
-        self.isPaperless.setObjectName("isPaperless")
+        self.isPaperless.setObjectName("is_paperless")
         self.productIdLabel = QtWidgets.QLabel(self.productGroupBoxSteps)
         self.productIdLabel.setGeometry(QtCore.QRect(10, 40, 91, 28))
         self.productIdLabel.setObjectName("productIdLabel")
         self.productId = QtWidgets.QLineEdit(self.productGroupBoxSteps)
         self.productId.setGeometry(QtCore.QRect(110, 40, 161, 28))
-        self.productId.setObjectName("productId")
+        self.productId.setObjectName("product_id")
         self.parentProductLabel = QtWidgets.QLabel(self.productGroupBoxSteps)
         self.parentProductLabel.setGeometry(QtCore.QRect(300, 40, 121, 28))
         self.parentProductLabel.setObjectName("parentProductLabel")
         self.parentProduct = QtWidgets.QLineEdit(self.productGroupBoxSteps)
         self.parentProduct.setGeometry(QtCore.QRect(430, 40, 181, 28))
-        self.parentProduct.setObjectName("parentProduct")
+        self.parentProduct.setObjectName("parent_product")
         self.adJudicationLabel = QtWidgets.QLabel(self.productGroupBoxSteps)
         self.adJudicationLabel.setGeometry(QtCore.QRect(640, 40, 130, 28))
         self.adJudicationLabel.setObjectName("adJudicationLabel")
@@ -692,7 +793,8 @@ class Ui_c(object):
         self.positioningLabel = QtWidgets.QLabel(self.productGroupBoxSteps)
         self.positioningLabel.setGeometry(QtCore.QRect(10, 90, 111, 28))
         self.positioningLabel.setObjectName("positioningLabel")
-        self.positioning_combobox = QtWidgets.QComboBox(self.productGroupBoxSteps)
+        self.positioning_combobox = QtWidgets.QComboBox(
+            self.productGroupBoxSteps)
         self.positioning_combobox.setGeometry(QtCore.QRect(110, 90, 161, 28))
         self.positioning_combobox.setObjectName("positioning_combobox")
         self.positioning_combobox.addItem("")
@@ -714,7 +816,8 @@ class Ui_c(object):
         self.fulfillmentLabel = QtWidgets.QLabel(self.productGroupBoxSteps)
         self.fulfillmentLabel.setGeometry(QtCore.QRect(640, 90, 180, 28))
         self.fulfillmentLabel.setObjectName("fulfillmentLabel")
-        self.fulfillment_comboBox = QtWidgets.QComboBox(self.productGroupBoxSteps)
+        self.fulfillment_comboBox = QtWidgets.QComboBox(
+            self.productGroupBoxSteps)
         self.fulfillment_comboBox.setGeometry(QtCore.QRect(740, 90, 180, 28))
         self.fulfillment_comboBox.setObjectName("fulfillment_comboBox")
         self.fulfillment_comboBox.addItem("")
@@ -724,12 +827,14 @@ class Ui_c(object):
         self.fulfillment_comboBox.addItem("")
         self.fulfillment_comboBox.addItem("")
         self.transactionGroupBoxSteps = QtWidgets.QGroupBox(self.stepGroupBox)
-        self.transactionGroupBoxSteps.setGeometry(QtCore.QRect(50, 190, 351, 191))
+        self.transactionGroupBoxSteps.setGeometry(
+            QtCore.QRect(50, 190, 351, 191))
         self.transactionGroupBoxSteps.setObjectName("transactionGroupBoxSteps")
         self.formStepsLabel = QtWidgets.QLabel(self.transactionGroupBoxSteps)
         self.formStepsLabel.setGeometry(QtCore.QRect(40, 40, 55, 28))
         self.formStepsLabel.setObjectName("formStepsLabel")
-        self.formStepTextBox = QtWidgets.QLineEdit(self.transactionGroupBoxSteps)
+        self.formStepTextBox = QtWidgets.QLineEdit(
+            self.transactionGroupBoxSteps)
         self.formStepTextBox.setGeometry(QtCore.QRect(130, 40, 151, 28))
         self.formStepTextBox.setObjectName("formStepTextBox")
         self.toStepsLabel = QtWidgets.QLabel(self.transactionGroupBoxSteps)
@@ -738,7 +843,8 @@ class Ui_c(object):
         self.lineEdit_13 = QtWidgets.QLineEdit(self.transactionGroupBoxSteps)
         self.lineEdit_13.setGeometry(QtCore.QRect(130, 90, 151, 28))
         self.lineEdit_13.setObjectName("lineEdit_13")
-        self.isExternalCheckbox = QtWidgets.QCheckBox(self.transactionGroupBoxSteps)
+        self.isExternalCheckbox = QtWidgets.QCheckBox(
+            self.transactionGroupBoxSteps)
         self.isExternalCheckbox.setGeometry(QtCore.QRect(130, 140, 141, 20))
         self.isExternalCheckbox.setObjectName("isExternalCheckbox")
         self.errorGroupboxSteps = QtWidgets.QGroupBox(self.stepGroupBox)
@@ -809,18 +915,15 @@ class Ui_c(object):
         self.interSaveButton.setObjectName("saveinter")
         self.interSaveButton.clicked.connect(self.saveInterInfo)
 
-
         self.InterGroupBox.setEnabled(False)
 
-        #self.ListGroupBox = QtWidgets.QGroupBox(self.centralwidget)
-        #self.ListGroupBox.setGeometry(QtCore.QRect(40, 900, 400, 100))
-        #self.ListGroupBox.setObjectName("ListGroupBox")
+        # self.ListGroupBox = QtWidgets.QGroupBox(self.centralwidget)
+        # self.ListGroupBox.setGeometry(QtCore.QRect(40, 900, 400, 100))
+        # self.ListGroupBox.setObjectName("ListGroupBox")
 
-        #self.lstGroupBox = QtWidgets.QListWidget(self.ListGroupBox)
-        #self.lstGroupBox.setGeometry(QtCore.QRect(30, 50, 130, 28))
-        #self.lstGroupBox.setObjectName("lstGroupBox")
-
-
+        # self.lstGroupBox = QtWidgets.QListWidget(self.ListGroupBox)
+        # self.lstGroupBox.setGeometry(QtCore.QRect(30, 50, 130, 28))
+        # self.lstGroupBox.setObjectName("lstGroupBox")
 
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(200, 900, 120, 28))
@@ -846,7 +949,6 @@ class Ui_c(object):
 
     def retranslateUi(self, c):
         _translate = QtCore.QCoreApplication.translate
-        #c.setWindowTitle(_translate("c", "MainWindow"))
         c.setWindowTitle(_translate("c", "CIBC VRG Automation"))
         self.label.setText(_translate("c", "       VRG Automation"))
         self.projectName_label.setText(_translate("c", "Project Name:"))
@@ -859,10 +961,12 @@ class Ui_c(object):
         self.appliType_combo.setItemText(1, _translate("c", "Ember"))
         self.appliType_combo.setItemText(2, _translate("c", "Angular"))
         self.appliType_combo.setItemText(3, _translate("c", "Mobile JSON"))
+
         self.addButton.setText(_translate("c", "Add Page"))
         self.addFlow.setText(_translate("c", "Add Flow"))
-        self.downloadButton.setText(_translate("c", "Download"))
-        self.interButton.setText(_translate("c", "Interaction"))
+        self.downloadButton.setText(_translate("c", " Add Download"))
+        self.interButton.setText(_translate("c", "Add Interaction"))
+
         self.standAlonePageBox.setTitle(_translate("c", "StandAlone Page"))
         self.pageName.setText(_translate("c", "Page Name:"))
         self.pageHierLabel.setText(_translate("c", "Page Hierarchy:"))
@@ -885,7 +989,7 @@ class Ui_c(object):
         self.label_5.setText(_translate("c", "No. Of Steps : "))
         self.productCheckbox.setText(_translate("c", "Products"))
         self.transactionCheckbox.setText(_translate("c", "Transaction"))
-        #self.dsr.setText(_translate("c", "DSR"))
+        # self.dsr.setText(_translate("c", "DSR"))
         self.generateSteps.setText(_translate("c", "Generate Steps"))
         self.stepGroupBox.setTitle(_translate("c", "Steps"))
         self.pageNameLabelSteps.setText(_translate("c", "Page Name:"))
@@ -903,31 +1007,42 @@ class Ui_c(object):
         self.groupBox_5.setTitle(_translate("c", "Error"))
         self.radioButton_4.setText(_translate("c", "Yes"))
         self.radioButton_5.setText(_translate("c", "No"))
-        self.productGroupBoxSteps.setTitle(_translate("c", "Product Information"))
-        self.productAppGroupboxSteps.setTitle(_translate("c", "Product Application Steps"))
+        self.productGroupBoxSteps.setTitle(
+            _translate("c", "Product Information"))
+        self.productAppGroupboxSteps.setTitle(
+            _translate("c", "Product Application Steps"))
         self.personalDetails.setText(_translate("c", "Personal Details"))
         self.summary.setText(_translate("c", "Summary"))
         self.confirmation.setText(_translate("c", "Confirmation"))
-        self.productRecommendation.setText(_translate("c", "Product Recommendation"))
+        self.productRecommendation.setText(
+            _translate("c", "Product Recommendation"))
         self.termsandcondition.setText(_translate("c", "Terms and Condition"))
         self.isPaperless.setText(_translate("c", "Is Paperless"))
         self.productIdLabel.setText(_translate("c", "Product Id :"))
         self.parentProductLabel.setText(_translate("c", "Parent Product"))
         self.adJudicationLabel.setText(_translate("c", "Adjudication:"))
         self.positioningLabel.setText(_translate("c", "Postioning:"))
-        self.positioning_combobox.setItemText(0, _translate("c", "Not Applicable"))
+        self.positioning_combobox.setItemText(0,
+                                              _translate("c",
+                                                         "Not Applicable"))
         self.positioning_combobox.setItemText(1, _translate("c", "Upsell"))
         self.positioning_combobox.setItemText(2, _translate("c", "downsell"))
-        self.positioning_combobox.setItemText(3, _translate("c", "user selected"))
-        self.positioning_combobox.setItemText(4, _translate("c", "system recommended"))
+        self.positioning_combobox.setItemText(3,
+                                              _translate("c", "user selected"))
+        self.positioning_combobox.setItemText(4, _translate("c",
+                                                            "system "
+                                                            "recommended"))
         self.positioning_combobox.setItemText(5, _translate("c", "Dynamic"))
         self.groupingLabel.setText(_translate("c", "Grouping:"))
-        self.grouping_combobox.setItemText(0, _translate("c", "Not Applicable"))
+        self.grouping_combobox.setItemText(0,
+                                           _translate("c", "Not Applicable"))
         self.grouping_combobox.setItemText(1, _translate("c", "Bundle Id"))
         self.grouping_combobox.setItemText(2, _translate("c", "No Grouping"))
         self.grouping_combobox.setItemText(3, _translate("c", "Dynamic"))
         self.fulfillmentLabel.setText(_translate("c", "Fulfillment:"))
-        self.fulfillment_comboBox.setItemText(0, _translate("c", "Not Applicable"))
+        self.fulfillment_comboBox.setItemText(0,
+                                              _translate("c",
+                                                         "Not Applicable"))
         self.fulfillment_comboBox.setItemText(1, _translate("c", "Branch"))
         self.fulfillment_comboBox.setItemText(2, _translate("c", "ESIG"))
         self.fulfillment_comboBox.setItemText(3, _translate("c", "RDC"))
@@ -944,7 +1059,7 @@ class Ui_c(object):
         self.cancelSteps.setText(_translate("c", "Cancel"))
         self.pushButton_2.setText(_translate("c", "Generate VRG"))
         self.pushButton_3.setText(_translate("c", "Cancel"))
-        #self.ListGroupBox.setTitle(_translate("c", "ListGroup"))
+        # self.ListGroupBox.setTitle(_translate("c", "ListGroup"))
 
         self.DownloadGroupBox.setTitle(_translate("c", "Download"))
         self.downTypeLabel.setText(_translate("c", "File Type :"))
@@ -960,12 +1075,14 @@ class Ui_c(object):
         self.interLabel.setText(_translate("c", "Interaction Name:"))
         self.interSaveButton.setText(_translate("c", "Save"))
 
+
 if __name__ == "__main__":
     import sys
     import os
+
     app = QtWidgets.QApplication(sys.argv)
     c = QtWidgets.QMainWindow()
-    ui = Ui_c()
+    ui = VRGAutomation()
     userName = os.getlogin()
     ui.setupUi(c)
     c.show()

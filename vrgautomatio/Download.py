@@ -1,91 +1,31 @@
+"""
+__author__ : Manish Apte
+__maintainer__ : Manish Apte
+__organization__ : Deloitte
+"""
+
+
 class Download:
-
-    #All member variables and methods are public by default in Python. So when you want to make your member public, you just do nothing.
+    """" Download Page class handle Download attributes"""
     def __init__(self):
-
-        #Page Level Variables
-        self.pageName = '{dynamic}'
-        self.pageReferrer = "{dynamic}"
-        self.pageLanguage = "{dynamic}"
-        self.pageView = "false"
-        self.pageAccessibilty = "{dynamic}"
-        self.pagePath = '{dynamic}'
-        self.pageUrl = "{dynamic}"
-        self.pageReferrer="{dynamic}"
-        self.pageLogin = "{dynamic}"
-        self.pageHierarchy="{dynamic}"
-        # user level variables
-        self.userId = "{dynamic}"
-        self.userType = "{dynamic}"
-        self.userAuthState = "{dynamic}"
-
-        #Error Lever variables
-        self.event = "false"
-        self.errorMessage=""
-        self.errorsType = ""
-        self.errorsSubType = ""
-        self.errorsField = ""
-        self.errorsCode = ""
-
+        self.page_name = "{dynamic}"
+        self.page_referrer = "{dynamic}"
+        self.page_language = "{dynamic}"
+        self.page_view = "false"
+        self.page_accessibility = "{dynamic}"
+        self.page_path = "{dynamic}"
+        self.page_url = "{dynamic}"
+        self.page_login = "{dynamic}"
+        self.page_hierarchy = "{dynamic}"
+        self.user_id = ""
+        self.user_type = ""
+        self.user_auth_state = ""
         self.events_download = "true"
-        self.download_filename = ""
-        self.download_filetype = ""
-
-
-     #getter for Class Memeber
-    @property
-    def get_PageName(self):
-         return self.pageName
-
-    def set_pageName(self,pageName):
-        self.pageName = pageName
-
-    @property
-    def get_PageReferrer(self):
-         return self.pageReferrer
-
-    def set_PageReferrer(self,pageReferrer):
-        self.pageReferrer = pageReferrer
-
-    @property
-    def get_RouteName(self):
-         return self.pageName
-
-    def set_RouteName(self,routeName):
-        self.routeName = routeName
-
-    @property
-    def get_PagePath(self):
-         return self.pagePath
-
-    def set_pagePath(self,pagePath):
-        self.pagePath = pagePath
-
-    @property
-    def get_UserId(self):
-         return self.userId
-
-    def set_UserId(self,userId):
-        self.pagePath = userId
-
-    @property
-    def get_UserAuthState(self):
-         return self.userAuthState
-
-    def set_UserAuthState(self,userAuthState):
-        self.userAuthState = userAuthState
-
-    @property
-    def get_UserType(self):
-         return self.userType
-
-    def set_UserType(self,userType):
-        self.userType = userType
-
-
-    @property
-    def get_ErrorCode(self):
-         return self.errorCode
-
-    def set_ErrorCode(self,errorCode):
-        self.errorCode = errorCode
+        self.download_file_name = ""
+        self.download_file_type = ""
+        self.event_error = "false"
+        self.error_message = ""
+        self.error_type = ""
+        self.errors_sub_type = ""
+        self.errors_field = ""
+        self.errors_code = ""

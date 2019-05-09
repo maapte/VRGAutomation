@@ -1,275 +1,246 @@
-# -*- coding: utf-8 -*-
+class Steps:
 
-# Form implementation generated from reading ui file 'C:\Users\karthikk7\Documents\Python\Pyqt5\steps.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
+    def __init__(self):
+        self.page_view = "true"
+        self.page_path = "{dynamic}"
+        self.page_name = ""
+        self.page_url = "{dynamic}"
+        self.page_referrer = "{dynamic}"
+        self.page_hierarchy = "{dynamic}"
+        self.page_language = "{en|fr}"
+        self.page_referrer = "{dynamic}"
+        self.page_accessibility = "true"
+        self.step_name = ""
+        self.form_step = "true"
+        self.form_view = ""
+        self.form_submit = ""
+        self.form_qualify = ""
+        self.page_login = ""
+        self.unique_id = "{dynamic}"
+        self.transaction_id = "{dynamic}"
+        self.transaction_amount = "{dynamic}"
+        self.transaction_service_fee = "{dynamic}"
+        self.transaction_unit = "{dynamic}"
+        self.from_transaction = ""
+        self.to_transaction = ""
+        self.is_external = ""
+        self.is_transaction_complete = ""
+        self.product_information = ""
+        self.product_id = ""
+        self.parent_product = ""
+        self.adjudication = ""
+        self.product_positioning = ""
+        self.product_grouping = ""
+        self.fulfillment = ""
+        self.product_application_step = ""
+        self.personal_details = ""
+        self.summary = ""
+        self.confirmation = ""
+        self.product_recommendation = ""
+        self.terms_and_condition = ""
+        self.is_paperless = ""
+        self.user_id = ""
+        self.user_type = ""
+        self.user_auth_state = ""
+        self.event_error = "false"
+        self.error_message = ""
+        self.errors_type = ""
+        self.errors_sub_type = ""
+        self.errors_field = ""
+        self.errors_code = ""
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-from StepsPage import StepsPage
-import json
+    @property
+    def get_page_name(self):
+        return self.page_name
 
-from vrg import Vrg
+    def set_page_name(self, page_name):
+        self.page_name = page_name
 
+    @property
+    def get_transaction_id(self):
+        return self.transaction_id
 
-class Ui_StepWindow(object):
+    def set_transaction_id(self, transaction_id):
+        self.transaction_id = transaction_id
 
-	def __init__(self):
-		print("Hellow")
+    @property
+    def get_from_transaction(self):
+        return self.from_transaction
 
+    def set_from_transaction(self, from_transaction):
+        self.from_transaction = from_transaction
 
-	def pageSave(self):
-		page = StepsPage()
-		page.set_pageName(self.lineEdit.text())
-		page.set_stepName(self.lineEdit_2.text())
-		page.set_formStep(self.lineEdit_3.text())
-		page.set_formView(self.checkBox.isVisible())
-		page.set_formSteps(self.checkBox_2.isVisible())
-		page.set_formsubmit(self.checkBox_4.isVisible())
-		page.set_formQualify(self.checkBox_3.isVisible())
+    @property
+    def get_to_transaction(self):
+        return self.to_transaction
 
-	def setupUi(self, step):
-		step.setObjectName("step")
-		step.resize(1000, 800)
-		#self.groupBox = QtWidgets.QGroupBox(step)
-		#self.groupBox.setGeometry(QtCore.QRect(800, 600, 501, 201))
-		#self.groupBox.setObjectName("groupBox")
-		self.label = QtWidgets.QLabel(step)
-		self.label.setGeometry(QtCore.QRect(50, 10, 110, 30))
-		self.label.setObjectName("label")
-		self.lineEdit = QtWidgets.QLineEdit(step)
-		self.lineEdit.setGeometry(QtCore.QRect(210, 20, 170, 20))
-		self.lineEdit.setObjectName("lineEdit")
-		self.label_2 = QtWidgets.QLabel(step)
-		self.label_2.setGeometry(QtCore.QRect(50, 50, 110, 30))
-		self.label_2.setObjectName("label_2")
-		self.lineEdit_2 = QtWidgets.QLineEdit(step)
-		self.lineEdit_2.setGeometry(QtCore.QRect(210, 60, 170, 20))
-		self.lineEdit_2.setObjectName("lineEdit_2")
-		self.label_3 = QtWidgets.QLabel(step)
-		self.label_3.setGeometry(QtCore.QRect(50, 100, 110, 30))
-		self.label_3.setObjectName("label_3")
-		self.checkBox = QtWidgets.QCheckBox(step)
-		self.checkBox.setGeometry(QtCore.QRect(180, 90, 190, 40))
-		self.checkBox.setObjectName("checkBox")
-		self.checkBox_2 = QtWidgets.QCheckBox(step)
-		self.checkBox_2.setGeometry(QtCore.QRect(410, 120, 180, 40))
-		self.checkBox_2.setObjectName("checkBox_2")
-		self.checkBox_3 = QtWidgets.QCheckBox(step)
-		self.checkBox_3.setGeometry(QtCore.QRect(410, 90, 190, 40))
-		self.checkBox_3.setObjectName("checkBox_3")
-		self.checkBox_4 = QtWidgets.QCheckBox(step)
-		self.checkBox_4.setGeometry(QtCore.QRect(180, 120, 190, 40))
-		self.checkBox_4.setObjectName("checkBox_4")
-		self.label_4 = QtWidgets.QLabel(step)
-		self.label_4.setGeometry(QtCore.QRect(50, 150, 110, 30))
-		self.label_4.setObjectName("label_4")
-		self.checkBox_5 = QtWidgets.QCheckBox(step)
-		self.checkBox_5.setGeometry(QtCore.QRect(180, 150, 90, 40))
-		self.checkBox_5.setObjectName("checkBox_5")
-		self.checkBox_6 = QtWidgets.QCheckBox(step)
-		self.checkBox_6.setGeometry(QtCore.QRect(290, 150, 100, 40))
-		self.checkBox_6.setObjectName("checkBox_6")
-		self.checkBox_7 = QtWidgets.QCheckBox(step)
-		self.checkBox_7.setGeometry(QtCore.QRect(410, 150, 100, 40))
-		self.checkBox_7.setObjectName("checkBox_7")
-		self.label_5 = QtWidgets.QLabel(step)
-		self.label_5.setGeometry(QtCore.QRect(50, 180, 110, 30))
-		self.label_5.setObjectName("label_5")
-		self.label_6 = QtWidgets.QLabel(step)
-		self.label_6.setGeometry(QtCore.QRect(50, 210, 110, 30))
-		self.label_6.setObjectName("label_6")
-		self.label_7 = QtWidgets.QLabel(step)
-		self.label_7.setGeometry(QtCore.QRect(330, 210, 110, 30))
-		self.label_7.setObjectName("label_7")
-		self.label_8 = QtWidgets.QLabel(step)
-		self.label_8.setGeometry(QtCore.QRect(50, 250, 110, 30))
-		self.label_8.setObjectName("label_8")
-		self.lineEdit_3 = QtWidgets.QLineEdit(step)
-		self.lineEdit_3.setGeometry(QtCore.QRect(170, 220, 140, 20))
-		self.lineEdit_3.setObjectName("lineEdit_3")
-		self.lineEdit_4 = QtWidgets.QLineEdit(step)
-		self.lineEdit_4.setGeometry(QtCore.QRect(470, 220, 150, 20))
-		self.lineEdit_4.setObjectName("lineEdit_4")
-		self.lineEdit_5 = QtWidgets.QLineEdit(step)
-		self.lineEdit_5.setGeometry(QtCore.QRect(170, 260, 140, 20))
-		self.lineEdit_5.setObjectName("lineEdit_5")
-		self.label_9 = QtWidgets.QLabel(step)
-		self.label_9.setGeometry(QtCore.QRect(330, 250, 110, 30))
-		self.label_9.setObjectName("label_9")
-		self.comboBox = QtWidgets.QComboBox(step)
-		self.comboBox.setGeometry(QtCore.QRect(470, 260, 150, 22))
-		self.comboBox.setObjectName("comboBox")
-		self.comboBox.addItem("")
-		self.comboBox.addItem("")
-		self.comboBox.addItem("")
-		self.comboBox.addItem("")
-		self.comboBox.addItem("")
-		self.comboBox.addItem("")
-		self.label_10 = QtWidgets.QLabel(step)
-		self.label_10.setGeometry(QtCore.QRect(50, 300, 110, 30))
-		self.label_10.setObjectName("label_10")
-		self.comboBox_2 = QtWidgets.QComboBox(step)
-		self.comboBox_2.setGeometry(QtCore.QRect(170, 310, 140, 22))
-		self.comboBox_2.setObjectName("comboBox_2")
-		self.comboBox_2.addItem("")
-		self.comboBox_2.addItem("")
-		self.comboBox_2.addItem("")
-		self.comboBox_2.addItem("")
-		self.label_11 = QtWidgets.QLabel(step)
-		self.label_11.setGeometry(QtCore.QRect(330, 300, 110, 30))
-		self.label_11.setObjectName("label_11")
-		self.comboBox_3 = QtWidgets.QComboBox(step)
-		self.comboBox_3.setGeometry(QtCore.QRect(470, 310, 150, 22))
-		self.comboBox_3.setObjectName("comboBox_3")
-		self.comboBox_3.addItem("")
-		self.comboBox_3.addItem("")
-		self.comboBox_3.addItem("")
-		self.comboBox_3.addItem("")
-		self.comboBox_3.addItem("")
-		self.comboBox_3.addItem("")
-		self.label_12 = QtWidgets.QLabel(step)
-		self.label_12.setGeometry(QtCore.QRect(50, 350, 120, 30))
-		self.label_12.setObjectName("label_12")
-		self.checkBox_8 = QtWidgets.QCheckBox(step)
-		self.checkBox_8.setGeometry(QtCore.QRect(170, 340, 110, 40))
-		self.checkBox_8.setObjectName("checkBox_8")
-		self.checkBox_9 = QtWidgets.QCheckBox(step)
-		self.checkBox_9.setGeometry(QtCore.QRect(300, 340, 110, 40))
-		self.checkBox_9.setObjectName("checkBox_9")
-		self.checkBox_10 = QtWidgets.QCheckBox(step)
-		self.checkBox_10.setGeometry(QtCore.QRect(430, 340, 110, 40))
-		self.checkBox_10.setObjectName("checkBox_10")
-		self.checkBox_11 = QtWidgets.QCheckBox(step)
-		self.checkBox_11.setGeometry(QtCore.QRect(170, 370, 110, 40))
-		self.checkBox_11.setObjectName("checkBox_11")
-		self.checkBox_12 = QtWidgets.QCheckBox(step)
-		self.checkBox_12.setGeometry(QtCore.QRect(300, 370, 110, 40))
-		self.checkBox_12.setObjectName("checkBox_12")
-		self.checkBox_13 = QtWidgets.QCheckBox(step)
-		self.checkBox_13.setGeometry(QtCore.QRect(430, 370, 110, 40))
-		self.checkBox_13.setObjectName("checkBox_13")
-		self.label_13 = QtWidgets.QLabel(step)
-		self.label_13.setGeometry(QtCore.QRect(40, 410, 120, 30))
-		self.label_13.setObjectName("label_13")
-		self.comboBox_4 = QtWidgets.QComboBox(step)
-		self.comboBox_4.setGeometry(QtCore.QRect(210, 430, 100, 22))
-		self.comboBox_4.setObjectName("comboBox_4")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.comboBox_4.addItem("")
-		self.label_14 = QtWidgets.QLabel(step)
-		self.label_14.setGeometry(QtCore.QRect(120, 420, 150, 22))
-		self.label_14.setObjectName("label_14")
-		self.label_15 = QtWidgets.QLabel(step)
-		self.label_15.setGeometry(QtCore.QRect(330, 420, 150, 22))
-		self.label_15.setObjectName("label_15")
-		self.comboBox_5 = QtWidgets.QComboBox(step)
-		self.comboBox_5.setGeometry(QtCore.QRect(430, 430, 100, 22))
-		self.comboBox_5.setObjectName("comboBox_5")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.comboBox_5.addItem("")
-		self.checkBox_14 = QtWidgets.QCheckBox(step)
-		self.checkBox_14.setGeometry(QtCore.QRect(590, 420, 110, 40))
-		self.checkBox_14.setObjectName("checkBox_14")
-		self.pushButton = QtWidgets.QPushButton(step)
-		self.pushButton.setGeometry(QtCore.QRect(60, 490, 100, 40))
-		self.pushButton.setObjectName("pushButton")
-		self.pushButton_2 = QtWidgets.QPushButton(step)
-		self.pushButton_2.setGeometry(QtCore.QRect(590, 490, 100, 40))
-		self.pushButton_2.setObjectName("pushButton_2")
-		self.pushButton_2.clicked.connect(self.pageSave)
-		self.retranslateUi(step)
-		QtCore.QMetaObject.connectSlotsByName(step)
+    def set_ToTransaction(self, to_transaction):
+        self.to_transaction = to_transaction
 
-	def retranslateUi(self, step):
-		_translate = QtCore.QCoreApplication.translate
-		step.setWindowTitle(_translate("step", "step"))
-		self.label.setText(_translate("step", "Page Name"))
-		self.label_2.setText(_translate("step", "Step Name"))
-		self.label_3.setText(_translate("step", "Form Step"))
-		self.checkBox.setText(_translate("step", "Form View"))
-		self.checkBox_2.setText(_translate("step", "Form Steps"))
-		self.checkBox_3.setText(_translate("step", "Form Qualify"))
-		self.checkBox_4.setText(_translate("step", "Form Submit"))
-		self.label_4.setText(_translate("step", "Page Login"))
-		self.checkBox_5.setText(_translate("step", "Yes"))
-		self.checkBox_6.setText(_translate("step", "No"))
-		self.checkBox_7.setText(_translate("step", "Both"))
-		self.label_5.setText(_translate("step", "Product Information"))
-		self.label_6.setText(_translate("step", "Product Id"))
-		self.label_7.setText(_translate("step", "Parent Product"))
-		self.label_8.setText(_translate("step", "Adjudication:"))
-		self.label_9.setText(_translate("step", "Product Positioning"))
-		self.label_10.setText(_translate("step", "Product Grouping:"))
-		self.label_11.setText(_translate("step", "Fulfillment:"))
-		self.label_12.setText(_translate("step", "Product Application Step:"))
-		self.checkBox_8.setText(_translate("step", "Personal Details"))
-		self.checkBox_9.setText(_translate("step", "Summary"))
-		self.checkBox_10.setText(_translate("step", "Confirmation"))
-		self.checkBox_11.setText(_translate("step", "Product Recommendation"))
-		self.checkBox_12.setText(_translate("step", "Terms and Condition"))
-		self.checkBox_13.setText(_translate("step", "Is Paperless"))
-		self.label_13.setText(_translate("step", "Transaction"))
-		self.label_14.setText(_translate("step", "From :"))
-		self.label_15.setText(_translate("step", "To:"))
-		self.checkBox_14.setText(_translate("step", "Is External"))
-		self.comboBox.setItemText(0, _translate("step", "Not Applicable"))
-		self.comboBox.setItemText(1, _translate("step", "UpSell"))
-		self.comboBox.setItemText(2, _translate("step", "DownSell"))
-		self.comboBox.setItemText(3, _translate("step", "User Selected"))
-		self.comboBox.setItemText(4, _translate("step", "System Recomended"))
-		self.comboBox.setItemText(5, _translate("step", "Dynamic"))
-		self.comboBox_2.setItemText(0, _translate("step", "Not Applicable"))
-		self.comboBox_2.setItemText(1, _translate("step", "No Grouping"))
-		self.comboBox_2.setItemText(2, _translate("step", "Bundle Id"))
-		self.comboBox_2.setItemText(3, _translate("step", "Dynamic"))
-		self.comboBox_3.setItemText(0, _translate("step", "Not Applicable"))
-		self.comboBox_3.setItemText(1, _translate("step", "Branch"))
-		self.comboBox_3.setItemText(2, _translate("step", "ESIG"))
-		self.comboBox_3.setItemText(3, _translate("step", "RDC"))
-		self.comboBox_3.setItemText(4, _translate("step", "Direct"))
-		self.comboBox_3.setItemText(5, _translate("step", "Dynamic"))
-		self.comboBox_4.setItemText(0, _translate("step", "Not Applicable"))
-		self.comboBox_4.setItemText(1, _translate("step", "Checking"))
-		self.comboBox_4.setItemText(2, _translate("step", "Card"))
-		self.comboBox_4.setItemText(3, _translate("step", "Saving"))
-		self.comboBox_4.setItemText(4, _translate("step", "PLC"))
-		self.comboBox_4.setItemText(5, _translate("step", "Visa"))
-		self.comboBox_4.setItemText(6, _translate("step", "External"))
-		self.comboBox_4.setItemText(7, _translate("step", "Dynamic"))
-		self.comboBox_5.setItemText(0, _translate("step", "Not Applicable"))
-		self.comboBox_5.setItemText(1, _translate("step", "Checking"))
-		self.comboBox_5.setItemText(2, _translate("step", "Card"))
-		self.comboBox_5.setItemText(3, _translate("step", "Saving"))
-		self.comboBox_5.setItemText(4, _translate("step", "PLC"))
-		self.comboBox_5.setItemText(5, _translate("step", "Visa"))
-		self.comboBox_5.setItemText(6, _translate("step", "External"))
-		self.comboBox_5.setItemText(7, _translate("step", "Dynamic"))
-		self.pushButton.setText(_translate("step", "Back"))
-		self.pushButton_2.setText(_translate("step", "Save"))
+    @property
+    def get_step_name(self):
+        return self.step_name
 
+    def set_step_name(self, step_name):
+        self.step_name = step_name
 
-if __name__ == "__main__":
-	import sys
-	app = QtWidgets.QApplication(sys.argv)
-	#obj = Vrg()
-	sample = "heloo"
-	step = QtWidgets.QWidget()
-	ui = Ui_StepWindow()
-	ui.setupUi(step)
-	step.show()
-	sys.exit(app.exec_())
+    @property
+    def get_form_step(self):
+        return self.form_step
 
+    def set_form_step(self, form_step):
+        self.form_step = form_step
+
+    @property
+    def get_form_steps(self):
+        return self.form_steps
+
+    def set_form_steps(self, form_steps):
+        self.form_steps = form_steps
+
+    @property
+    def get_form_view(self):
+        return self.form_view
+
+    def set_form_view(self, form_view):
+        self.form_view = form_view
+
+    @property
+    def get_form_submit(self):
+        return self.form_submit
+
+    def set_form_submit(self, form_submit):
+        self.form_submit = form_submit
+
+    @property
+    def get_form_qualify(self):
+        return self.form_qualify
+
+    def set_form_qualify(self, form_qualify):
+        self.form_qualify = form_qualify
+
+    @property
+    def get_page_login(self):
+        return self.page_login
+
+    def set_page_login(self, page_login):
+        self.page_login = page_login
+
+    @property
+    def get_product_information(self):
+        return self.product_information
+
+    def set_product_information(self, product_information):
+        self.product_information = product_information
+
+    @property
+    def get_productId(self):
+        return self.product_id
+
+    def set_productId(self, productId):
+        self.product_id = productId
+
+    @property
+    def get_parentProduct(self):
+        return self.parent_product
+
+    def set_parentProduct(self, parentProduct):
+        self.parent_product = parentProduct
+
+    @property
+    def get_adjudication(self):
+        return self.adjudication
+
+    def set_adjudication(self, adjudication):
+        self.adjudication = adjudication
+
+    @property
+    def get_productPositioning(self):
+        return self.product_positioning
+
+    def set_productPositioning(self, productPositioning):
+        self.product_positioning = productPositioning
+
+    @property
+    def get_productGrouping(self):
+        return self.product_grouping
+
+    def set_productGrouping(self, productGrouping):
+        self.product_grouping = productGrouping
+
+    @property
+    def get_fulfillment(self):
+        return self.fulfillment
+
+    def set_fulfillment(self, fulfillment):
+        self.fulfillment = fulfillment
+
+    @property
+    def get_productApplicationStep(self):
+        return self.product_application_step
+
+    def set_productApplicationStep(self, productApplicationStep):
+        self.product_application_step = productApplicationStep
+
+    @property
+    def get_personalDetails(self):
+        return self.personal_details
+
+    def set_personalDetails(self, personalDetails):
+        self.personal_details = personalDetails
+
+    @property
+    def get_summary(self):
+        return self.summary
+
+    def set_summary(self, summary):
+        self.summary = summary
+
+    @property
+    def get_confirmation(self):
+        return self.confirmation
+
+    def set_confirmation(self, confirmation):
+        self.confirmation = confirmation
+
+    @property
+    def get_product_recommendation(self):
+        return self.product_recommendation
+
+    def set_product_recommendation(self, product_recommendation):
+        self.product_recommendation = product_recommendation
+
+    @property
+    def get_termsAndCondition(self):
+        return self.terms_and_condition
+
+    def set_termsAndCondition(self, termsAndCondition):
+        self.terms_and_condition = termsAndCondition
+
+    @property
+    def get_isPaperless(self):
+        return self.is_paperless
+
+    def set_isPaperless(self, isPaperless):
+        self.is_paperless = isPaperless
+
+    @property
+    def get_user_id(self):
+        return self.user_id
+
+    def set_user_id(self, user_id):
+        self.user_id = user_id
+
+    @property
+    def get_user_auth_state(self):
+        return self.user_auth_state
+
+    def set_user_auth_state(self, user_auth_state):
+        self.user_auth_state = user_auth_state
+
+    @property
+    def get_UserType(self):
+        return self.user_type
+
+    def set_user_type(self, user_type):
+        self.user_type = user_type

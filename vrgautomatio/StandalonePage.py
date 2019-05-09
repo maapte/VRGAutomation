@@ -1,88 +1,79 @@
 class StandalonePage:
 
-    #All member variables and methods are public by default in Python. So when you want to make your member public, you just do nothing.
     def __init__(self):
-
-        #Page Level Variables
-        self.pageName = ''
-        self.pageReferrer = "{dynamic}"
-        self.pageLanguage = "{en|fr}"
-        self.pageView = "true"
-        self.pageAccessibilty = "true"
-        self.pagePath = ''
-        self.pageUrl = "{dynamic}"
-        self.pageReferrer="{dynamic}"
-        self.pageLogin = "true"
-        self.pageHierarchy="{dynamic}"
-        # user level variables
-        self.loginEvent = ""
-        self.userId = ""
-        self.userType = ""
-        self.userAuthState = ""
-
-
-        #Error Lever variables
-        self.eventError = "false"
-        self.errorMessage=""
-        self.errorsType = ""
-        self.errorsSubType = ""
-        self.errorsField = ""
-        self.errorsCode = ""
-
-     #getter for Class Memeber
-    @property
-    def get_PageName(self):
-         return self.pageName
-
-    def set_pageName(self,pageName):
-        self.pageName = pageName
+        self.page_name = ""
+        self.page_referrer = "{dynamic}"
+        self.page_language = "{en|fr}"
+        self.page_view = "true"
+        self.page_accessibility = "true"
+        self.page_path = ''
+        self.page_url = "{dynamic}"
+        self.page_login = "true"
+        self.page_hierarchy = "{dynamic}"
+        self.login_event = ""
+        self.user_id = ""
+        self.user_type = ""
+        self.user_auth_state = ""
+        self.event_error = "false"
+        self.error_message = ""
+        self.errors_type = ""
+        self.errors_sub_type = ""
+        self.errors_field = ""
+        self.errors_code = ""
 
     @property
-    def get_PageReferrer(self):
-         return self.pageReferrer
+    def get_page_name(self):
+        return self.page_name
 
-    def set_PageReferrer(self,pageReferrer):
-        self.pageReferrer = pageReferrer
-
-    @property
-    def get_RouteName(self):
-         return self.pageName
-
-    def set_RouteName(self,routeName):
-        self.routeName = routeName
+    def set_page_name(self, page_name):
+        self.page_name = page_name
 
     @property
-    def get_PagePath(self):
-         return self.pagePath
+    def get_page_referrer(self):
+         return self.page_referrer
 
-    def set_pagePath(self,pagePath):
-        self.pagePath = pagePath
-
-    @property
-    def get_UserId(self):
-         return self.userId
-
-    def set_UserId(self,userId):
-        self.userId = userId
+    def set_page_referrer(self, page_referrer):
+        self.page_referrer = page_referrer
 
     @property
-    def get_UserAuthState(self):
-         return self.userAuthState
+    def get_route_name(self):
+         return self.page_name
 
-    def set_UserAuthState(self,userAuthState):
-        self.userAuthState = userAuthState
+    def set_route_name(self, route_name):
+        self.routeName = route_name
 
     @property
-    def get_UserType(self):
-         return self.userType
+    def get_page_path(self):
+         return self.page_path
 
-    def set_UserType(self,userType):
-        self.userType = userType
+    def set_page_path(self, page_path):
+        self.page_path = page_path
+
+    @property
+    def get_user_id(self):
+         return self.user_id
+
+    def set_user_id(self, user_id):
+        self.user_id = user_id
+
+    @property
+    def get_user_auth_state(self):
+         return self.user_auth_state
+
+    def set_user_auth_state(self, user_auth_state):
+        self.user_auth_state = user_auth_state
+
+    @property
+    def get_user_type(self):
+         return self.user_type
+
+    def set_UserType(self, user_type):
+        self.user_type = user_type
 
 
     @property
-    def get_ErrorCode(self):
-         return self.errorCode
+    def get_error_code(self):
+         return self.error_code
 
-    def set_ErrorCode(self,errorCode):
-        self.errorCode = errorCode
+    def set_error_code(self, error_code):
+        self.error_code = error_code
