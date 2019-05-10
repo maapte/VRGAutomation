@@ -21,14 +21,14 @@ class GenerateVRG:
         ws = wb.active
         ws.cell(row=6, column=2).value = 'Last Modified:' + full
         ws.cell(row=6, column=4).value = str(
-            ws.cell(row=6, column=4).value) + str(req_data['userName']).title()
+            ws.cell(row=6, column=4).value) + str(req_data['user_name']).title()
         ws.cell(row=6, column=4).alignment = openpyxl.styles.Alignment(
             horizontal='center', vertical='center', wrap_text=True)
         datestring = datetime.strftime(datetime.now(), ' %Y_%m_%d %HH %MM')
         c = 8
         ws.cell(row=6, column=6).value = str(
-            ws.cell(row=6, column=6).value) + str(req_data['ProjectName']).title()
-        fname = req_data['ProjectName'] + datestring
+            ws.cell(row=6, column=6).value) + str(req_data['project_name']).title()
+        fname = req_data['project_name'] + datestring
 
         for i in range(0, len(req_data['pages'])):
             r = 9
@@ -41,19 +41,19 @@ class GenerateVRG:
                 ws.cell(
                     row=r, column=c).value = req_data['pages'][i]['page_view']
             # site related stuff
-            if 'sitebrand' in req_data:
-                ws.cell(row=r + 1, column=c).value = req_data['sitebrand']
-            if 'siteName' in req_data:
-                ws.cell(row=r + 2, column=c).value = req_data['siteName']
-            if 'siteType' in req_data:
-                ws.cell(row=r + 3, column=c).value = req_data['siteType']
-            if 'siteEnviroment' in req_data:
-                ws.cell(row=r + 4, column=c).value = req_data['siteEnviroment']
-            if 'siteAppVersion' in req_data:
-                ws.cell(row=r + 5, column=c).value = req_data['siteAppVersion']
-            if 'siteLastBuildDate' in req_data:
+            if 'site_brand' in req_data:
+                ws.cell(row=r + 1, column=c).value = req_data['site_brand']
+            if 'site_name' in req_data:
+                ws.cell(row=r + 2, column=c).value = req_data['site_name']
+            if 'site_type' in req_data:
+                ws.cell(row=r + 3, column=c).value = req_data['site_type']
+            if 'site_environment' in req_data:
+                ws.cell(row=r + 4, column=c).value = req_data['site_environment']
+            if 'site_app_version' in req_data:
+                ws.cell(row=r + 5, column=c).value = req_data['site_app_version']
+            if 'site_last_build_date' in req_data:
                 ws.cell(
-                    row=r + 6, column=c).value = req_data['siteLastBuildDate']
+                    row=r + 6, column=c).value = req_data['site_last_build_date']
 
             if 'page_path' in req_data['pages'][i]:
                 ws.cell(
@@ -120,21 +120,21 @@ class GenerateVRG:
                     ws.cell(
                         row=r + 1, column=c).value = req_data['forms'][parent]['steps'][child]['page_view']
 
-                if 'sitebrand' in req_data:
-                    ws.cell(row=r + 2, column=c).value = req_data['sitebrand']
-                if 'siteName' in req_data:
-                    ws.cell(row=r + 3, column=c).value = req_data['siteName']
-                if 'siteType' in req_data:
-                    ws.cell(row=r + 4, column=c).value = req_data['siteType']
-                if 'siteEnviroment' in req_data:
+                if 'site_brand' in req_data:
+                    ws.cell(row=r + 2, column=c).value = req_data['site_brand']
+                if 'site_name' in req_data:
+                    ws.cell(row=r + 3, column=c).value = req_data['site_name']
+                if 'site_type' in req_data:
+                    ws.cell(row=r + 4, column=c).value = req_data['site_type']
+                if 'site_environment' in req_data:
                     ws.cell(
-                        row=r + 5, column=c).value = req_data['siteEnviroment']
-                if 'siteAppVersion' in req_data:
+                        row=r + 5, column=c).value = req_data['site_environment']
+                if 'site_app_version' in req_data:
                     ws.cell(
-                        row=r + 6, column=c).value = req_data['siteAppVersion']
-                if 'siteLastBuildDate' in req_data:
+                        row=r + 6, column=c).value = req_data['site_app_version']
+                if 'site_last_build_date' in req_data:
                     ws.cell(
-                        row=r + 7, column=c).value = req_data['siteLastBuildDate']
+                        row=r + 7, column=c).value = req_data['site_last_build_date']
                 if 'page_path' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
                         row=r + 8, column=c).value = req_data['forms'][parent]['steps'][child]['page_path']
@@ -322,19 +322,19 @@ class GenerateVRG:
                     row=r, column=c).value = req_data['interaction'][i]['page_view']
 
             # site related stuff
-            if 'sitebrand' in req_data:
-                ws.cell(row=r + 1, column=c).value = req_data['sitebrand']
-            if 'siteName' in req_data:
-                ws.cell(row=r + 2, column=c).value = req_data['siteName']
-            if 'siteType' in req_data:
-                ws.cell(row=r + 3, column=c).value = req_data['siteType']
-            if 'siteEnviroment' in req_data:
-                ws.cell(row=r + 4, column=c).value = req_data['siteEnviroment']
-            if 'siteAppVersion' in req_data:
-                ws.cell(row=r + 5, column=c).value = req_data['siteAppVersion']
-            if 'siteLastBuildDate' in req_data:
+            if 'site_brand' in req_data:
+                ws.cell(row=r + 1, column=c).value = req_data['site_brand']
+            if 'site_name' in req_data:
+                ws.cell(row=r + 2, column=c).value = req_data['site_name']
+            if 'site_type' in req_data:
+                ws.cell(row=r + 3, column=c).value = req_data['site_type']
+            if 'site_environment' in req_data:
+                ws.cell(row=r + 4, column=c).value = req_data['site_environment']
+            if 'site_app_version' in req_data:
+                ws.cell(row=r + 5, column=c).value = req_data['site_app_version']
+            if 'site_last_build_date' in req_data:
                 ws.cell(
-                    row=r + 6, column=c).value = req_data['siteLastBuildDate']
+                    row=r + 6, column=c).value = req_data['site_last_build_date']
 
 
             if 'page_path' in req_data['interaction'][i]:
@@ -389,19 +389,19 @@ class GenerateVRG:
                     row=r, column=c).value = req_data['download'][i]['page_view']
 
             # site related stuff
-            if 'sitebrand' in req_data:
-                ws.cell(row=r + 1, column=c).value = req_data['sitebrand']
-            if 'siteName' in req_data:
-                ws.cell(row=r + 2, column=c).value = req_data['siteName']
-            if 'siteType' in req_data:
-                ws.cell(row=r + 3, column=c).value = req_data['siteType']
-            if 'siteEnviroment' in req_data:
-                ws.cell(row=r + 4, column=c).value = req_data['siteEnviroment']
-            if 'siteAppVersion' in req_data:
-                ws.cell(row=r + 5, column=c).value = req_data['siteAppVersion']
-            if 'siteLastBuildDate' in req_data:
+            if 'site_brand' in req_data:
+                ws.cell(row=r + 1, column=c).value = req_data['site_brand']
+            if 'site_name' in req_data:
+                ws.cell(row=r + 2, column=c).value = req_data['site_name']
+            if 'site_type' in req_data:
+                ws.cell(row=r + 3, column=c).value = req_data['site_type']
+            if 'site_environment' in req_data:
+                ws.cell(row=r + 4, column=c).value = req_data['site_environment']
+            if 'site_app_version' in req_data:
+                ws.cell(row=r + 5, column=c).value = req_data['site_app_version']
+            if 'site_last_build_date' in req_data:
                 ws.cell(
-                    row=r + 6, column=c).value = req_data['siteLastBuildDate']
+                    row=r + 6, column=c).value = req_data['site_last_build_date']
 
             if 'page_path' in req_data['download'][i]:
                 ws.cell(
@@ -450,9 +450,9 @@ class GenerateVRG:
                     row=r + 52, column=c).value = req_data['download'][i]['download_file_type']
             c = c + 1
 
-        if req_data['MobileJson'] == 'True':
+        if req_data['mobile_json'] == 'True':
             self.json_file(data, wb)
-        if req_data['TestCase'] == 'True':
+        if req_data['test_case'] == 'True':
             self.testCaseVRG(data,wb)
             self.testCaseMobileJSON(data,wb)
 
@@ -462,7 +462,7 @@ class GenerateVRG:
     def json_file(self, req_data, wb):
         pages = {}
         for i in range(0, len(req_data['pages'])):
-            if 'applicationType' in req_data:
+            if 'application_type' in req_data:
                 if 'page_name' in req_data['pages'][i]:
                     pages['state_' + req_data['pages'][i]
                     ['page_name'] + ''] = {}
@@ -474,7 +474,7 @@ class GenerateVRG:
                         str(req_data['pages'][i]['page_hierarchy']).replace("'","").replace("[","").replace("]","").replace(" ","-").replace(".",">")
         interaction = {}
         for i in range(0, len(req_data['interaction'])):
-            if 'applicationType' in req_data:
+            if 'application_type' in req_data:
                 if 'interaction_name' in req_data['interaction'][i]:
                     interaction['action_' + str(req_data['interaction'][i]
                     ['interaction_name']).lower().replace(" ","-").replace(":","-") + ''] = {}
@@ -659,7 +659,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 1).value = full
                 ws1.cell(row=r, column=c + 1).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center', wrap_text=True)
 
-                ws1.cell(row=r, column=c + 2).value = req_data['ProjectName']
+                ws1.cell(row=r, column=c + 2).value = req_data['project_name']
                 ws1.cell(row=r, column=c + 2).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center', wrap_text=True)
                 ws1.cell(row=r, column=c + 2).font = openpyxl.styles.Font(bold=True)
 
@@ -682,7 +682,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 5).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center', wrap_text=True)
                 ws1.cell(row=r, column=c + 5).font = openpyxl.styles.Font(bold=True)
 
-            if 'sitebrand' in req_data:
+            if 'site_brand' in req_data:
                 if (bool(req_data['pages'][i]['login_event'])):
                     event = event + ' event19 ,'
                     comment = comment + 'Login Event, '
@@ -690,11 +690,11 @@ class GenerateVRG:
                     event = event + 'event3'
                     comment = comment + 'Error Event '
                 dct = 'page_name, eVar10: ' + str(
-                    req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                    req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                     req_data['pages'][i]['page_name']) + '    //Unique for each Page' + '\n eVar11: ' + str(
-                    req_data['siteAppVersion']) + ':' + str(req_data['siteLastBuildDate']) + ':' + str(
-                    req_data['siteName']) + ':' + str(req_data[
-                                                          'siteType']) + '    //siteAppVersion,siteLastBuildDate,siteName,siteType' + '\neVar15: ' + str(
+                    req_data['site_app_version']) + ':' + str(req_data['site_last_build_date']) + ':' + str(
+                    req_data['site_name']) + ':' + str(req_data[
+                                                          'site_type']) + '    //site_app_version,site_last_build_date,site_name,site_type' + '\neVar15: ' + str(
                     req_data['pages'][i]['page_url']) + '    //Page URL' + '\n eVar9: ' + str(
                     req_data['pages'][i]['page_referrer']) + '    //Previous Page Name' + '\n eVar14: ' + str(
                     req_data['pages'][i]['page_hierarchy']) + '    // Hierarchy of the Page' + '\n eVar16: ' + str(
@@ -706,7 +706,7 @@ class GenerateVRG:
                     req_data['pages'][i]['user_id']) + '    // User ID'
                 ws1.cell(row=r, column=c + 7).value = str(dct)
                 ws1.cell(row=r, column=c + 7).alignment = alignment
-                ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                 ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.row_dimensions[r].height = 180
             id = id + 1
@@ -722,7 +722,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 1).value = full
                 ws1.cell(row = r , column= c + 1).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
 
-                ws1.cell(row=r, column=c + 2).value = req_data['ProjectName']
+                ws1.cell(row=r, column=c + 2).value = req_data['project_name']
                 ws1.cell(row = r , column= c + 2).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row=r, column=c + 2).font = openpyxl.styles.Font(bold=True)
 
@@ -743,16 +743,16 @@ class GenerateVRG:
                 ws1.cell(row = r , column= c + 5).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row=r, column=c + 3).font = openpyxl.styles.Font(bold=True)
 
-            if 'sitebrand' in req_data:
+            if 'site_brand' in req_data:
                 if bool(req_data['interaction'][i]["site_interaction_event"]):
                     event = event + ' event24 ,'
                     comment = comment + '// Site Interaction Event, '
                 dct = 'page_name, eVar10: ' + str(
-                    req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                    req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                     req_data['interaction'][i]['page_name']) + '    //Unique for each Page' + '\n eVar11: ' + str(
-                    req_data['siteAppVersion']) + ':' + str(req_data['siteLastBuildDate']) + ':' + str(
-                    req_data['siteName']) + ':' + str(req_data[
-                                                          'siteType']) + '    //siteAppVersion,siteLastBuildDate,siteName,siteType' + '\n eVar15: ' + str(
+                    req_data['site_app_version']) + ':' + str(req_data['site_last_build_date']) + ':' + str(
+                    req_data['site_name']) + ':' + str(req_data[
+                                                          'site_type']) + '    //site_app_version,site_last_build_date,site_name,site_type' + '\n eVar15: ' + str(
                     req_data['interaction'][i]['page_url']) + '    //Page URL' + '\n eVar9: ' + str(
                     req_data['interaction'][i]['page_referrer']) + '    //Previous Page Name' + '\n eVar14: ' + str(
                     req_data['interaction'][i]['page_hierarchy']) + '    // Hierarchy of the Page' + '\n eVar16: ' + str(
@@ -762,7 +762,7 @@ class GenerateVRG:
                     req_data['interaction'][i]['interaction_name']) + " //Interaction Name \n" + event + '\t' + comment
                 ws1.cell(row=r, column=c + 7).value = str(dct)
                 ws1.cell(row=r, column=c + 7).alignment= alignment
-                ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                 ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.row_dimensions[r].height = 180
             id = id + 1
@@ -778,7 +778,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 1).value = full
                 ws1.cell(row = r , column= c + 1).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
 
-                ws1.cell(row=r, column=c + 2).value = req_data['ProjectName']
+                ws1.cell(row=r, column=c + 2).value = req_data['project_name']
                 ws1.cell(row = r , column= c + 2).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row=r, column=c + 2).font = openpyxl.styles.Font(bold=True)
 
@@ -800,16 +800,16 @@ class GenerateVRG:
                 ws1.cell(row = r , column= c + 5).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row=r, column=c + 5).font = openpyxl.styles.Font(bold=True)
 
-            if 'sitebrand' in req_data:
+            if 'site_brand' in req_data:
                 if (bool(req_data['download'][i]['events_download'])):
                     event = event + ' event21 ,'
                     comment = comment + '// Download Event, '
                 dct = 'page_name, eVar10: ' + str(
-                    req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                    req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                     req_data['download'][i]['page_name']) + '    //Unique for each Page' + '\n eVar11: ' + str(
-                    req_data['siteAppVersion']) + ':' + str(req_data['siteLastBuildDate']) + ':' + str(
-                    req_data['siteName']) + ':' + str(req_data[
-                                                          'siteType']) + '    //siteAppVersion,siteLastBuildDate,siteName,siteType' + '\n eVar15: ' + str(
+                    req_data['site_app_version']) + ':' + str(req_data['site_last_build_date']) + ':' + str(
+                    req_data['site_name']) + ':' + str(req_data[
+                                                          'site_type']) + '    //site_app_version,site_last_build_date,site_name,site_type' + '\n eVar15: ' + str(
                     req_data['download'][i]['page_url']) + '    //Page URL' + '\n eVar9: ' + str(
                     req_data['download'][i]['page_referrer']) + '    //Previous Page Name' + '\n eVar14: ' + str(
                     req_data['download'][i]['page_hierarchy']) + '    // Hierarchy of the Page' + '\n eVar16: ' + str(
@@ -825,7 +825,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 7).value = str(dct)
                 ws1.cell(row = r , column= c + 7).alignment = openpyxl.styles.Alignment(horizontal='left',vertical='top',wrapText=True)
 
-                ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                 ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
 
                 ws1.row_dimensions[r].height = 180
@@ -866,7 +866,7 @@ class GenerateVRG:
                     ws1.cell(row = r , column= 2).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                     ws1.cell(row=r, column=2).font = openpyxl.styles.Font(bold=True)
 
-                    ws1.cell(row=r, column=3).value = req_data['ProjectName']
+                    ws1.cell(row=r, column=3).value = req_data['project_name']
                     ws1.cell(row = r , column= 3).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                     ws1.cell(row=r, column=3).font = openpyxl.styles.Font(bold=True)
 
@@ -888,12 +888,12 @@ class GenerateVRG:
                     ws1.cell(row = r , column= 6).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
 
                     dt = 'page_name, eVar10: ' + str(
-                        req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                        req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                         req_data['forms'][parent]['steps'][child][
                             'page_name']) + '    //Unique for each Page \n eVar11:' + str(
-                        req_data['siteAppVersion']) + ':' + str(req_data['siteLastBuildDate']) + ':' + str(
-                        req_data['siteName']) + ':' + str(req_data[
-                                                              'siteType']) + '    //siteAppVersion:siteLastBuildDate:siteName:siteType' + '\n eVar15: ' + str(
+                        req_data['site_app_version']) + ':' + str(req_data['site_last_build_date']) + ':' + str(
+                        req_data['site_name']) + ':' + str(req_data[
+                                                              'site_type']) + '    //site_app_version:site_last_build_date:site_name:site_type' + '\n eVar15: ' + str(
                         req_data['forms'][parent]['steps'][child]['page_url']) + '    //Page URL' + '\n eVar9: ' + str(
                         req_data['forms'][parent]['steps'][child][
                             'page_referrer']) + ' //Previous Page Name' + '\n eVar14: ' + str(
@@ -925,7 +925,7 @@ class GenerateVRG:
                             req_data['forms'][parent]['steps'][child]['adjudication']) + '   // Adjudication\n ' + event
                     ws1.cell(row=r, column=c + 7).value = str(dt)
                     ws1.cell(row = r , column= c+7).alignment = openpyxl.styles.Alignment(horizontal='left',vertical='top',wrapText=True)
-                    ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                    ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                     ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                     ws1.row_dimensions[r].height = 203
                     #ws1.row_dimensions[r].height = 180
@@ -1008,7 +1008,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 1).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center', wrap_text=True)
                 ws1.cell(row = r , column= c + 1).border = border
 
-                ws1.cell(row=r, column=c + 2).value = req_data['ProjectName']
+                ws1.cell(row=r, column=c + 2).value = req_data['project_name']
                 ws1.cell(row=r, column=c + 2).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center', wrap_text=True)
                 ws1.cell(row=r, column=c + 2).font = openpyxl.styles.Font(bold=True)
                 ws1.cell(row = r , column= c + 2).border = border
@@ -1034,11 +1034,11 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 5).alignment = openpyxl.styles.Alignment(horizontal='center', vertical='center', wrap_text=True)
                 ws1.cell(row=r, column=c + 5).font = openpyxl.styles.Font(bold=True)
                 ws1.cell(row = r , column= c + 5).border = border
-            if 'sitebrand' in req_data:
+            if 'site_brand' in req_data:
                 dct = 'page_name: ' + str(
-                    req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                    req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                     req_data['pages'][i]['page_name']) + '  //Unique for each Page' + '\n '+'Site.name : ' + str(
-                    req_data['siteName']) + '  //Name of the Site \n Site.type : ' + str(req_data['siteType']) + '  //Type of the Site' + '\n page.url:' + str(
+                    req_data['site_name']) + '  //Name of the Site \n Site.type : ' + str(req_data['site_type']) + '  //Type of the Site' + '\n page.url:' + str(
                     req_data['pages'][i]['page_url']) + '  // URL of the Page' + '\n page.referrer: ' + str(
                     req_data['pages'][i]['page_referrer']) + '  //Previous Page Name' + '\n page.hierarchy: ' + str(
                     req_data['pages'][i]['page_hierarchy']) + ' // Hierarchy of the Page' + '\n page.language: ' + str(
@@ -1051,7 +1051,7 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 7).alignment = openpyxl.styles.Alignment(horizontal='left',vertical='top',wrapText=True)
                 ws1.cell(row = r , column= c + 7).border = border
 
-                ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                 ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row = r , column= c + 8).border = border
                 ws1.row_dimensions[r].height = 180
@@ -1069,7 +1069,7 @@ class GenerateVRG:
                 ws1.cell(row = r , column= c+ 1).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row = r , column= c + 1).border = border
 
-                ws1.cell(row=r, column=c + 2).value = req_data['ProjectName']
+                ws1.cell(row=r, column=c + 2).value = req_data['project_name']
                 ws1.cell(row = r , column= c + 2).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row=r, column=c + 2).font = openpyxl.styles.Font(bold=True)
                 ws1.cell(row = r , column= c + 2).border = border
@@ -1096,11 +1096,11 @@ class GenerateVRG:
                 ws1.cell(row=r, column=c + 5).font = openpyxl.styles.Font(bold=True)
                 ws1.cell(row = r , column= c + 5).border = border
 
-            if 'sitebrand' in req_data:
+            if 'site_brand' in req_data:
                 dct = 'page_name' + str(
-                    req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                    req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                     req_data['interaction'][i]['page_name']) + '    //Unique for each Page {Interaction Page}' + '\n'+ 'site.name :' + str(
-                    req_data['siteName']) + ' //Name of the Site\n site.type:' + str(req_data['siteType']) + '  //Type of the site' + '\n page.url: ' + str(
+                    req_data['site_name']) + ' //Name of the Site\n site.type:' + str(req_data['site_type']) + '  //Type of the site' + '\n page.url: ' + str(
                     req_data['interaction'][i]['page_url']) + '//URL of the Page' + '\n page.referreer:' + str(
                     req_data['interaction'][i]['page_referrer']) + '//Previous Page Name' + '\n page.hierarchy:' + str(
                     req_data['interaction'][i]['page_hierarchy']) + '  // Hierarchy of the Page' + '\n page.language: ' + str(
@@ -1112,7 +1112,7 @@ class GenerateVRG:
                 ws1.cell(row = r , column= c + 7).alignment = openpyxl.styles.Alignment(horizontal='left',vertical='top',wrapText=True)
                 ws1.cell(row = r , column= c + 7).border = border
 
-                ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                 ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                 ws1.cell(row = r , column= c + 8).border = border
 
@@ -1133,7 +1133,7 @@ class GenerateVRG:
                     ws1.cell(row=r, column=c + 2).font = openpyxl.styles.Font(bold=True)
                     ws1.cell(row = r , column= c + 2).border = border
 
-                    ws1.cell(row=r, column=3).value = req_data['ProjectName']
+                    ws1.cell(row=r, column=3).value = req_data['project_name']
                     ws1.cell(row = r , column= 3).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                     ws1.cell(row=r, column=c + 3).font = openpyxl.styles.Font(bold=True)
                     ws1.cell(row = r , column= c + 3).border = border
@@ -1161,11 +1161,11 @@ class GenerateVRG:
                     ws1.cell(row = r , column= c + 6).border = border
 
                     dt = 'page_name:' + str(
-                        req_data['sitebrand']) + '>' + str(req_data['siteName']) + '>' + str(
+                        req_data['site_brand']) + '>' + str(req_data['site_name']) + '>' + str(
                         req_data['forms'][parent]['steps'][child][
                             'page_name']) + ' //Unique for each Page \n '+ 'site.name:' + str(
-                        req_data['siteName']) + ' //Site Name \n site.type:' + str(req_data[
-                                                              'siteType']) + '    //Type of the Site' + '\n page.url: ' + str(
+                        req_data['site_name']) + ' //Site Name \n site.type:' + str(req_data[
+                                                              'site_type']) + '    //Type of the Site' + '\n page.url: ' + str(
                         req_data['forms'][parent]['steps'][child]['page_url']) + '  //URL of the Page' + '\n page.referrer: ' + str(
                         req_data['forms'][parent]['steps'][child][
                             'page_referrer']) + ' //Previous Page Name' + '\n page.hierarchy' + str(
@@ -1201,7 +1201,7 @@ class GenerateVRG:
                     ws1.cell(row = r , column= c + 7).alignment = openpyxl.styles.Alignment(horizontal='left',vertical='top',wrapText=True)
                     ws1.cell(row = r , column= c + 7).border = border
 
-                    ws1.cell(row=r, column=c + 8).value = req_data['userName']
+                    ws1.cell(row=r, column=c + 8).value = req_data['user_name']
                     ws1.cell(row = r , column= c + 8).alignment = openpyxl.styles.Alignment(horizontal='center',vertical='center',wrapText=True)
                     ws1.cell(row = r , column= c + 8).border = border
 

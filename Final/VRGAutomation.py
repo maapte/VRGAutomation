@@ -1,3 +1,9 @@
+"""
+__author__ : Manish Apte
+__maintainer__ : Manish  & karthik
+__organization__ : Deloitte
+"""
+
 import json
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -8,13 +14,13 @@ from GenerateVRG import GenerateVRG
 from InteractionPage import InteractionPage
 from StandalonePage import StandalonePage
 from Steps import Steps
-from VRGObject import VRGObject
+from Vrg import Vrg
 
 
 class VRGAutomation(object):
 
     def __init__(self):
-        self.vrg = VRGObject()
+        self.vrg = Vrg()
         self.formObj = Form()
 
     def close(self):
@@ -323,14 +329,14 @@ class VRGAutomation(object):
         self.termsandcondition.setChecked(False)
 
     def generateVrgDocument(self):
-        obj = VRGObject()
-        self.vrg.set_ProjectName(
+        obj = Vrg()
+        self.vrg.set_project_name(
             self.projectName.text().lower().replace(" ", "-"))
-        self.vrg.set_UserName(self.userName.text().lower())
-        self.vrg.set_SiteName(self.siteName.text().lower().replace(" ", "-"))
-        self.vrg.set_SiteBrand(
+        self.vrg.set_user_name(self.userName.text().lower())
+        self.vrg.set_site_name(self.siteName.text().lower().replace(" ", "-"))
+        self.vrg.set_site_brand(
             self.brand_combobox.currentText().lower().replace(" ", "-"))
-        self.vrg.set_ApplicationTypes(
+        self.vrg.set_application_types(
             self.appliType_combo.currentText().lower().replace(" ", "-"))
         self.vrg.set_SiteType(
             self.comboBox.currentText().lower().replace(" ", "-"))
@@ -372,11 +378,11 @@ class VRGAutomation(object):
 
     def siteType(self):
         if self.comboBox.currentText() == "Desktop":
-            self.vrg.siteType = "desktop"
+            self.vrg.site_type = "desktop"
         if self.comboBox.currentText() == "Mobile":
-            self.vrg.siteType = "mobile"
+            self.vrg.site_type = "mobile"
         if self.comboBox.currentText() == "Responsive":
-            self.vrg.siteType = "responsive"
+            self.vrg.site_type = "responsive"
 
     def add_page_button(self):
         self.standAlonePageBox.setEnabled(True)
@@ -517,7 +523,7 @@ class VRGAutomation(object):
 
         self.userName = QtWidgets.QLineEdit(self.centralwidget)
         self.userName.setGeometry(QtCore.QRect(620, 70, 241, 28))
-        self.userName.setObjectName("userName")
+        self.userName.setObjectName("user_name")
         self.userName.setText(os.getlogin())
         self.userName.setEnabled(False)
 
@@ -650,7 +656,7 @@ class VRGAutomation(object):
         self.label_3.setObjectName("label_3")
         self.siteName = QtWidgets.QLineEdit(self.centralwidget)
         self.siteName.setGeometry(QtCore.QRect(620, 180, 241, 28))
-        self.siteName.setObjectName("siteName")
+        self.siteName.setObjectName("site_name")
         self.formGroupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.formGroupBox.setGeometry(QtCore.QRect(460, 290, 411, 351))
         self.formGroupBox.setObjectName("formGroupBox")
