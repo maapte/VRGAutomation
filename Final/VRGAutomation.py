@@ -66,17 +66,17 @@ class VRGAutomation(object):
                 stepsObj.page_path = str(
                     self.pageNameStepsTextbox.text().lower().replace(" ", "-"))
             stepsObj.set_from_transaction(self.formStepTextBox.text())
-            stepsObj.set_ToTransaction(self.lineEdit_13.text())
+            stepsObj.set_to_transaction(self.lineEdit_13.text())
             stepsObj.is_external = str(self.isExternalCheckbox.isChecked())
 
             stepsObj.set_form_view(str(self.formView.isChecked()).lower())
             stepsObj.set_form_qualify(str(self.formQualify.isChecked()).lower())
             stepsObj.set_form_submit(str(self.formSubmit.isChecked()).lower())
-            stepsObj.set_form_steps('true')
+            stepsObj.set_form_step('true')
 
-            stepsObj.set_productId(
+            stepsObj.set_product_id(
                 str(self.productId.text()).lower().replace(" ", "-"))
-            stepsObj.set_parentProduct(
+            stepsObj.set_parent_product(
                 str(self.parentProduct.text()).lower().replace(" ", "-"))
             stepsObj.set_adjudication(
                 str(self.adjudication.text()).lower().replace(" ", "-"))
@@ -84,11 +84,11 @@ class VRGAutomation(object):
             if (str(
                     self.positioning_combobox.currentText()) != 'Not '
                                                                 'Applicable'):
-                stepsObj.set_productPositioning(str(
+                stepsObj.set_product_positioning(str(
                     self.positioning_combobox.currentText()).lower().replace(
                     " ", "-"))
             if (str(self.grouping_combobox.currentText()) != 'Not Applicable'):
-                stepsObj.set_productGrouping(
+                stepsObj.set_product_grouping(
                     str(self.grouping_combobox.currentText()).lower().replace(
                         " ", "-"))
             if (str(
@@ -97,15 +97,15 @@ class VRGAutomation(object):
                 stepsObj.set_fulfillment(str(
                     self.fulfillment_comboBox.currentText()).lower().replace(
                     " ", "-"))
-            stepsObj.set_isPaperless(str(self.isPaperless.isChecked()).lower())
-            stepsObj.set_personalDetails(
+            stepsObj.set_is_paperless(str(self.isPaperless.isChecked()).lower())
+            stepsObj.set_personal_details(
                 str(self.personalDetails.isChecked()).lower())
             stepsObj.set_product_recommendation(
                 str((self.productRecommendation.isChecked())).lower())
             stepsObj.set_summary(str(self.summary.isChecked()).lower())
             stepsObj.set_confirmation(
                 str(self.confirmation.isChecked()).lower())
-            stepsObj.set_termsAndCondition(
+            stepsObj.set_terms_and_condition(
                 str(self.termsandcondition.isChecked()).lower())
 
             if self.yesLoginSteps.isChecked() or \
@@ -119,10 +119,10 @@ class VRGAutomation(object):
             if self.yesErrorSteps.isChecked():
                 stepsObj.event_error = "true"
                 stepsObj.error_message = "{dynamic}"
-                stepsObj.errors_code = "{dynamic}"
-                stepsObj.errors_sub_type = "{dynamic}"
-                stepsObj.errors_type = "{dynamic}"
-                stepsObj.errors_field = "{dynamic}"
+                stepsObj.error_code = "{dynamic}"
+                stepsObj.error_sub_type = "{dynamic}"
+                stepsObj.error_type = "{dynamic}"
+                stepsObj.error_field = "{dynamic}"
             if noOfSteps == len(self.formObj.steps):
                 self.stepGroupBox.setEnabled(False)
             self.step = json.dumps(stepsObj.__dict__)
@@ -147,17 +147,17 @@ class VRGAutomation(object):
                         '.'))
 
             stepsObj.set_from_transaction(self.formStepTextBox.text())
-            stepsObj.set_ToTransaction(self.lineEdit_13.text())
+            stepsObj.set_to_transaction(self.lineEdit_13.text())
             stepsObj.is_external = str(self.isExternalCheckbox.isChecked())
 
             stepsObj.set_form_view(str(self.formView.isChecked()).lower())
             stepsObj.set_form_qualify(str(self.formQualify.isChecked()).lower())
             stepsObj.set_form_submit(str(self.formSubmit.isChecked()).lower())
-            stepsObj.set_form_steps('true')
+            stepsObj.set_form_step('true')
 
-            stepsObj.set_productId(
+            stepsObj.set_product_id(
                 str(self.productId.text()).lower().replace(" ", "-"))
-            stepsObj.set_parentProduct(
+            stepsObj.set_parent_product(
                 str(self.parentProduct.text()).lower().replace(" ", "-"))
             stepsObj.set_adjudication(
                 str(self.adjudication.text()).lower().replace(" ", "-"))
@@ -165,11 +165,11 @@ class VRGAutomation(object):
             if (str(
                     self.positioning_combobox.currentText()) != 'Not '
                                                                 'Applicable'):
-                stepsObj.set_productPositioning(str(
+                stepsObj.set_product_positioning(str(
                     self.positioning_combobox.currentText()).lower().replace(
                     " ", "-"))
             if (str(self.grouping_combobox.currentText()) != 'Not Applicable'):
-                stepsObj.set_productGrouping(
+                stepsObj.set_product_grouping(
                     str(self.grouping_combobox.currentText()).lower().replace(
                         " ", "-"))
             if (str(
@@ -178,15 +178,15 @@ class VRGAutomation(object):
                 stepsObj.set_fulfillment(str(
                     self.fulfillment_comboBox.currentText()).lower().replace(
                     " ", "-"))
-            stepsObj.set_isPaperless(str(self.isPaperless.isChecked()).lower())
-            stepsObj.set_personalDetails(
+            stepsObj.set_is_paperless(str(self.isPaperless.isChecked()).lower())
+            stepsObj.set_personal_details(
                 str(self.personalDetails.isChecked()).lower())
             stepsObj.set_product_recommendation(
                 str((self.productRecommendation.isChecked())).lower())
             stepsObj.set_summary(str(self.summary.isChecked()).lower())
             stepsObj.set_confirmation(
                 str(self.confirmation.isChecked()).lower())
-            stepsObj.set_termsAndCondition(
+            stepsObj.set_terms_and_condition(
                 str(self.termsandcondition.isChecked()).lower())
 
             if self.yesLoginSteps.isChecked() or \
@@ -200,10 +200,10 @@ class VRGAutomation(object):
             if self.yesErrorSteps.isChecked():
                 stepsObj.event_error = "true"
                 stepsObj.error_message = "{dynamic}"
-                stepsObj.errors_code = "{dynamic}"
-                stepsObj.errors_sub_type = "{dynamic}"
-                stepsObj.errors_type = "{dynamic}"
-                stepsObj.errors_field = "{dynamic}"
+                stepsObj.error_code = "{dynamic}"
+                stepsObj.error_sub_type = "{dynamic}"
+                stepsObj.error_type = "{dynamic}"
+                stepsObj.error_field = "{dynamic}"
             self.step = json.dumps(stepsObj.__dict__)
             self.formObj.steps.append(json.loads(self.step))
         else:
@@ -227,17 +227,17 @@ class VRGAutomation(object):
                     self.pageHierSteps.text().lower().replace(" ", "-").split(
                         '.'))
             stepsObj.set_from_transaction(self.formStepTextBox.text())
-            stepsObj.set_ToTransaction(self.lineEdit_13.text())
+            stepsObj.set_to_transaction(self.lineEdit_13.text())
             stepsObj.is_external = str(self.isExternalCheckbox.isChecked())
 
             stepsObj.set_form_view(str(self.formView.isChecked()).lower())
             stepsObj.set_form_qualify(str(self.formQualify.isChecked()).lower())
             stepsObj.set_form_submit(str(self.formSubmit.isChecked()).lower())
-            stepsObj.set_form_steps('true')
+            stepsObj.set_form_step('true')
 
-            stepsObj.set_productId(
+            stepsObj.set_product_id(
                 str(self.productId.text()).lower().replace(" ", "-"))
-            stepsObj.set_parentProduct(
+            stepsObj.set_parent_product(
                 str(self.parentProduct.text()).lower().replace(" ", "-"))
             stepsObj.set_adjudication(
                 str(self.adjudication.text()).lower().replace(" ", "-"))
@@ -245,12 +245,12 @@ class VRGAutomation(object):
             if (str(
                     self.positioning_combobox.currentText()) != 'Not '
                                                                 'Applicable'):
-                stepsObj.set_productPositioning(str(
+                stepsObj.set_product_positioning(str(
                     self.positioning_combobox.currentText()).lower().replace(
                     " ", "-"))
 
             if (str(self.grouping_combobox.currentText()) != 'Not Applicable'):
-                stepsObj.set_productGrouping(
+                stepsObj.set_product_grouping(
                     str(self.grouping_combobox.currentText()).lower().replace(
                         " ", "-"))
 
@@ -261,15 +261,15 @@ class VRGAutomation(object):
                     self.fulfillment_comboBox.currentText()).lower().replace(
                     " ", "-"))
 
-            stepsObj.set_isPaperless(str(self.isPaperless.isChecked()).lower())
-            stepsObj.set_personalDetails(
+            stepsObj.set_is_paperless(str(self.isPaperless.isChecked()).lower())
+            stepsObj.set_personal_details(
                 str(self.personalDetails.isChecked()).lower())
             stepsObj.set_product_recommendation(
                 str((self.productRecommendation.isChecked())).lower())
             stepsObj.set_summary(str(self.summary.isChecked()).lower())
             stepsObj.set_confirmation(
                 str(self.confirmation.isChecked()).lower())
-            stepsObj.set_termsAndCondition(
+            stepsObj.set_terms_and_condition(
                 str(self.termsandcondition.isChecked()).lower())
             if self.yesLoginSteps.isChecked() or \
                     self.bothLoginSteps.isChecked():
@@ -279,10 +279,10 @@ class VRGAutomation(object):
             if self.yesErrorSteps.isChecked():
                 stepsObj.event_error = "true"
                 stepsObj.error_message = "{dynamic}"
-                stepsObj.errors_code = "{dynamic}"
-                stepsObj.errors_sub_type = "{dynamic}"
-                stepsObj.errors_type = "{dynamic}"
-                stepsObj.errors_field = "{dynamic}"
+                stepsObj.error_code = "{dynamic}"
+                stepsObj.error_sub_type = "{dynamic}"
+                stepsObj.error_type = "{dynamic}"
+                stepsObj.error_field = "{dynamic}"
 
             self.step = json.dumps(stepsObj.__dict__)
             self.formObj.steps.append(json.loads(self.step))
@@ -461,21 +461,21 @@ class VRGAutomation(object):
         if (self.yes.isChecked()):
             obj1.event_error = "true"
             obj1.error_message = "{dynamic}"
-            obj1.errors_code = "{dynamic}"
-            obj1.errors_type = "{dynamic}"
-            obj1.errors_sub_type = "{dynamic}"
-            obj1.errors_field = "{dynamic}"
+            obj1.error_code = "{dynamic}"
+            obj1.error_type = "{dynamic}"
+            obj1.error_sub_type = "{dynamic}"
+            obj1.error_field = "{dynamic}"
 
         # Login Code Checked or Unchecked
         if (self.yes_2.isChecked() or self.both.isChecked()):
             obj1.set_user_id("{dynamic}")
             obj1.set_user_auth_state("authenticated")
-            obj1.set_UserType("{dynamic}")
+            obj1.set_user_type("{dynamic}")
             obj1.login_event = "true"
         elif (self.no_2.isChecked()):
             obj1.set_user_id("")
             obj1.set_user_auth_state("non-authenticated")
-            obj1.set_UserType("")
+            obj1.set_user_type("")
 
         page = json.dumps(obj1.__dict__)
         self.vrg.pages.append(json.loads(page))

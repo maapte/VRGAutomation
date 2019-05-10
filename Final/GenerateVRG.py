@@ -91,21 +91,21 @@ class GenerateVRG:
             if 'event_error' in req_data['pages'][i]:
                 ws.cell(
                     row=r + 44, column=c).value = req_data['pages'][i]['event_error']
-            if 'errors_type' in req_data['pages'][i]:
+            if 'error_type' in req_data['pages'][i]:
                 ws.cell(
-                    row=r + 45, column=c).value = req_data['pages'][i]['errors_type']
-            if 'errors_sub_type' in req_data['pages'][i]:
+                    row=r + 45, column=c).value = req_data['pages'][i]['error_type']
+            if 'error_sub_type' in req_data['pages'][i]:
                 ws.cell(
-                    row=r + 46, column=c).value = req_data['pages'][i]['errors_sub_type']
-            if 'errors_field' in req_data['pages'][i]:
+                    row=r + 46, column=c).value = req_data['pages'][i]['error_sub_type']
+            if 'error_field' in req_data['pages'][i]:
                 ws.cell(
-                    row=r + 47, column=c).value = req_data['pages'][i]['errors_field']
+                    row=r + 47, column=c).value = req_data['pages'][i]['error_field']
             if 'error_message' in req_data['pages'][i]:
                 ws.cell(
                     row=r + 48, column=c).value = req_data['pages'][i]['error_message']
-            if 'errors_code' in req_data['pages'][i]:
+            if 'error_code' in req_data['pages'][i]:
                 ws.cell(
-                    row=r + 49, column=c).value = req_data['pages'][i]['errors_code']
+                    row=r + 49, column=c).value = req_data['pages'][i]['error_code']
             c = c + 1
 
         for parent in range(0, len(req_data['forms'])):
@@ -202,21 +202,21 @@ class GenerateVRG:
                 if 'event_error' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
                         row=r + 45, column=c).value = req_data['forms'][parent]['steps'][child]['event_error']
-                if 'errors_type' in req_data['forms'][parent]['steps'][child]:
+                if 'error_type' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 46, column=c).value = req_data['forms'][parent]['steps'][child]['errors_type']
-                if 'errors_sub_type' in req_data['forms'][parent]['steps'][child]:
+                        row=r + 46, column=c).value = req_data['forms'][parent]['steps'][child]['error_type']
+                if 'error_sub_type' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 47, column=c).value = req_data['forms'][parent]['steps'][child]['errors_sub_type']
-                if 'errors_field' in req_data['forms'][parent]['steps'][child]:
+                        row=r + 47, column=c).value = req_data['forms'][parent]['steps'][child]['error_sub_type']
+                if 'error_field' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 48, column=c).value = req_data['forms'][parent]['steps'][child]['errors_field']
+                        row=r + 48, column=c).value = req_data['forms'][parent]['steps'][child]['error_field']
                 if 'error_message' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
                         row=r + 48, column=c).value = req_data['forms'][parent]['steps'][child]['error_message']
-                if 'errors_code' in req_data['forms'][parent]['steps'][child]:
+                if 'error_code' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 50, column=c).value = req_data['forms'][parent]['steps'][child]['errors_code']
+                        row=r + 50, column=c).value = req_data['forms'][parent]['steps'][child]['error_code']
 
                 if req_data['forms'][parent]['is_transaction_exist']:
                     if 'transaction_id' in req_data['forms'][parent]['steps'][child]:
@@ -293,21 +293,21 @@ class GenerateVRG:
                 if 'event_error' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
                         row=r + 45, column=c).value = req_data['forms'][parent]['steps'][child]['event_error']
-                if 'errors_type' in req_data['forms'][parent]['steps'][child]:
+                if 'error_type' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 46, column=c).value = req_data['forms'][parent]['steps'][child]['errors_type']
-                if 'errors_sub_type' in req_data['forms'][parent]['steps'][child]:
+                        row=r + 46, column=c).value = req_data['forms'][parent]['steps'][child]['error_type']
+                if 'error_sub_type' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 47, column=c).value = req_data['forms'][parent]['steps'][child]['errors_sub_type']
-                if 'errors_field' in req_data['forms'][parent]['steps'][child]:
+                        row=r + 47, column=c).value = req_data['forms'][parent]['steps'][child]['error_sub_type']
+                if 'error_field' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 48, column=c).value = req_data['forms'][parent]['steps'][child]['errors_field']
+                        row=r + 48, column=c).value = req_data['forms'][parent]['steps'][child]['error_field']
                 if 'error_message' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
                         row=r + 49, column=c).value = req_data['forms'][parent]['steps'][child]['error_message']
-                if 'errors_code' in req_data['forms'][parent]['steps'][child]:
+                if 'error_code' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(
-                        row=r + 50, column=c).value = req_data['forms'][parent]['steps'][child]['errors_code']
+                        row=r + 50, column=c).value = req_data['forms'][parent]['steps'][child]['error_code']
                 c = c + 1
 
         for i in range(0, len(req_data['interaction'])):
