@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from Download import Download
 from Form import Form
-from GenerateVRG import GenerateVRG
+from GenerateVrg import GenerateVrg
 from InteractionPage import InteractionPage
 from StandalonePage import StandalonePage
 from Steps import Steps
@@ -342,7 +342,7 @@ class VRGAutomation(object):
             self.comboBox.currentText().lower().replace(" ", "-"))
         obj = self.vrg
         json_page = json.dumps(obj.__dict__)
-        app = GenerateVRG()
+        app = GenerateVrg()
         val = json.loads(json_page)
         app.generate_VRG(val)
 
