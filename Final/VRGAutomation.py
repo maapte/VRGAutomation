@@ -1,6 +1,6 @@
 """
 __author__ : Manish Apte
-__maintainer__ : Manish  & karthik
+__maintainer__ : karthik & Manish
 __organization__ : Deloitte
 """
 
