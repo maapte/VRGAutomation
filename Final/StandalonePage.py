@@ -1,3 +1,9 @@
+"""
+__author__ : Manish Apte
+__maintainer__ : Manish Apte
+__organization__ : Deloitte
+"""
+
 class StandalonePage:
 
     def __init__(self):
