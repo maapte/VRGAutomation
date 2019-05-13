@@ -270,12 +270,12 @@ class VRGAutomation(object):
             steps_obj.set_both_step("false")
 
         if self.yes_error_steps_group_box.isChecked():
-            steps_obj.eventError = "true"
-            steps_obj.errorMessage = "{dynamic}"
-            steps_obj.errorsCode = "{dynamic}"
-            steps_obj.errorsSubType = "{dynamic}"
-            steps_obj.errorsType = "{dynamic}"
-            steps_obj.errorsField = "{dynamic}"
+            steps_obj.set_event_error("true")
+            steps_obj.set_error_message("{dynamic}")
+            steps_obj.set_error_code("{dynamic}")
+            steps_obj.set_error_sub_type("{dynamic}")
+            steps_obj.set_error_type("{dynamic}")
+            steps_obj.set_error_field("{dynamic}")
 
         return steps_obj
 
@@ -447,7 +447,7 @@ class VRGAutomation(object):
         application_object = GenerateVrg()
         val = json.loads(json_page)
         print("GENERATE: ", val)
-        application_object.generate_VRG(val)
+        # application_object.generate_VRG(val)
 
     def add_flow_page(self):
         self.standalone_page_box.setEnabled(LABEL_FALSE)
@@ -598,13 +598,12 @@ class VRGAutomation(object):
 
         # Error Code Checked or Unchecked
         if self.yes_error_standalone.isChecked():
-            obj1.eventError = "true"
-            obj1.errorMessage = "{dynamic}"
-            obj1.errorsCode = "{dynamic}"
-            obj1.errorsType = "{dynamic}"
-            obj1.errorsSubType = "{dynamic}"
-            obj1.errorsField = "{dynamic}"
             obj1.set_event_error("true")
+            obj1.set_error_message("{dynamic}")
+            obj1.set_error_code("{dynamic}")
+            obj1.set_error_type("{dynamic}")
+            obj1.set_error_sub_type("{dynamic}")
+            obj1.set_error_field("{dynamic}")
 
         # Login Code Checked or Unchecked
         if self.yes_login_standalone.isChecked():
