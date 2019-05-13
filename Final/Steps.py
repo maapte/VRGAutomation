@@ -4,6 +4,7 @@ __maintainer__ : Manish Apte
 __organization__ : Deloitte
 """
 
+
 class Steps:
 
     def __init__(self):
@@ -59,6 +60,9 @@ class Steps:
         self.error_sub_type = ""
         self.error_field = ""
         self.error_code = ""
+
+        self.login_event = ""
+        self.both_step = "false"
 
     @property
     def get_page_name(self):
@@ -313,7 +317,7 @@ class Steps:
         self.product_recommendation = product_recommendation
 
     @property
-    def get_terms_and_Condition(self):
+    def get_terms_and_condition(self):
         return self.terms_and_condition
 
     def set_terms_and_condition(self, terms_and_condition):
@@ -388,3 +392,17 @@ class Steps:
 
     def set_error_code(self, error_code):
         self.error_code = error_code
+
+    @property
+    def get_event_error(self):
+        return self.event_error
+
+    def set_event_error(self, event_error):
+        self.event_error = event_error
+
+    @property
+    def get_both_step(self):
+        return self.both_step
+
+    def set_both_step(self, both_step):
+        self.error_code = both_step

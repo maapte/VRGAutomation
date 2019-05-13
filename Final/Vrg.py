@@ -56,7 +56,7 @@ class Vrg:
     def get_site_type(self):
         return self.site_type
 
-    def set_SiteType(self, site_type):
+    def set_site_type(self, site_type):
         self.site_type = site_type
 
     @property

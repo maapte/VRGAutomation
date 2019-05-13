@@ -28,6 +28,8 @@ class StandalonePage:
         self.error_field = ""
         self.error_code = ""
 
+        self.both = ""
+
     @property
     def get_page_name(self):
         return self.page_name
@@ -160,3 +162,19 @@ class StandalonePage:
 
     def set_error_code(self, error_code):
         self.error_code = error_code
+
+    @property
+    def get_event_error(self):
+        return self.event_error
+
+    def set_event_error(self, event_error):
+        self.event_error = event_error
+
+    @property
+    def get_both(self):
+        return self.both
+
+    def set_both(self, both):
+        self.both = both
+
+
