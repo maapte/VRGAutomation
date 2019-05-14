@@ -144,6 +144,7 @@ class VRGAutomation(object):
         self.counter = 0
         self.order = list()
         self.editFlag = 0
+        self.both = 0
         self.steps = list()
 
     @staticmethod
@@ -207,67 +208,102 @@ class VRGAutomation(object):
 
     def step_page_details(self):
         steps_obj = Steps()
-        steps_obj.set_step_name(self.step_name_steps.text())
+        steps_obj.set_step_name(str(self.step_name_steps.text()).lower())
         if self.application_type_combo.currentText() == APPLICATION_EMBER:
             steps_obj.set_page_name(
                 str(self.page_hierarchy_steps.text().lower().replace(" ", "-"))
             )
             steps_obj.set_page_hierarchy(
-                str(self.page_hierarchy_steps.text().lower().replace(" ", "-"))
+                str(self.page_hierarchy_steps.text().lower().replace(" ", "-")).split(
+                    "."
+                )
             )
-        if (
-            self.application_type_combo.currentText() == APPLICATION_ANGULAR
-            or self.application_type_combo.currentText() == APPLICATION_MOBILE_JSON
-        ):
+        if self.application_type_combo.currentText() == APPLICATION_ANGULAR:
             steps_obj.set_page_name(
                 str(self.page_name_steps.text().lower().replace(" ", "-"))
             )
             steps_obj.set_page_hierarchy(
-                str(self.page_hierarchy_steps.text().lower().replace(" ", "-"))
+                str(self.page_hierarchy_steps.text().lower().replace(" ", "-")).split(
+                    "."
+                )
             )
 
-        steps_obj.set_from_transaction(self.from_text_steps.text())
-        steps_obj.set_to_transaction(self.to_text_steps.text())
-        steps_obj.set_is_external(str(self.is_external_check_box_steps.isChecked()))
+        steps_obj.set_from_transaction(str(self.from_text_steps.text()).lower())
+        steps_obj.set_to_transaction(str(self.to_text_steps.text()).lower())
+        if self.is_external_check_box_steps.isChecked():
+            steps_obj.set_is_external("true")
+        else:
+            steps_obj.set_is_external("false")
 
-        steps_obj.set_form_view(str(self.form_view_steps.isChecked()))
-        steps_obj.set_form_qualify(str(self.form_qualify_steps.isChecked()))
-        steps_obj.set_form_submit(str(self.form_submit_steps.isChecked()))
+        if self.form_view_steps.isChecked():
+            steps_obj.set_form_view("true")
+        else:
+            steps_obj.set_form_view("false")
 
-        steps_obj.set_product_id(self.product_id_steps.text())
-        steps_obj.set_parent_product(self.parent_product_steps.text())
-        steps_obj.set_adjudication(self.adjudication_steps.text())
-        steps_obj.set_product_positioning(
-            self.positioning_combo_box_steps.currentText()
-        )
-        steps_obj.set_product_grouping(self.grouping_combo_box.currentText())
-        steps_obj.set_fulfillment(self.fulfillment_combo_box_steps.currentText())
+        if self.form_qualify_steps.isChecked():
+            steps_obj.set_form_qualify("true")
+        else:
+            steps_obj.set_form_qualify("false")
+        if self.form_submit_steps.isChecked():
+            steps_obj.set_form_submit("true")
+        else:
+            steps_obj.set_form_submit("false")
 
-        steps_obj.set_personal_details(str(self.personal_details_steps.isChecked()))
-        steps_obj.set_summary(str(self.summary_steps.isChecked()))
-        steps_obj.set_product_recommendation(
-            str(self.product_recommendation_steps.isChecked())
-        )
-        steps_obj.set_terms_and_condition(
-            str(self.terms_and_condition_steps.isChecked())
-        )
-        steps_obj.set_confirmation(str(self.confirmation_steps.isChecked()))
-        steps_obj.set_is_paperless(str(self.is_paperless_steps.isChecked()))
+        steps_obj.set_product_id(str(self.product_id_steps.text()).lower())
+        steps_obj.set_parent_product(str(self.parent_product_steps.text()).lower())
+        steps_obj.set_adjudication(str(self.adjudication_steps.text()).lower())
+        if self.positioning_combo_box_steps.currentText() == LABEL_NOT_APPLICABLE:
+            steps_obj.set_product_positioning(LABEL_BLANK)
+        else:
+            steps_obj.set_product_positioning(
+                self.positioning_combo_box_steps.currentText()
+            )
+        if self.grouping_combo_box.currentText() == LABEL_NOT_APPLICABLE:
+            steps_obj.set_product_grouping(LABEL_BLANK)
+        else:
+            steps_obj.set_product_grouping(self.grouping_combo_box.currentText())
+        if self.fulfillment_combo_box_steps.currentText() == LABEL_NOT_APPLICABLE:
+            steps_obj.set_fulfillment(LABEL_BLANK)
+        else:
+            steps_obj.set_fulfillment(self.fulfillment_combo_box_steps.currentText())
+
+        if self.personal_details_steps.isChecked():
+            steps_obj.set_personal_details("true")
+        else:
+            steps_obj.set_personal_details("false")
+        if self.summary_steps.isChecked():
+            steps_obj.set_summary("true")
+        else:
+            steps_obj.set_summary("false")
+        if self.product_recommendation_steps.isChecked():
+            steps_obj.set_product_recommendation("true")
+        else:
+            steps_obj.set_product_recommendation("false")
+        if self.terms_and_condition_steps.isChecked():
+            steps_obj.set_terms_and_condition("true")
+        else:
+            steps_obj.set_terms_and_condition("false")
+        if self.confirmation_steps.isChecked():
+            steps_obj.set_confirmation("true")
+        else:
+            steps_obj.set_confirmation("false")
+        if self.is_paperless_steps.isChecked():
+            steps_obj.set_is_paperless("true")
+        else:
+            steps_obj.set_is_paperless("false")
 
         if self.yes_login_group_box_steps.isChecked():
             steps_obj.set_user_id("{dynamic}")
-            steps_obj.set_user_auth_state("{dynamic}")
+            steps_obj.set_user_auth_state("{authenticated}")
             steps_obj.set_user_type("{dynamic}")
-            steps_obj.set_both_step("false")
 
         elif self.both_login_group_box_steps.isChecked():
             steps_obj.set_user_id("{dynamic}")
-            steps_obj.set_user_auth_state("{dynamic}")
+            steps_obj.set_user_auth_state("{not-authenticated | authenticated}")
             steps_obj.set_user_type("{dynamic}")
-            steps_obj.set_both_step("true")
 
         elif self.no_login_group_box_steps.isChecked():
-            steps_obj.set_both_step("false")
+            steps_obj.set_user_auth_state("{not-authenticated}")
 
         if self.yes_error_steps_group_box.isChecked():
             steps_obj.set_event_error("true")
@@ -308,10 +344,7 @@ class VRGAutomation(object):
                     if "step_name" in self.vrg.forms[i]["steps"][j]:
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(edit_name).replace(str(f1), "")
-                        if (
-                            self.vrg.forms[i]["steps"][j]["step_name"]
-                            == step_name_edit
-                        ):
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             step = json.dumps(steps_obj.__dict__)
                             self.vrg.forms[i]["steps"][j] = json.loads(step)
                             self.clear_steps_fields()
@@ -376,16 +409,14 @@ class VRGAutomation(object):
             self.interaction_button.setEnabled(LABEL_TRUE)
             self.download_button.setEnabled(LABEL_TRUE)
         self.editFlag = 0
+        self.iterate_list_box()
+
+    def iterate_list_box(self):
         self.list_combo_box.clear()
         for i in range(0, len(self.vrg.pages)):
-            if self.application_type_combo.currentText() != "Ember":
-                if "page_name" in self.vrg.pages[i]:
-                    v1 = self.vrg.pages[i]["page_name"]
-                    self.list_combo_box.addItem(v1)
-            else:
-                if "page_hierarchy" in self.vrg.pages[i]:
-                    v1 = self.vrg.pages[i]["page_hierarchy"]
-                    self.list_combo_box.addItem(v1)
+            if "page_name" in self.vrg.pages[i]:
+                v1 = self.vrg.pages[i]["page_name"]
+                self.list_combo_box.addItem(v1)
 
         for i in range(0, len(self.vrg.forms)):
             for j in range(0, len(self.vrg.forms[i]["steps"])):
@@ -416,9 +447,9 @@ class VRGAutomation(object):
         self.product_id_steps.setText("")
         self.parent_product_steps.setText("")
         self.adjudication_steps.setText("")
-        self.positioning_combo_box_steps.setCurrentText("Not Applicable")
-        self.grouping_combo_box.setCurrentText("Not Applicable")
-        self.fulfillment_combo_box_steps.setCurrentText("Not Applicable")
+        self.positioning_combo_box_steps.setCurrentText(LABEL_NOT_APPLICABLE)
+        self.grouping_combo_box.setCurrentText(LABEL_NOT_APPLICABLE)
+        self.fulfillment_combo_box_steps.setCurrentText(LABEL_NOT_APPLICABLE)
         self.yes_login_group_box_steps.setChecked(LABEL_FALSE)
         self.both_login_group_box_steps.setChecked(LABEL_FALSE)
         self.no_login_group_box_steps.setChecked(LABEL_FALSE)
@@ -447,7 +478,7 @@ class VRGAutomation(object):
         application_object = GenerateVrg()
         val = json.loads(json_page)
         print("GENERATE: ", val)
-        # application_object.generate_VRG(val)
+        application_object.generate_VRG(val)
 
     def add_flow_page(self):
         self.standalone_page_box.setEnabled(LABEL_FALSE)
@@ -477,11 +508,6 @@ class VRGAutomation(object):
             self.page_hierarchy_label_steps.setText("Page Hierarchy : ")
             self.page_name_standalone.setEnabled(LABEL_TRUE)
             self.page_name_steps.setEnabled(LABEL_TRUE)
-        if self.application_type_combo.currentText() == APPLICATION_MOBILE_JSON:
-            self.page_name_standalone_label.setText("Page Name :")
-            self.page_hierarchy_standalone_label.setText("Page Hierarchy : ")
-            self.page_name_label_steps.setText("Page Name : ")
-            self.page_hierarchy_label_steps.setText("Page Hierarchy : ")
 
     def site_type(self):
         if self.site_type_combo.currentText() == "Desktop":
@@ -571,26 +597,24 @@ class VRGAutomation(object):
         obj1 = StandalonePage()
         if self.application_type_combo.currentText() == APPLICATION_EMBER:
             obj1.set_page_name(
-                str(self.page_name_standalone.text().lower().replace(" ", "-"))
-            )
-            obj1.set_route_name(
                 str(self.page_hierarchy_standalone.text().lower().replace(" ", "-"))
             )
             obj1.set_page_hierarchy(
-                str(self.page_hierarchy_standalone.text().lower().replace(" ", "-"))
+                str(
+                    self.page_hierarchy_standalone.text().lower().replace(" ", "-")
+                ).split(".")
             )
             obj1.set_page_path(
-                str(self.page_name_standalone.text().lower().replace(" ", "-"))
+                str(self.page_hierarchy_standalone.text().lower().replace(" ", "-"))
             )
-        if (
-            self.application_type_combo.currentText() == APPLICATION_ANGULAR
-            or self.application_type_combo.currentText() == APPLICATION_MOBILE_JSON
-        ):
+        if self.application_type_combo.currentText() == APPLICATION_ANGULAR:
             obj1.set_page_name(
                 str(self.page_name_standalone.text().lower().replace(" ", "-"))
             )
             obj1.set_page_hierarchy(
-                str(self.page_hierarchy_standalone.text().lower().replace(" ", "-"))
+                str(
+                    self.page_hierarchy_standalone.text().lower().replace(" ", "-")
+                ).split(".")
             )
             obj1.set_page_path(
                 str(self.page_name_standalone.text().lower().replace(" ", "-"))
@@ -608,22 +632,19 @@ class VRGAutomation(object):
         # Login Code Checked or Unchecked
         if self.yes_login_standalone.isChecked():
             obj1.set_user_id("{dynamic}")
-            obj1.set_user_auth_state("authenticated")
+            obj1.set_user_auth_state("{authenticated}")
             obj1.set_user_type("{dynamic}")
             obj1.set_login_event("true")
-            obj1.set_both("false")
         elif self.no_login_standalone.isChecked():
             obj1.set_user_id("")
             obj1.set_user_auth_state("non-authenticated")
             obj1.set_user_type("")
             obj1.set_event_error("false")
-            obj1.set_both("false")
         elif self.both_login_standalone.isChecked():
             obj1.set_user_id("{dynamic}")
-            obj1.set_user_auth_state("authenticated")
+            obj1.set_user_auth_state("{not-authenticated | authenticated}")
             obj1.set_user_type("{dynamic}")
             obj1.set_login_event("true")
-            obj1.set_both("true")
 
         if self.editFlag == 1:
             for i in range(0, len(self.vrg.pages)):
@@ -632,16 +653,16 @@ class VRGAutomation(object):
                         page = json.dumps(obj1.__dict__)
                         v = json.loads(page)
                         self.vrg.pages[i] = v
-                if "page_hierarchy" in self.vrg.pages[i]:
-                    if self.vrg.pages[i]["page_hierarchy"] == edit_name:
-                        page = json.dumps(obj1.__dict__)
-                        v = json.loads(page)
-                        self.vrg.pages[i] = v
 
         if len(self.vrg.pages) >= 0 and self.editFlag == 0:
             page = json.dumps(obj1.__dict__)
             self.vrg.pages.append(json.loads(page))
 
+        self.reset_standalone_page()
+        self.editFlag = 0
+        self.iterate_list_box()
+
+    def reset_standalone_page(self):
         self.page_name_standalone.setText("")
         self.page_hierarchy_standalone.setText("")
         self.from_text_steps.setText("")
@@ -655,37 +676,6 @@ class VRGAutomation(object):
         self.add_flow.setEnabled(LABEL_TRUE)
         self.download_button.setEnabled(LABEL_TRUE)
         self.interaction_button.setEnabled(LABEL_TRUE)
-        self.editFlag = 0
-        self.list_combo_box.clear()
-        for i in range(0, len(self.vrg.pages)):
-            if self.application_type_combo.currentText() != APPLICATION_EMBER:
-                if "page_name" in self.vrg.pages[i]:
-                    v1 = self.vrg.pages[i]["page_name"]
-                    self.list_combo_box.addItem(v1)
-            else:
-                if "page_hierarchy" in self.vrg.pages[i]:
-                    v1 = self.vrg.pages[i]["page_hierarchy"]
-                    self.list_combo_box.addItem(v1)
-
-        for i in range(0, len(self.vrg.forms)):
-            if self.application_type_combo.currentText() != APPLICATION_EMBER:
-                for j in range(0, len(self.vrg.forms[i]["steps"])):
-                    if "step_name" in self.vrg.forms[i]["steps"][j]:
-                        f1 = (
-                            self.vrg.forms[i]["form_name"]
-                            + "-"
-                            + self.vrg.forms[i]["steps"][j]["step_name"]
-                        )
-                        self.list_combo_box.addItem(f1)
-            else:
-                for j in range(0, len(self.vrg.forms[i]["steps"])):
-                    if "page_hierarchy" in self.vrg.forms[i]["steps"][j]:
-                        f1 = (
-                            self.vrg.forms[i]["form_name"]
-                            + "-"
-                            + self.vrg.forms[i]["steps"][j]["page_hierarchy"]
-                        )
-                        self.list_combo_box.addItem(f1)
 
     def edit_list_box_button(self):
         name = self.list_combo_box.currentText()
@@ -694,16 +684,10 @@ class VRGAutomation(object):
         self.steps_edit = 0
         flag = ""
         for i in range(0, len(self.vrg.pages)):
-            if self.application_type_combo.currentText() != APPLICATION_EMBER:
-                if "page_name" in self.vrg.pages[i]:
-                    if self.vrg.pages[i]["page_name"] == name:
-                        flag = "PAGES"
-                        break
-            else:
-                if "page_hierarchy" in self.vrg.pages[i]:
-                    if self.vrg.pages[i]["page_hierarchy"] == name:
-                        flag = "PAGES"
-                        break
+            if "page_name" in self.vrg.pages[i]:
+                if self.vrg.pages[i]["page_name"] == name:
+                    flag = "PAGES"
+                    break
 
         if flag != "PAGES" or flag == "":
             for i in range(0, len(self.vrg.forms)):
@@ -711,40 +695,27 @@ class VRGAutomation(object):
                     if "step_name" in self.vrg.forms[i]["steps"][j] and flag != "STEPS":
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(name).replace(str(f1), "")
-                        if (
-                            self.vrg.forms[i]["steps"][j]["step_name"]
-                            == step_name_edit
-                        ):
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             flag = "STEPS"
                             break
 
         if flag == "PAGES":
             for i in range(0, len(self.vrg.pages)):
-                if (
-                    "page_name" in self.vrg.pages[i]
-                    or "page_hierarchy" in self.vrg.pages[i]
-                ):
-                    if (
-                        self.vrg.pages[i]["page_name"] == name
-                        or self.vrg.pages[i]["page_hierarchy"] == name
-                    ):
+                if "page_name" in self.vrg.pages[i]:
+                    if self.vrg.pages[i]["page_name"] == name:
                         self.standalone_page_box.setEnabled(LABEL_TRUE)
                         standalone_page_detail.set_page_name(
                             self.vrg.pages[i]["page_name"]
                         )
-                        standalone_page_detail.set_route_name(
-                            self.vrg.pages[i]["page_hierarchy"]
-                        )
+                        page_hierarchy_str = self.vrg.pages[i]["page_hierarchy"]
+                        page_hierarchy_str = ".".join(page_hierarchy_str)
                         standalone_page_detail.set_page_referrer(
                             self.vrg.pages[i]["page_referrer"]
                         )
                         standalone_page_detail.set_page_path(
                             self.vrg.pages[i]["page_path"]
                         )
-                        standalone_page_detail.set_page_hierarchy(
-                            self.vrg.pages[i]["page_hierarchy"]
-                        )
-                        standalone_page_detail.set_both(self.vrg.pages[i]["both"])
+                        standalone_page_detail.set_page_hierarchy(page_hierarchy_str)
                         if len(self.vrg.pages[i]["user_id"]) == 0:
                             standalone_page_detail.set_user_id("false")
                         else:
@@ -759,23 +730,36 @@ class VRGAutomation(object):
                         self.page_hierarchy_standalone.setText(
                             standalone_page_detail.get_page_hierarchy
                         )
+                        if self.vrg.pages[i]["user_auth_state"] == "{authenticated}":
+                            standalone_page_detail.set_user_auth_state(
+                                "{authenticated}"
+                            )
                         if (
-                            standalone_page_detail.get_user_id == "true"
-                            and standalone_page_detail.get_both == "false"
+                            self.vrg.pages[i]["user_auth_state"]
+                            == "{not-authenticated}"
+                        ):
+                            standalone_page_detail.set_user_auth_state(
+                                "{not-authenticated}"
+                            )
+                        if (
+                            self.vrg.pages[i]["user_auth_state"]
+                            == "{not-authenticated | authenticated}"
+                        ):
+                            standalone_page_detail.set_user_auth_state(
+                                "{not-authenticated | authenticated}"
+                            )
+
+                        if (
+                            standalone_page_detail.get_user_auth_state
+                            == "{authenticated}"
                         ):
                             self.yes_login_standalone.setChecked(LABEL_TRUE)
-                            self.no_login_standalone.setChecked(LABEL_FALSE)
-                            self.both_login_standalone.setChecked(LABEL_FALSE)
                         elif (
-                            standalone_page_detail.get_user_id == "true"
-                            and standalone_page_detail.get_both == "true"
+                            standalone_page_detail.get_user_auth_state
+                            == "{not-authenticated | authenticated}"
                         ):
                             self.both_login_standalone.setChecked(LABEL_TRUE)
-                            self.yes_login_standalone.setChecked(LABEL_FALSE)
-                            self.no_login_standalone.setChecked(LABEL_FALSE)
                         else:
-                            self.both_login_standalone.setChecked(LABEL_FALSE)
-                            self.yes_login_standalone.setChecked(LABEL_FALSE)
                             self.no_login_standalone.setChecked(LABEL_TRUE)
 
                         if standalone_page_detail.get_error_code == "true":
@@ -788,13 +772,13 @@ class VRGAutomation(object):
         if flag == "STEPS":
             for i in range(0, len(self.vrg.forms)):
                 for j in range(0, len(self.vrg.forms[i]["steps"])):
-                    if "step_name" in self.vrg.forms[i]["steps"][j] and self.steps_edit == 0:
+                    if (
+                        "step_name" in self.vrg.forms[i]["steps"][j]
+                        and self.steps_edit == 0
+                    ):
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(name).replace(str(f1), "")
-                        if (
-                            self.vrg.forms[i]["steps"][j]["step_name"]
-                            == step_name_edit
-                        ):
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             self.steps_edit = 1
                             self.form_name_form_box.setText(
                                 str(self.vrg.forms[i]["form_name"])
@@ -825,9 +809,13 @@ class VRGAutomation(object):
                             steps_obj.set_page_name(
                                 self.vrg.forms[i]["steps"][j]["page_name"]
                             )
-                            steps_obj.set_page_hierarchy(
-                                self.vrg.forms[i]["steps"][j]["page_hierarchy"]
+                            page_hierarchy_steps_str = self.vrg.forms[i]["steps"][j][
+                                "page_hierarchy"
+                            ]
+                            page_hierarchy_steps_str = ".".join(
+                                page_hierarchy_steps_str
                             )
+                            steps_obj.set_page_hierarchy(page_hierarchy_steps_str)
                             steps_obj.set_user_id(
                                 self.vrg.forms[i]["steps"][j]["user_id"]
                             )
@@ -894,9 +882,6 @@ class VRGAutomation(object):
                             steps_obj.set_is_paperless(
                                 self.vrg.forms[i]["steps"][j]["is_paperless"]
                             )
-                            steps_obj.set_both_step(
-                                self.vrg.forms[i]["steps"][j]["both_step"]
-                            )
                             self.step_group_box.setEnabled(LABEL_TRUE)
                             self.step_name_steps.setText(steps_obj.get_step_name)
                             self.page_name_steps.setText(steps_obj.get_page_name)
@@ -905,21 +890,21 @@ class VRGAutomation(object):
                             )
                             self.from_text_steps.setText(steps_obj.get_from_transaction)
                             self.to_text_steps.setText(steps_obj.get_to_transaction)
-                            if steps_obj.get_is_external == "True":
+                            if steps_obj.get_is_external == "true":
                                 self.is_external_check_box_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.is_external_check_box_steps.setChecked(LABEL_FALSE)
-                            if steps_obj.get_form_view == "True":
+                            if steps_obj.get_form_view == "true":
                                 self.form_view_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.form_view_steps.setChecked(LABEL_FALSE)
 
-                            if steps_obj.get_form_qualify == "True":
+                            if steps_obj.get_form_qualify == "true":
                                 self.form_qualify_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.form_qualify_steps.setChecked(LABEL_FALSE)
 
-                            if steps_obj.get_form_submit == "True":
+                            if steps_obj.get_form_submit == "true":
                                 self.form_submit_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.form_submit_steps.setChecked(LABEL_FALSE)
@@ -941,46 +926,43 @@ class VRGAutomation(object):
                                 steps_obj.get_fulfillment
                             )
 
-                            if steps_obj.get_personal_details == "True":
+                            if steps_obj.get_personal_details == "true":
                                 self.personal_details_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.personal_details_steps.setChecked(LABEL_FALSE)
 
-                            if steps_obj.get_summary == "True":
+                            if steps_obj.get_summary == "true":
                                 self.summary_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.summary_steps.setChecked(LABEL_FALSE)
 
-                            if steps_obj.get_product_recommendation == "True":
+                            if steps_obj.get_product_recommendation == "true":
                                 self.product_recommendation_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.product_recommendation_steps.setChecked(
                                     LABEL_FALSE
                                 )
 
-                            if steps_obj.get_terms_and_condition == "True":
+                            if steps_obj.get_terms_and_condition == "true":
                                 self.terms_and_condition_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.terms_and_condition_steps.setChecked(LABEL_FALSE)
 
-                            if steps_obj.get_confirmation == "True":
+                            if steps_obj.get_confirmation == "true":
                                 self.confirmation_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.confirmation_steps.setChecked(LABEL_FALSE)
 
-                            if steps_obj.get_is_paperless == "True":
+                            if steps_obj.get_is_paperless == "true":
                                 self.is_paperless_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.is_paperless_steps.setChecked(LABEL_FALSE)
 
-                            if (
-                                steps_obj.get_user_id == "{dynamic}"
-                                and steps_obj.get_both_step == "false"
-                            ):
+                            if steps_obj.get_user_auth_state == "{authenticated}":
                                 self.yes_login_group_box_steps.setChecked(LABEL_TRUE)
                             elif (
-                                steps_obj.get_user_id == "{dynamic}"
-                                and steps_obj.get_both_step == "true"
+                                steps_obj.get_user_auth_state
+                                == "{not-authenticated | authenticated}"
                             ):
                                 self.both_login_group_box_steps.setChecked(LABEL_TRUE)
                             else:
@@ -997,18 +979,10 @@ class VRGAutomation(object):
         name = self.list_combo_box.currentText()
         page_delete_flag = 0
         for i in range(0, len(self.vrg.pages)):
-            if self.application_type_combo.currentText() != APPLICATION_EMBER:
-                if "page_name" in self.vrg.pages[i]:
-                    if self.vrg.pages[i]["page_name"] == name:
-                        del self.vrg.pages[i]
-                        page_delete_flag = 1
-                        break
-            else:
-                if "page_hierarchy" in self.vrg.pages[i]:
-                    if self.vrg.pages[i]["page_hierarchy"] == name:
-                        del self.vrg.pages[i]
-                        page_delete_flag = 1
-                        break
+            if "page_name" in self.vrg.pages[i] and self.vrg.pages[i]["page_name"] == name:
+                del self.vrg.pages[i]
+                page_delete_flag = 1
+                break
 
         if page_delete_flag == 0:
             for i in range(0, len(self.vrg.forms)):
@@ -1016,10 +990,7 @@ class VRGAutomation(object):
                     if "step_name" in self.vrg.forms[i]["steps"][j]:
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(name).replace(str(f1), "")
-                        if (
-                            self.vrg.forms[i]["steps"][j]["step_name"]
-                            == step_name_edit
-                        ):
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             if len(self.steps) > 0:
                                 self.no_of_steps_form_box.setText(
                                     str(len(self.steps) - 1)
@@ -1032,29 +1003,13 @@ class VRGAutomation(object):
                             del self.vrg.forms[i]["steps"][j]
                             break
 
-        self.list_combo_box.clear()
-        page_delete_flag = 0
-        if len(self.vrg.pages) > 0:
-            for i in range(0, len(self.vrg.pages)):
-                if self.application_type_combo.currentText() != APPLICATION_EMBER:
-                    if "page_name" in self.vrg.pages[i]:
-                        v1 = self.vrg.pages[i]["page_name"]
-                        self.list_combo_box.addItem(v1)
-                else:
-                    if "page_hierarchy" in self.vrg.pages[i]:
-                        v1 = self.vrg.pages[i]["page_hierarchy"]
-                        self.list_combo_box.addItem(v1)
-
-        if len(self.vrg.forms) > 0:
             for i in range(0, len(self.vrg.forms)):
-                for j in range(0, len(self.vrg.forms[i]["steps"])):
-                    if "step_name" in self.vrg.forms[i]["steps"][j]:
-                        f1 = (
-                            self.vrg.forms[i]["form_name"]
-                            + "-"
-                            + self.vrg.forms[i]["steps"][j]["step_name"]
-                        )
-                        self.list_combo_box.addItem(f1)
+                if len(self.vrg.forms[i]["steps"]) == 0:
+                    del self.vrg.forms[i]
+                    break
+
+        page_delete_flag = 0
+        self.iterate_list_box()
 
     def product_checkbox_button(self, product):
         if self.editFlag == 1:
@@ -1127,7 +1082,6 @@ class VRGAutomation(object):
         self.application_type_combo = QtWidgets.QComboBox(self.central_widget)
         self.application_type_combo.setGeometry(QtCore.QRect(620, 130, 241, 28))
         self.application_type_combo.setObjectName("application_type_combo")
-        self.application_type_combo.addItem("")
         self.application_type_combo.setItemText(0, "")
         self.application_type_combo.addItem("")
         self.application_type_combo.addItem("")
@@ -1651,9 +1605,6 @@ class VRGAutomation(object):
         )
         self.application_type_combo.setItemText(
             2, translate("central", APPLICATION_ANGULAR)
-        )
-        self.application_type_combo.setItemText(
-            3, translate("central", APPLICATION_MOBILE_JSON)
         )
         self.site_type_combo.setItemText(1, translate("central", LABEL_DESKTOP))
         self.site_type_combo.setItemText(2, translate("central", LABEL_MOBILE))

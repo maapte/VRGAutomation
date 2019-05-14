@@ -8,7 +8,6 @@ class StandalonePage:
 
     def __init__(self):
         self.page_name = ""
-        self.routeName = ""
         self.page_referrer = "{dynamic}"
         self.page_language = "{en|fr}"
         self.page_view = "true"
@@ -28,7 +27,6 @@ class StandalonePage:
         self.error_field = ""
         self.error_code = ""
 
-        self.both = ""
 
     @property
     def get_page_name(self):
@@ -36,13 +34,6 @@ class StandalonePage:
 
     def set_page_name(self, page_name):
         self.page_name = page_name
-
-    @property
-    def get_route_name(self):
-        return self.page_name
-
-    def set_route_name(self, route_name):
-        self.routeName = route_name
 
     @property
     def get_page_referrer(self):
@@ -170,11 +161,5 @@ class StandalonePage:
     def set_event_error(self, event_error):
         self.event_error = event_error
 
-    @property
-    def get_both(self):
-        return self.both
-
-    def set_both(self, both):
-        self.both = both
 
 

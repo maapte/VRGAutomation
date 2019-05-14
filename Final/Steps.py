@@ -11,7 +11,6 @@ class Steps:
         self.page_view = "true"
         self.page_path = "{dynamic}"
         self.page_name = ""
-        self.route_name = ""
         self.page_url = "{dynamic}"
         self.page_referrer = "{dynamic}"
         self.page_hierarchy = "{dynamic}"
@@ -62,7 +61,6 @@ class Steps:
         self.error_code = ""
 
         self.login_event = ""
-        self.both_step = "false"
 
     @property
     def get_page_name(self):
@@ -70,13 +68,6 @@ class Steps:
 
     def set_page_name(self, page_name):
         self.page_name = page_name
-
-    @property
-    def get_route_name(self):
-        return self.route_name
-
-    def set_route_name(self, route_name):
-        self.route_name = route_name
 
     @property
     def get_page_referrer(self):
@@ -400,9 +391,3 @@ class Steps:
     def set_event_error(self, event_error):
         self.event_error = event_error
 
-    @property
-    def get_both_step(self):
-        return self.both_step
-
-    def set_both_step(self, both_step):
-        self.error_code = both_step

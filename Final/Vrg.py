@@ -10,8 +10,8 @@ class Vrg:
     def __init__(self):
         self.project_name = ""
         self.user_name = ""
-        self.mobile_json = "True"
-        self.test_case = "True"
+        self.mobile_json = "true"
+        self.test_case = "true"
         self.application_type = ""
         self.site_name = ""
         self.site_brand = ""
