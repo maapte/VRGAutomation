@@ -74,7 +74,8 @@ class GenerateVrg:
                     row=r + 10, column=c).value = req_data['pages'][i]['page_referrer']
             if 'page_hierarchy' in req_data['pages'][i]:
                 ws.cell(
-                    row=r + 11, column=c).value = req_data['pages'][i]['page_hierarchy']
+                    row=r + 11, column=c).value = str(req_data['pages'][i][
+                    'page_hierarchy'])
             if 'page_language' in req_data['pages'][i]:
                 ws.cell(
                     row=r + 12, column=c).value = req_data['pages'][i]['page_language']
