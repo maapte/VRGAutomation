@@ -455,9 +455,9 @@ class GenerateVrg:
                     row=r + 52, column=c).value = req_data['download'][i]['download_file_type']
             c = c + 1
 
-        if req_data['mobile_json'] == 'True':
+        if req_data['mobile_json'] == 'true':
             self.json_file(data, wb)
-        if req_data['test_case'] == 'True':
+        if req_data['test_case'] == 'true':
             self.testCaseVRG(data,wb)
             self.testCaseMobileJSON(data,wb)
 
