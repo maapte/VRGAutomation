@@ -1409,6 +1409,7 @@ class VRGAutomation(object):
         self.positioning_combo_box_steps.addItem("")
         self.positioning_combo_box_steps.addItem("")
         self.positioning_combo_box_steps.addItem("")
+        self.positioning_combo_box_steps.addItem("")
 
         self.grouping_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
         self.grouping_label_steps.setGeometry(QtCore.QRect(300, 90, 160, 28))
@@ -1693,13 +1694,16 @@ class VRGAutomation(object):
             2, translate("central", LABEL_DOWN_SELL)
         )
         self.positioning_combo_box_steps.setItemText(
-            3, translate("central", LABEL_USER_SELECTED)
+            3, translate("central", LABEL_CROSS_SELL)
         )
         self.positioning_combo_box_steps.setItemText(
-            4, translate("central", LABEL_SYSTEM_RECOMMENDED)
+            4, translate("central", LABEL_USER_SELECTED)
         )
         self.positioning_combo_box_steps.setItemText(
-            5, translate("central", LABEL_DYNAMIC)
+            5, translate("central", LABEL_SYSTEM_RECOMMENDED)
+        )
+        self.positioning_combo_box_steps.setItemText(
+            6, translate("central", LABEL_DYNAMIC)
         )
         self.grouping_label_steps.setText(translate("central", LABEL_GROUPING))
         self.grouping_combo_box.setItemText(
