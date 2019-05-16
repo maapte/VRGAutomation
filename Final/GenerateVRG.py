@@ -39,9 +39,11 @@ class GenerateVrg:
             return str("Page accessibility not available ")
 
     def get_page_hiearchy(self, page_hierarchy, test_case=""):
-        if (test_case == "test"):
-            return '-'.join(list(page_hierarchy[:len(page_hierarchy) - 1]))
-        return '>'.join(list(page_hierarchy[:len(page_hierarchy) - 1]))
+        if(len(page_hierarchy) > 1):
+            if (test_case == "test"):
+                return '-'.join(list(page_hierarchy[:len(page_hierarchy) - 1]))
+            return '>'.join(list(page_hierarchy[:len(page_hierarchy) - 1]))
+        return ''.join(list(page_hierarchy))
 
     def get_page_name(self, page_name):
         return '>'.join(list(page_name[len(page_name) - 1:]))
@@ -192,28 +194,28 @@ class GenerateVrg:
                     ws.cell(row=r + 10, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['page_url']
                 if 'page_referrer' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 11, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'page_referrer']
                 if 'page_hierarchy' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 12, column=c).value = str(
                         req_data['forms'][parent]['steps'][child][
                             'page_hierarchy'])
                 if 'page_language' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 13, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'page_language']
                 if 'page_accessibility' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 14, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'page_accessibility']
 
                 if 'user_auth_state' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 15, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'user_auth_state']
@@ -276,7 +278,7 @@ class GenerateVrg:
                     ws.cell(row=r + 46, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['error_type']
                 if 'error_sub_type' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 47, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_sub_type']
@@ -285,7 +287,7 @@ class GenerateVrg:
                         req_data['forms'][parent]['steps'][child][
                             'error_field']
                 if 'error_message' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 48, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_message']
@@ -295,7 +297,7 @@ class GenerateVrg:
 
                 if req_data['forms'][parent]['is_transaction_exist'] == 'true':
                     if 'transaction_id' in req_data['forms'][parent]['steps'][
-                        child]:
+                            child]:
                         ws.cell(row=r + 29, column=c).value = \
                             req_data['forms'][parent]['steps'][child][
                                 'transaction_id']
@@ -320,7 +322,7 @@ class GenerateVrg:
                             req_data['forms'][parent]['steps'][child][
                                 'from_transaction']
                     if 'to_transaction' in req_data['forms'][parent]['steps'][
-                        child]:
+                            child]:
                         ws.cell(row=r + 35, column=c).value = \
                             req_data['forms'][parent]['steps'][child][
                                 'to_transaction']
@@ -338,17 +340,17 @@ class GenerateVrg:
                     ws.cell(row=r + 87, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['product_id']
                 if 'product_positioning' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 89, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'product_positioning']
                 if 'product_grouping' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 90, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'product_grouping']
                 if 'parent_product' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 91, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'parent_product']
@@ -386,14 +388,14 @@ class GenerateVrg:
                             req_data['forms'][parent]['steps'][child][
                                 'confirmation']
                 if 'terms_and_condition' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     if (req_data['forms'][parent]['steps'][child][
                         'terms_and_condition'] == 'true'):
                         ws.cell(row=r + 82, column=c).value = \
                             req_data['forms'][parent]['steps'][child][
                                 'terms_and_condition']
                 if 'personal_details' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     if (req_data['forms'][parent]['steps'][child][
                         'personal_details'] == 'true'):
                         ws.cell(row=r + 78, column=c).value = \
@@ -409,7 +411,7 @@ class GenerateVrg:
                     ws.cell(row=r + 46, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['error_type']
                 if 'error_sub_type' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 47, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_sub_type']
@@ -418,7 +420,7 @@ class GenerateVrg:
                         req_data['forms'][parent]['steps'][child][
                             'error_field']
                 if 'error_message' in req_data['forms'][parent]['steps'][
-                    child]:
+                        child]:
                     ws.cell(row=r + 49, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_message']
@@ -501,8 +503,9 @@ class GenerateVrg:
             r = 9
             if 'page_name' in req_data['download'][i]:
                 ws.cell(row=8, column=c).value = str(req_data['download'][i][
-                                                         'download_file_name']).upper().replace(
-                    " ", "-").replace(":", "-")
+                                                    'download_file_name']).upper()\
+                                                    .replace(" ", "-")\
+                                                    .replace(":", "-")
                 ws.cell(row=8, column=c).alignment = openpyxl.styles.Alignment(
                     horizontal='center', vertical='center', wrapText=True)
             if 'page_view' in req_data['download'][i]:
@@ -1087,6 +1090,8 @@ class GenerateVrg:
             '' \
             '' \
             '' \
+            '' \
+            '' \
             'Pre Condition: Debugger tool to be launched for testing ' \
             'purpose(Recommended  Adobe Pulse Debugger)'
         g = 'Ensure Adobe Debugger is active'
@@ -1178,6 +1183,8 @@ class GenerateVrg:
                     req_data['pages'][i]['user_auth_state']) + ' : ' + str(
                     req_data['pages'][i][
                         'user_type']) + '}' + '    // Authentication of User ' \
+                                              '' \
+                                              '' \
                                               '' \
                                               '' \
                                               '' \
@@ -1298,10 +1305,14 @@ class GenerateVrg:
                                                                 'of User and ' \
                                                                 '' \
                                                                 '' \
+                                                                '' \
+                                                                '' \
                                                                 'User ' \
                                                                 'Type \n  ' \
                                                                 'eVar20: ' \
                                                                 '{dynamic}   ' \
+                                                                '' \
+                                                                '' \
                                                                 '' \
                                                                 '' \
                                                                 ' // ' \
@@ -1411,6 +1422,8 @@ class GenerateVrg:
                                                       'User and User Type ' \
                                                       '\n' + 'eVar20: {' \
                                                              'dynamic}    // ' \
+                                                             '' \
+                                                             '' \
                                                              '' \
                                                              '' \
                                                              '' \
@@ -1624,6 +1637,8 @@ class GenerateVrg:
 
         e = 'To Verify Adobe variables match those detailed in the JSON. \n ' \
             '\n Pre Condition: Charles Proxy tool to be launched for testing ' \
+            '' \
+            '' \
             '' \
             '' \
             '' \
@@ -1997,6 +2012,8 @@ class GenerateVrg:
                                                               '' \
                                                               '' \
                                                               '' \
+                                                              '' \
+                                                              '' \
                                                               '' + str(
                         req_data['forms'][parent]['steps'][child][
                             'step_name']) + ' //Form Step Name' + ' \n ' \
@@ -2055,9 +2072,8 @@ class GenerateVrg:
                         if req_data['forms'][parent]['steps'][child][
                             'terms_and_condition'] == 'true':
                             dt = dt + '\n application.termsandcondition : ' \
-                                 + str(
-                                req_data['forms'][parent]['steps'][child][
-                                    'terms_and_condition'])
+                                    + str(req_data['forms'][parent]['steps']\
+                                              [child]['terms_and_condition'])
                         if req_data['forms'][parent]['steps'][child][
                             'is_paperless'] == 'true':
                             dt = dt + '\n ispaperless : ' + str(
@@ -2067,22 +2083,22 @@ class GenerateVrg:
                     if req_data['forms'][parent]['steps'][child][
                         'form_view'] == 'true':
                         dt = dt + '\n event.formview: ' + str(
-                            req_data['forms'][parent]['steps'][child][
+                                req_data['forms'][parent]['steps'][child][
                                 'form_view'])
                     if req_data['forms'][parent]['steps'][child][
                         'form_step'] == 'true':
                         dt = dt + '\n event.formstep : ' + str(
-                            req_data['forms'][parent]['steps'][child][
+                                req_data['forms'][parent]['steps'][child][
                                 'form_step'])
                     if req_data['forms'][parent]['steps'][child][
                         'form_qualify'] == 'true':
                         dt = dt + '\n event.formqualify: ' + str(
-                            req_data['forms'][parent]['steps'][child][
+                                req_data['forms'][parent]['steps'][child][
                                 'form_qualify'])
                     if req_data['forms'][parent]['steps'][child][
                         'form_submit'] == 'true':
                         dt = dt + '\n event.submit : ' + str(
-                            req_data['forms'][parent]['steps'][child][
+                                req_data['forms'][parent]['steps'][child][
                                 'form_submit'])
                     ws1.cell(row=r, column=c + 7).value = str(dt)
                     ws1.cell(row=r,
@@ -2130,7 +2146,7 @@ class GenerateVrg:
                 ws1.cell(row=r, column=c + 4).value = e
                 ws1.cell(row=r,
                          column=c + 4).alignment = openpyxl.styles.Alignment(
-                    horizontal='left', vertical='top', wrapText=True)
+                     horizontal='left', vertical='top', wrapText=True)
                 ws1.cell(row=r, column=c + 4).border = border
 
                 ws1.cell(row=r, column=c + 6).value = g
@@ -2225,7 +2241,7 @@ class GenerateVrg:
                 'page_name']) + '    //Unique for each Page {Download Page}' \
                                 '' + '\n' + 'site.name :' + \
                                              self.get_site_name_code(
-                                                 str(req_data[
+                                                        str(req_data[
                                                          'site_name'])) + ' //Name of the Site\n site.type: ' \
                                                                           'mobile' + '  //Type of the site' + '\n site.brand: ' + str(
             req_data[
@@ -2310,9 +2326,9 @@ class GenerateVrg:
         worksheet.cell(row=row_number,
                        column=column_no + 7).alignment = \
             openpyxl.styles.Alignment(
-            horizontal='left', vertical='top', wrapText=True)
+                horizontal='left', vertical='top', wrapText=True)
         worksheet.cell(row=row_number, column=column_no + 8).value = user_name
         worksheet.cell(row=row_number,
                        column=column_no + 8).alignment = \
             openpyxl.styles.Alignment(
-            horizontal='center', vertical='center', wrapText=True)
+                horizontal='center', vertical='center', wrapText=True)
