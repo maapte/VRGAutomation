@@ -23,7 +23,7 @@ class Download:
         self.events_download = "true"
         self.download_file_name = ""
         self.download_file_type = ""
-        self.event_error = "false"
+        self.event_error = ""
         self.error_message = ""
         self.error_type = ""
         self.error_sub_type = ""
