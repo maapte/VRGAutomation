@@ -4,6 +4,7 @@ __maintainer__ : Manish Apte
 __organization__ : Deloitte
 """
 
+
 class StandalonePage:
 
     def __init__(self):
@@ -26,7 +27,14 @@ class StandalonePage:
         self.error_sub_type = ""
         self.error_field = ""
         self.error_code = ""
-
+        self.advertising = "false"
+        self.events_advertising = ""
+        self.events_ad_click = ""
+        self.advertising_tracking_code = ""
+        self.advertising_location = ""
+        self.advertising_type = ""
+        self.is_login = "false"
+        self.is_otvc = "false"
 
     @property
     def get_page_name(self):
@@ -161,5 +169,58 @@ class StandalonePage:
     def set_event_error(self, event_error):
         self.event_error = event_error
 
+    @property
+    def get_advertising(self):
+        return self.advertising
 
+    def set_advertising(self, advertising):
+        self.advertising = advertising
 
+    @property
+    def get_events_advertising(self):
+        return self.events_advertising
+
+    def set_events_advertising(self, events_advertising):
+        self.events_advertising = events_advertising
+
+    @property
+    def get_events_ad_click(self):
+        return self.events_ad_click
+
+    def set_events_ad_click(self, events_ad_click):
+        self.events_ad_click = events_ad_click
+
+    @property
+    def get_advertising_tracking_code(self):
+        return self.advertising_tracking_code
+
+    def set_advertising_tracking_code(self, advertising_tracking_code):
+        self.advertising_tracking_code = advertising_tracking_code
+
+    @property
+    def get_advertising_location(self):
+        return self.advertising_location
+
+    def set_advertising_location(self, advertising_location):
+        self.advertising_location = advertising_location
+
+    @property
+    def get_advertising_type(self):
+        return self.advertising_type
+
+    def set_advertising_type(self, advertising_type):
+        self.advertising_type = advertising_type
+
+    @property
+    def get_is_login(self):
+        return self.is_login
+
+    def set_is_login(self, is_login):
+        self.is_login = is_login
+
+    @property
+    def get_is_otvc(self):
+        return self.is_otvc
+
+    def set_is_otvc(self, is_otvc):
+        self.is_otvc = is_otvc

@@ -61,6 +61,15 @@ class Steps:
         self.error_code = ""
 
         self.login_event = ""
+        self.advertising = "false"
+        self.events_advertising = ""
+        self.events_ad_click = ""
+        self.advertising_tracking_code = ""
+        self.advertising_location = ""
+        self.advertising_type = ""
+        self.is_login = "false"
+        self.is_otvc = "false"
+        self.is_joint = "false"
 
     @property
     def get_page_name(self):
@@ -391,3 +400,30 @@ class Steps:
     def set_event_error(self, event_error):
         self.event_error = event_error
 
+    @property
+    def get_advertising(self):
+        return self.advertising
+
+    def set_advertising(self, advertising):
+        self.advertising = advertising
+
+    @property
+    def get_is_login(self):
+        return self.is_login
+
+    def set_is_login(self, is_login):
+        self.is_login = is_login
+
+    @property
+    def get_is_otvc(self):
+        return self.is_otvc
+
+    def set_is_otvc(self, is_otvc):
+        self.is_otvc = is_otvc
+
+    @property
+    def get_is_joint(self):
+        return self.is_joint
+
+    def set_is_joint(self, is_joint):
+        self.is_joint = is_joint

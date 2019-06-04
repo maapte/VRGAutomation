@@ -39,8 +39,10 @@ class GenerateVrg:
             return str("Page accessibility not available ")
 
     def get_page_hiearchy(self, page_hierarchy, test_case=""):
-        if(len(page_hierarchy) > 1):
+        if (len(page_hierarchy) > 1):
             if (test_case == "test"):
+                if page_hierarchy == "{dynamic}":
+                    return page_hierarchy
                 return '-'.join(list(page_hierarchy[:len(page_hierarchy) - 1]))
             return '>'.join(list(page_hierarchy[:len(page_hierarchy) - 1]))
         return ''.join(list(page_hierarchy))
@@ -131,6 +133,10 @@ class GenerateVrg:
                 ws.cell(row=r + 16, column=c).value = req_data['pages'][i][
                     'user_id']
 
+            if 'is_login' in req_data['pages'][i]:
+                ws.cell(row=r + 42, column=c).value = req_data['pages'][i][
+                    'is_login']
+
             if 'event_error' in req_data['pages'][i]:
                 ws.cell(row=r + 44, column=c).value = req_data['pages'][i][
                     'event_error']
@@ -149,6 +155,21 @@ class GenerateVrg:
             if 'error_code' in req_data['pages'][i]:
                 ws.cell(row=r + 49, column=c).value = req_data['pages'][i][
                     'error_code']
+            if 'events_advertising' in req_data['pages'][i]:
+                ws.cell(row=r + 57, column=c).value = req_data['pages'][i][
+                    'events_advertising']
+            if 'events_ad_click' in req_data['pages'][i]:
+                ws.cell(row=r + 58, column=c).value = req_data['pages'][i][
+                    'events_ad_click']
+            if 'advertising_tracking_code' in req_data['pages'][i]:
+                ws.cell(row=r + 59, column=c).value = req_data['pages'][i][
+                    'advertising_tracking_code']
+            if 'advertising_location' in req_data['pages'][i]:
+                ws.cell(row=r + 60, column=c).value = req_data['pages'][i][
+                    'advertising_location']
+            if 'advertising_type' in req_data['pages'][i]:
+                ws.cell(row=r + 61, column=c).value = req_data['pages'][i][
+                    'advertising_type']
             c = c + 1
 
         for parent in range(0, len(req_data['forms'])):
@@ -194,28 +215,28 @@ class GenerateVrg:
                     ws.cell(row=r + 10, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['page_url']
                 if 'page_referrer' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 11, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'page_referrer']
                 if 'page_hierarchy' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 12, column=c).value = str(
                         req_data['forms'][parent]['steps'][child][
                             'page_hierarchy'])
                 if 'page_language' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 13, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'page_language']
                 if 'page_accessibility' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 14, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'page_accessibility']
 
                 if 'user_auth_state' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 15, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'user_auth_state']
@@ -278,7 +299,7 @@ class GenerateVrg:
                     ws.cell(row=r + 46, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['error_type']
                 if 'error_sub_type' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 47, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_sub_type']
@@ -287,7 +308,7 @@ class GenerateVrg:
                         req_data['forms'][parent]['steps'][child][
                             'error_field']
                 if 'error_message' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 48, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_message']
@@ -297,7 +318,7 @@ class GenerateVrg:
 
                 if req_data['forms'][parent]['is_transaction_exist'] == 'true':
                     if 'transaction_id' in req_data['forms'][parent]['steps'][
-                            child]:
+                        child]:
                         ws.cell(row=r + 29, column=c).value = \
                             req_data['forms'][parent]['steps'][child][
                                 'transaction_id']
@@ -322,7 +343,7 @@ class GenerateVrg:
                             req_data['forms'][parent]['steps'][child][
                                 'from_transaction']
                     if 'to_transaction' in req_data['forms'][parent]['steps'][
-                            child]:
+                        child]:
                         ws.cell(row=r + 35, column=c).value = \
                             req_data['forms'][parent]['steps'][child][
                                 'to_transaction']
@@ -340,17 +361,17 @@ class GenerateVrg:
                     ws.cell(row=r + 87, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['product_id']
                 if 'product_positioning' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 89, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'product_positioning']
                 if 'product_grouping' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 90, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'product_grouping']
                 if 'parent_product' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 91, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'parent_product']
@@ -388,14 +409,14 @@ class GenerateVrg:
                             req_data['forms'][parent]['steps'][child][
                                 'confirmation']
                 if 'terms_and_condition' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     if (req_data['forms'][parent]['steps'][child][
                         'terms_and_condition'] == 'true'):
                         ws.cell(row=r + 82, column=c).value = \
                             req_data['forms'][parent]['steps'][child][
                                 'terms_and_condition']
                 if 'personal_details' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     if (req_data['forms'][parent]['steps'][child][
                         'personal_details'] == 'true'):
                         ws.cell(row=r + 78, column=c).value = \
@@ -411,7 +432,7 @@ class GenerateVrg:
                     ws.cell(row=r + 46, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['error_type']
                 if 'error_sub_type' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 47, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_sub_type']
@@ -420,13 +441,47 @@ class GenerateVrg:
                         req_data['forms'][parent]['steps'][child][
                             'error_field']
                 if 'error_message' in req_data['forms'][parent]['steps'][
-                        child]:
+                    child]:
                     ws.cell(row=r + 49, column=c).value = \
                         req_data['forms'][parent]['steps'][child][
                             'error_message']
                 if 'error_code' in req_data['forms'][parent]['steps'][child]:
                     ws.cell(row=r + 50, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['error_code']
+                if 'is_login' in req_data['forms'][parent]['steps'][child]:
+                    ws.cell(row=r + 43, column=c).value = \
+                        req_data['forms'][parent]['steps'][child]['is_login']
+
+                if 'is_joint' in req_data['forms'][parent]['steps'][
+                    child]:
+                    ws.cell(row=r + 58, column=c).value = \
+                        req_data['forms'][parent]['steps'][child][
+                            'is_joint']
+                if 'events_advertising' in req_data['forms'][parent]['steps'][
+                    child]:
+                    ws.cell(row=r + 58, column=c).value = \
+                        req_data['forms'][parent]['steps'][child][
+                            'events_advertising']
+                if 'events_ad_click' in req_data['forms'][parent]['steps'][
+                    child]:
+                    ws.cell(row=r + 59, column=c).value = \
+                        req_data['forms'][parent]['steps'][child][
+                            'events_ad_click']
+                if 'advertising_tracking_code' in \
+                        req_data['forms'][parent]['steps'][child]:
+                    ws.cell(row=r + 60, column=c).value = \
+                        req_data['forms'][parent]['steps'][child][
+                            'advertising_tracking_code']
+                if 'advertising_location' in \
+                        req_data['forms'][parent]['steps'][child]:
+                    ws.cell(row=r + 61, column=c).value = \
+                        req_data['forms'][parent]['steps'][child][
+                            'advertising_location']
+                if 'advertising_type' in req_data['forms'][parent]['steps'][
+                    child]:
+                    ws.cell(row=r + 62, column=c).value = \
+                        req_data['forms'][parent]['steps'][child][
+                            'advertising_type']
                 c = c + 1
 
         for i in range(0, len(req_data['interaction'])):
@@ -503,9 +558,9 @@ class GenerateVrg:
             r = 9
             if 'page_name' in req_data['download'][i]:
                 ws.cell(row=8, column=c).value = str(req_data['download'][i][
-                                                    'download_file_name']).upper()\
-                                                    .replace(" ", "-")\
-                                                    .replace(":", "-")
+                                                         'download_file_name']).upper() \
+                    .replace(" ", "-") \
+                    .replace(":", "-")
                 ws.cell(row=8, column=c).alignment = openpyxl.styles.Alignment(
                     horizontal='center', vertical='center', wrapText=True)
             if 'page_view' in req_data['download'][i]:
@@ -594,6 +649,30 @@ class GenerateVrg:
                         req_data['pages'][i]['page_name']).replace('.',
                                                                    '-') +
                           ''] = {}
+                    if req_data['pages'][i]['events_advertising'] == 'true' \
+                            or \
+                            req_data['pages'][i]['events_ad_click'] == 'true':
+                        pages['state_' + str(
+                            req_data['pages'][i]['page_name']).replace('.',
+                                                                       '-')
+                              + ''][
+                            'events'] = {}
+                        if req_data['pages'][i]['events_ad_click'] == 'true':
+                            pages['state_' + str(
+                                req_data['pages'][i]['page_name']).replace('.',
+                                                                           '-')
+                                  + ''][
+                                'events']['adclick'] = req_data['pages'][i][
+                                'events_ad_click']
+                        if req_data['pages'][i][
+                            'events_advertising'] == 'true':
+                            pages['state_' + str(
+                                req_data['pages'][i]['page_name']).replace('.',
+                                                                           '-')
+                                  + ''][
+                                'events']['adimpression'] = \
+                                req_data['pages'][i][
+                                    'events_advertising']
                     pages['state_' + str(
                         req_data['pages'][i]['page_name']).replace('.',
                                                                    '-') + ''][
@@ -608,6 +687,61 @@ class GenerateVrg:
                                                                    '-') + ''][
                         'page']['hierarchy'] = self.get_page_hiearchy(
                         req_data['pages'][i]['page_hierarchy'])
+                    if req_data['pages'][i]['events_advertising'] == 'true':
+                        pages['state_' + str(
+                            req_data['pages'][i]['page_name']).replace('.',
+                                                                       '-')
+                              + ''][
+                            'advertising'] = {}
+                        pages['state_' + str(
+                            req_data['pages'][i]['page_name']).replace('.',
+                                                                       '-')
+                              + ''][
+                            'advertising']['trackingcode'] = \
+                            req_data['pages'][i][
+                                'advertising_tracking_code']
+                        pages['state_' + str(
+                            req_data['pages'][i]['page_name']).replace('.',
+                                                                       '-')
+                              + ''][
+                            'advertising']['location'] = req_data['pages'][i][
+                            'advertising_location']
+                        pages['state_' + str(
+                            req_data['pages'][i]['page_name']).replace('.',
+                                                                       '-')
+                              + ''][
+                            'advertising']['type'] = req_data['pages'][i][
+                            'advertising_type']
+                    if req_data['pages'][i]['events_advertising'] == 'true' \
+                            or \
+                            req_data['pages'][i]['is_login'] == 'true':
+                        pages['state_' + str(
+                            req_data['pages'][i]['page_name']).replace('.',
+                                                                       '-')
+                              + ''][
+                            'events'] = {}
+                        if req_data['pages'][i][
+                            'events_advertising'] == 'true':
+                            pages['state_' + str(
+                                req_data['pages'][i]['page_name']).replace('.',
+                                                                           '-')
+                                  + ''][
+                                'events']['adclick'] = req_data['pages'][i][
+                                'events_ad_click']
+                            pages['state_' + str(
+                                req_data['pages'][i]['page_name']).replace('.',
+                                                                           '-')
+                                  + ''][
+                                'events']['adimpression'] = \
+                            req_data['pages'][i][
+                                'events_advertising']
+                        if req_data['pages'][i]['is_login'] == 'true':
+                            pages['state_' + str(
+                                req_data['pages'][i]['page_name']).replace('.',
+                                                                           '-')
+                                  + ''][
+                                'events']['login'] = req_data['pages'][i][
+                                'is_login']
         interaction = {}
         for i in range(0, len(req_data['interaction'])):
             if 'application_type' in req_data:
@@ -901,6 +1035,50 @@ class GenerateVrg:
                             'form']['stepname'] = self.get_page_name(
                             req_data['forms'][parent]['steps'][child][
                                 'page_hierarchy'])
+                    if req_data['forms'][parent]['steps'][child][
+                        'step_name'] == 'true':
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ",
+                            "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'advertising'] = {}
+
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ",
+                            "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'advertising']['trackingcode'] = str(
+                            req_data['forms'][parent]['steps'][child][
+                                'advertising_tracking_code']).lower()
+
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ",
+                            "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'advertising']['location'] = str(
+                            req_data['forms'][parent]['steps'][child][
+                                'advertising_location']).lower()
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ",
+                            "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'advertising']['type'] = str(
+                            req_data['forms'][parent][
+                                'steps'][child][
+                                'advertising_type']).lower()
+
                     # Event Object created in Form JSON Object
                     forms['state_' + str(req_data['forms'][parent][
                                              'form_name']).lower().replace(" ",
@@ -909,6 +1087,28 @@ class GenerateVrg:
                             'step_name']).lower().replace(" ",
                                                           "-") + ''][
                         'events'] = {}
+                    if (req_data['forms'][parent]['steps'][child][
+                        'events_ad_click'] == 'true'):
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ", "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'events']['adclick'] = str(
+                            req_data['forms'][parent]['steps'][child][
+                                'events_ad_click']).lower()
+                    if (req_data['forms'][parent]['steps'][child][
+                        'events_advertising'] == 'true'):
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ", "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'events']['adimpression'] = str(
+                            req_data['forms'][parent]['steps'][child][
+                                'events_advertising']).lower()
                     if (req_data['forms'][parent]['steps'][child][
                         'form_step'] == 'true'):
                         forms['state_' + str(req_data['forms'][parent][
@@ -1033,6 +1233,30 @@ class GenerateVrg:
                             req_data['forms'][parent]['steps'][child][
                                 'is_paperless']).lower()
 
+                    if req_data['forms'][parent]['steps'][child][
+                        'is_paperless'] == 'true':
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ", "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'events']['paperless'] = str(
+                            req_data['forms'][parent]['steps'][child][
+                                'is_paperless']).lower()
+
+                    if req_data['forms'][parent]['steps'][child][
+                        'events_advertising'] == 'true':
+                        forms['state_' + str(req_data['forms'][parent][
+                                                 'form_name']).lower().replace(
+                            " ", "-") + "-" + str(
+                            req_data['forms'][parent]['steps'][child][
+                                'step_name']).lower().replace(" ",
+                                                              "-") + ''][
+                            'events']['login'] = str(
+                            req_data['forms'][parent]['steps'][child][
+                                'is_login']).lower()
+
         dictMerge = {**forms, **pages, **interaction, **download}
 
         with open('JsonData.json', 'w') as outfile:
@@ -1079,6 +1303,18 @@ class GenerateVrg:
         c = 1
         s = 'Step'
         e = 'To Verify Adobe variables match those detailed in the VRG \n \n ' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
             '' \
             '' \
             '' \
@@ -1148,12 +1384,14 @@ class GenerateVrg:
                     bold=True)
 
             if 'site_brand' in req_data:
-                if (bool(req_data['pages'][i]['login_event'])):
-                    event = event + ' event19 ,'
-                    comment = comment + 'Login Event, '
-                if (bool(req_data['pages'][i]['event_error'])):
-                    event = event + 'event3'
-                    comment = comment + 'Error Event '
+                if req_data['pages'][i]['events_advertising'] == 'true':
+                    event = event + ' event76 ,'
+                if req_data['pages'][i]['events_ad_click'] == 'true':
+                    event = event + 'event77'
+                if req_data['pages'][i]['is_login'] == 'true':
+                    event = event + 'event19'
+                if req_data['pages'][i]['is_otvc'] == 'true':
+                    event = event + ''
                 dct = 'page_name, eVar10: ' + str(
                     req_data['site_brand']) + '>' + self.get_site_name_code(
                     str(req_data['site_name'])) + '>' + str(
@@ -1196,9 +1434,22 @@ class GenerateVrg:
                                               '' \
                                               '' \
                                               '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
+                                              '' \
                                               'and User Type' + '\n eVar20: ' \
                                                                 '' + str(
-                    req_data['pages'][i]['user_id']) + '    // User ID'
+                    req_data['pages'][i]['user_id']) + '    // User ID\n'
+                dct = dct + event
                 ws1.cell(row=r, column=c + 7).value = str(dct)
                 ws1.cell(row=r, column=c + 7).alignment = alignment
                 ws1.cell(row=r, column=c + 8).value = req_data['user_name']
@@ -1307,10 +1558,34 @@ class GenerateVrg:
                                                                 '' \
                                                                 '' \
                                                                 '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
                                                                 'User ' \
                                                                 'Type \n  ' \
                                                                 'eVar20: ' \
                                                                 '{dynamic}   ' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
                                                                 '' \
                                                                 '' \
                                                                 '' \
@@ -1427,6 +1702,18 @@ class GenerateVrg:
                                                              '' \
                                                              '' \
                                                              '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
+                                                             '' \
                                                              'User ID' + '\n eVar21: ' + str(
                     req_data['download'][i]['download_file_name']) + ':' + str(
                     req_data['download'][i][
@@ -1467,7 +1754,7 @@ class GenerateVrg:
                     'is_external'] == 'true'):
                     event = event + ', event46'
                 if (req_data['forms'][parent]['steps'][child][
-                    'page_login'] == 'true'):
+                    'is_login'] == 'true'):
                     event = event + ', event19'
                 if (req_data['forms'][parent]['steps'][child][
                     'event_error'] == 'true'):
@@ -1478,7 +1765,15 @@ class GenerateVrg:
                 if (req_data['forms'][parent]['steps'][child][
                     'product_recommendation'] == 'true'):
                     event = event + ', event103'
-
+                if (req_data['forms'][parent]['steps'][child][
+                    'events_advertising'] == 'true'):
+                    event = event + ', event77'
+                if (req_data['forms'][parent]['steps'][child][
+                    'events_ad_click'] == 'true'):
+                    event = event + ', event76'
+                if (req_data['forms'][parent]['steps'][child][
+                    'is_joint'] == 'true'):
+                    event = event + ', event101'
                 if 'page_name' in req_data['forms'][parent]['steps'][child]:
                     ws1.cell(row=r, column=c).value = \
                         req_data['forms'][parent]['steps'][child]['page_name']
@@ -1610,24 +1905,43 @@ class GenerateVrg:
                                                      '\neVar88:' + str(
                             req_data['forms'][parent]['steps'][child][
                                 'adjudication']) + '   // Adjudication\n '
-                    dt = dt + event
-                    ws1.cell(row=r, column=c + 7).value = str(dt)
-                    ws1.cell(row=r,
-                             column=c + 7).alignment = \
-                        openpyxl.styles.Alignment(
-                            horizontal='left', vertical='top', wrapText=True)
-                    ws1.cell(row=r, column=c + 8).value = req_data['user_name']
-                    ws1.cell(row=r,
-                             column=c + 8).alignment = \
-                        openpyxl.styles.Alignment(
-                            horizontal='center', vertical='center',
-                            wrapText=True)
-                    ws1.row_dimensions[r].height = 203
-                    # ws1.row_dimensions[r].height = 180
-                    id = id + 1
-                    r = r + 1
-
-        self.test_case_error(ws1, id, r, c, str(req_data['user_name']))
+                    if (
+                            req_data['forms'][parent][
+                                'steps'][child][
+                                'events_advertising']) == 'true':
+                        dt = dt + 'advertising.trackingcode : ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'advertising_tracking_code'] + ' // ' \
+                                                                'Advertising ' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                'Tracking ' \
+                                                                'Code \n ' \
+                                                                'advertising.location :' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'advertising_location'] + ' // Advertising ' \
+                                                           'Location \n ' \
+                                                           'advertising.type: ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'advertising_type'] + ' // Advertsing Type\n'
+                dt = dt + event
+                ws1.cell(row=r, column=c + 7).value = str(dt)
+                ws1.cell(row=r,
+                         column=c + 7).alignment = \
+                    openpyxl.styles.Alignment(
+                        horizontal='left', vertical='top', wrapText=True)
+                ws1.cell(row=r, column=c + 8).value = req_data['user_name']
+                ws1.cell(row=r,
+                         column=c + 8).alignment = \
+                    openpyxl.styles.Alignment(
+                        horizontal='center', vertical='center',
+                        wrapText=True)
+                ws1.row_dimensions[r].height = 203
+                # ws1.row_dimensions[r].height = 180
+                id = id + 1
+                r = r + 1
+            self.test_case_error(ws1, id, r, c, str(req_data['user_name']))
 
     def test_case_mobile_json(self, req_data, workbook):
         border = Border(left=Side(border_style='thin', color='FF000000'),
@@ -1637,6 +1951,15 @@ class GenerateVrg:
 
         e = 'To Verify Adobe variables match those detailed in the JSON. \n ' \
             '\n Pre Condition: Charles Proxy tool to be launched for testing ' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
+            '' \
             '' \
             '' \
             '' \
@@ -1789,7 +2112,7 @@ class GenerateVrg:
                         'page_accessibility']) + ' //Page Accessibility \n  ' \
                                                  'page.language : ' + str(
                     req_data['pages'][i][
-                        'page_language']) + '\nuser.authstate:' + str(
+                        'page_language']) + '\n user.authstate:' + str(
                     req_data['pages'][i][
                         'user_auth_state']) + ' // depending on pre sign on ' \
                                               'or post sign on \n ' \
@@ -1802,7 +2125,29 @@ class GenerateVrg:
                                       ' ' \
                                       '' \
                                       'should be consistent throughout the ' \
-                                      'whole app. ' + '\n \n'
+                                      'whole app. ' + '\n'
+
+                if req_data['pages'][i]['events_advertising'] == 'true':
+                    dct = dct + 'event.adImpression : ' + req_data['pages'][i][
+                        'events_advertising'] + ' // Ad Impression \n ' + \
+                          'event.adclick : ' \
+                          + req_data['pages'][i][
+                              'events_ad_click'] + ' //Ad Click \n ' \
+                                                   'advertising.type : ' + \
+                          req_data['pages'][i]['advertising_type'] \
+                          + '// Advertising Type \n advertising.location : ' \
+                          + \
+                          req_data['pages'][i]['advertising_location'] \
+                          + '// Advertising Location \n ' \
+                            'advertising.trackingcode : ' + \
+                          req_data['pages'][i][
+                              'advertising_tracking_code'] + ' // ' \
+                                                             'Advertising ' \
+                                                             'Tracking Code\n'
+                if req_data['pages'][i]['is_login'] == 'true':
+                    dct = dct + 'events.login : ' + req_data['pages'][i][
+                        'is_login'] + ' //Login Event'
+
                 ws1.cell(row=r, column=c + 7).value = str(dct)
                 ws1.cell(row=r,
                          column=c + 7).alignment = openpyxl.styles.Alignment(
@@ -1875,7 +2220,7 @@ class GenerateVrg:
                     bold=True)
                 ws1.cell(row=r, column=c + 5).border = border
 
-            dct = self.get_interaction_expected_result(dct, i, req_data)
+            dct = self.get_interaction_expected_result(i, req_data)
             if 'site_brand' in req_data:
                 ws1.cell(row=r, column=c + 7).value = str(dct)
                 ws1.cell(row=r,
@@ -1910,8 +2255,7 @@ class GenerateVrg:
                     ws1.cell(row=r,
                              column=2).alignment = openpyxl.styles.Alignment(
                         horizontal='center', vertical='center', wrapText=True)
-                    # ws1.cell(row=r, column=c + 2).font =
-                    # openpyxl.styles.Font(bold=True)
+
                     ws1.cell(row=r, column=2).border = border
 
                     ws1.cell(row=r, column=3).value = str(
@@ -1966,7 +2310,8 @@ class GenerateVrg:
                          'site.name:' + self.get_site_name_code(
                         str(req_data[
                                 'site_name'])) + ' //Site Name \n ' \
-                                                 'site.type:' + 'mobile' + '    //Type of the Site' + '\n site.brand: ' + str(
+                                                 'site.type:' + 'mobile' + '    ' \
+                                                                           '//Type of the Site' + '\n site.brand: ' + str(
                         req_data[
                             'site_type']) + '  //Site Brand\n ' \
                                             'site.environment: ' + str(
@@ -1981,7 +2326,8 @@ class GenerateVrg:
                         "test") + ' // Hierarchy of the Page' + '\n page.language: ' + str(
                         req_data['forms'][parent]['steps'][child][
                             'page_language']) + '// Language Supported For ' \
-                                                'Page' + '\n page.accessibility: ' \
+                                                'Page' + '\n page.accessibility:' \
+                                                         ' ' \
                                                          '' \
                                                          '' + str(
                         req_data['forms'][parent]['steps'][child][
@@ -2014,10 +2360,20 @@ class GenerateVrg:
                                                               '' \
                                                               '' \
                                                               '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
+                                                              '' \
                                                               '' + str(
                         req_data['forms'][parent]['steps'][child][
                             'step_name']) + ' //Form Step Name' + ' \n ' \
-                                                                  'unique.id: ' + str(
+                                                                  'unique.id: ' \
+                         + str(
                         req_data['forms'][parent]['steps'][child][
                             'unique_id']) + ' // Unique Id of Form'
                     if req_data['forms'][parent][
@@ -2072,8 +2428,8 @@ class GenerateVrg:
                         if req_data['forms'][parent]['steps'][child][
                             'terms_and_condition'] == 'true':
                             dt = dt + '\n application.termsandcondition : ' \
-                                    + str(req_data['forms'][parent]['steps']\
-                                              [child]['terms_and_condition'])
+                                 + str(req_data['forms'][parent]['steps'] \
+                                           [child]['terms_and_condition'])
                         if req_data['forms'][parent]['steps'][child][
                             'is_paperless'] == 'true':
                             dt = dt + '\n ispaperless : ' + str(
@@ -2083,23 +2439,59 @@ class GenerateVrg:
                     if req_data['forms'][parent]['steps'][child][
                         'form_view'] == 'true':
                         dt = dt + '\n event.formview: ' + str(
-                                req_data['forms'][parent]['steps'][child][
+                            req_data['forms'][parent]['steps'][child][
                                 'form_view'])
                     if req_data['forms'][parent]['steps'][child][
                         'form_step'] == 'true':
                         dt = dt + '\n event.formstep : ' + str(
-                                req_data['forms'][parent]['steps'][child][
+                            req_data['forms'][parent]['steps'][child][
                                 'form_step'])
                     if req_data['forms'][parent]['steps'][child][
                         'form_qualify'] == 'true':
                         dt = dt + '\n event.formqualify: ' + str(
-                                req_data['forms'][parent]['steps'][child][
+                            req_data['forms'][parent]['steps'][child][
                                 'form_qualify'])
                     if req_data['forms'][parent]['steps'][child][
                         'form_submit'] == 'true':
                         dt = dt + '\n event.submit : ' + str(
-                                req_data['forms'][parent]['steps'][child][
+                            req_data['forms'][parent]['steps'][child][
                                 'form_submit'])
+                    if (req_data['forms'][parent][
+                        'steps'][child][
+                        'events_advertising']) == 'true':
+                        dt = dt + '\n advertising.trackingcode : ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'advertising_tracking_code'] + ' // ' \
+                                                                'Advertising ' \
+                                                                '' \
+                                                                '' \
+                                                                '' \
+                                                                'Tracking ' \
+                                                                'Code \n ' \
+                                                                'advertising.location :' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'advertising_location'] + ' // Advertising ' \
+                                                           'Location \n ' \
+                                                           'advertising.type: ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'advertising_type'] + ' // Advertsing ' \
+                                                       'Type\n ' \
+                                                       'events.adimpression ' \
+                                                       ': ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'events_advertising'] + ' //Advertising ' \
+                                                         'Impression \n ' \
+                                                         'events.adclick: ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'events_ad_click'] + ' //Ad-Click Events'
+
+                    if (req_data['forms'][parent][
+                        'steps'][child][
+                        'is_login']) == 'true':
+                        dt = dt + '\n events.login : ' + \
+                             req_data['forms'][parent]['steps'][child][
+                                 'is_login'] + " // Login Event"
+
                     ws1.cell(row=r, column=c + 7).value = str(dt)
                     ws1.cell(row=r,
                              column=c + 7).alignment = \
@@ -2146,7 +2538,7 @@ class GenerateVrg:
                 ws1.cell(row=r, column=c + 4).value = e
                 ws1.cell(row=r,
                          column=c + 4).alignment = openpyxl.styles.Alignment(
-                     horizontal='left', vertical='top', wrapText=True)
+                    horizontal='left', vertical='top', wrapText=True)
                 ws1.cell(row=r, column=c + 4).border = border
 
                 ws1.cell(row=r, column=c + 6).value = g
@@ -2193,7 +2585,6 @@ class GenerateVrg:
             r = r + 1
 
     def get_interaction_expected_result(self,
-                                        interaction_test_case_expected_result,
                                         i, req_data):
         interaction_test_case_expected_result = 'page_name' + str(
             req_data['site_brand']) + '>' + self.get_site_name_code(
@@ -2228,7 +2619,19 @@ class GenerateVrg:
                 'interaction_name']) + " //Interaction Name \n " \
                                        'event.siteInteraction: ' + \
                                                 req_data['interaction'][i][
-                                                    'site_interaction_event'] + '// Site Interaction Event' + '\n user.id : {dynamic} //User Id' + '\n user.authstate : {not-authenticated | authenticated} // depending on pre sign on or post sign on '
+                                                    'site_interaction_event'] + \
+                                                '// Site Interaction Event' + \
+                                                '\n user.id : {dynamic} ' \
+                                                '//User ' \
+                                                'Id' + '\n user.authstate : ' \
+                                                       '{' \
+                                                       'not-authenticated | ' \
+                                                       'authenticated} // ' \
+                                                       'depending on pre ' \
+                                                       'sign on ' \
+                                                       '' \
+                                                       '' \
+                                                       'or post sign on '
 
         return interaction_test_case_expected_result
 
@@ -2241,7 +2644,7 @@ class GenerateVrg:
                 'page_name']) + '    //Unique for each Page {Download Page}' \
                                 '' + '\n' + 'site.name :' + \
                                              self.get_site_name_code(
-                                                        str(req_data[
+                                                 str(req_data[
                                                          'site_name'])) + ' //Name of the Site\n site.type: ' \
                                                                           'mobile' + '  //Type of the site' + '\n site.brand: ' + str(
             req_data[
@@ -2253,8 +2656,12 @@ class GenerateVrg:
             "test") + '  // Hierarchy of the Page' + '\n page.language: ' + \
                                              str(
                                                  req_data['download'][i][
-                                                     'page_language']) + '    // Language Supported For ' \
-                                                                         'Page' + '\n page.accessibility:' + str(
+                                                     'page_language']) + '    // ' \
+                                                                         '' \
+                                                                         '' \
+                                                                         'Language Supported For ' \
+                                                                         'Page' \
+                                             + '\n page.accessibility:' + str(
             req_data['download'][i][
                 'page_accessibility']) + '//Page Accessibility ' + '\n file.name: ' + str(
             req_data['download'][i][
@@ -2263,7 +2670,15 @@ class GenerateVrg:
                                                              'event.download: ' + \
                                              req_data['download'][i][
                                                  'events_download'] + '//  ' \
-                                                                      'Download Event' + '\n user.id : {dynamic} //User Id' + '\n user.authstate : {not-authenticated | authenticated} // depending on pre sign on or post sign on '
+                                                                      'Download ' \
+                                                                      'Event' + \
+                                             '\n user.id : {dynamic} //User ' \
+                                             'Id' \
+                                             + '\n user.authstate : {' \
+                                               'not-authenticated | ' \
+                                               'authenticated} // depending ' \
+                                               'on ' \
+                                               'pre sign on or post sign on '
 
         return download_test_case_expected_result
 
