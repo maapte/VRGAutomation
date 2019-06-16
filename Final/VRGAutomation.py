@@ -3,6 +3,7 @@ import os
 import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
 from Download import Download
 from Form import Form
@@ -12,6 +13,7 @@ from StandalonePage import StandalonePage
 from Steps import Steps
 from Vrg import Vrg
 from constant.ApplicationConstant import *
+from constant.ToolTipMessage import *
 
 
 # noinspection PyArgumentList
@@ -156,6 +158,74 @@ class VRGAutomation(object):
         self.both = 0
         self.steps = list()
 
+    def tooltip_for_standalone(self):
+        """
+            This method is responsible to provide tooltip information to
+            standalone groupbox controls such as Page Name, Page Hierarchy or
+            Route Name, Error Information, Login Information ,is_login,otvc
+            and is_advertising
+        :return None:
+        """
+        if self.application_type_combo.currentText() == APPLICATION_EMBER:
+            self.page_name_standalone.setToolTip(TOOLTIP_PAGE_NAME_DISABLED)
+            self.page_hierarchy_standalone.setToolTip(TOOLTIP_ROUTE_NAME)
+        else:
+            self.page_name_standalone.setToolTip(TOOLTIP_PAGE_NAME)
+            self.page_hierarchy_standalone.setToolTip(TOOLTIP_PAGE_HIERARCHY)
+        self.yes_login_standalone.setToolTip(TOOLTIP_YES_LOGIN)
+        self.no_login_standalone.setToolTip(TOOLTIP_NO_LOGIN)
+        self.both_login_standalone.setToolTip(TOOLTIP_BOTH_LOGIN)
+        self.is_login_standalone.setToolTip(TOOLTIP_IS_LOGIN)
+        self.advertising_standalone.setToolTip(TOOLTIP_ADVERTISING)
+        self.otvc_standalone.setToolTip(TOOLTIP_OTVC)
+        self.yes_error_standalone.setToolTip(TOOLTIP_YES_ERROR)
+        self.no_error_standalone.setToolTip(TOOLTIP_NO_ERROR)
+
+    def tooltip_for_flow(self):
+        """
+            This method is responsible to provide tooltip information to
+            Form and Step group-box controls such as Page Name, Page Hierarchy
+            or Route Name, Error Information, Login Information ,is_login,otvc
+            form_name,no.of_steps, Product information, Transaction information,
+            etc.
+        :return None:
+        """
+        if self.application_type_combo.currentText() == APPLICATION_EMBER:
+            self.page_name_steps.setToolTip(TOOLTIP_PAGE_NAME_DISABLED)
+            self.page_hierarchy_steps.setToolTip(TOOLTIP_ROUTE_NAME)
+        else:
+            self.page_name_steps.setToolTip(TOOLTIP_PAGE_NAME)
+            self.page_hierarchy_steps.setToolTip(TOOLTIP_PAGE_HIERARCHY)
+        self.yes_login_group_box_steps.setToolTip(TOOLTIP_YES_LOGIN)
+        self.no_login_group_box_steps.setToolTip(TOOLTIP_NO_LOGIN)
+        self.both_login_group_box_steps.setToolTip(TOOLTIP_BOTH_LOGIN)
+        self.is_login_steps.setToolTip(TOOLTIP_IS_LOGIN)
+        self.advertising_steps.setToolTip(TOOLTIP_ADVERTISING)
+        self.otvc_steps.setToolTip(TOOLTIP_OTVC)
+        self.yes_error_steps_group_box.setToolTip(TOOLTIP_YES_ERROR)
+        self.no_error_steps_group_box.setToolTip(TOOLTIP_NO_ERROR)
+        self.from_text_steps.setToolTip(TOOLTIP_TRANSACTION_FROM)
+        self.to_text_steps.setToolTip(TOOLTIP_TRANSACTION_TO)
+        self.is_external_check_box_steps.setToolTip(TOOLTIP_IS_EXTERNAL)
+        self.form_name_form_box.setToolTip(TOOLTIP_FORM_NAME)
+        self.step_name_steps.setToolTip(TOOLTIP_STEP_NAME)
+        self.personal_details_steps.setToolTip(
+            TOOLTIP_PRODUCT_PERSONAL_DETAILS)
+        self.summary_steps.setToolTip(TOOLTIP_PRODUCT_SUMMARY)
+        self.confirmation_steps.setToolTip(TOOLTIP_PRODUCT_CONFIRMATION)
+        self.is_joint_steps.setToolTip(LABEL_IS_JOINT)
+        self.product_recommendation_steps.setToolTip(
+                    TOOLTIP_PRODUCT_RECOMMENDATION)
+        self.terms_and_condition_steps.setToolTip(TOOLTIP_TERMS_AND_CONDITION)
+        self.is_paperless_steps.setToolTip(TOOLTIP_IS_PAPERLESS)
+        self.product_id_steps.setToolTip(TOOLTIP_PRODUCT_ID)
+        self.parent_product_steps.setToolTip(TOOLTIP_PARENT_PRODUCT_NAME)
+        self.adjudication_steps.setToolTip(TOOLTIP_ADJUDICATION)
+        self.positioning_combo_box_steps.setToolTip(
+                    TOOLTIP_PRODUCT_POSITIONING)
+        self.grouping_combo_box.setToolTip(TOOLTIP_PRODUCT_GROUPING)
+        self.fulfillment_combo_box_steps.setToolTip(TOOLTIP_PRODUCT_GROUPING)
+
     @staticmethod
     def close_button(self):
         sys.exit(app.exec_())
@@ -199,12 +269,15 @@ class VRGAutomation(object):
         self.step_group_box.setEnabled(LABEL_FALSE)
 
     def save_form_page(self):
+        """
+            This method is responsible to create form (flow) instance
+            and will enable (or transfer the flow to steps) step groupbox
+        :return None:
+        """
         self.formObj.formName = self.form_name_form_box.text().lower()
         self.formObj.noOfSteps = self.no_of_steps_form_box.text()
-        self.form_group_box.setEnabled(LABEL_FALSE)
-        self.step_group_box.setEnabled(LABEL_TRUE)
-        self.form_steps.setChecked(LABEL_TRUE)
-        self.form_steps.setEnabled(LABEL_FALSE)
+        # If Product checkbox is checked, then product groupbox will
+        # be enabled otherwise disabled
         if self.product_checkbox_form_box.isChecked():
             self.product_group_box_steps.setEnabled(LABEL_TRUE)
             self.formObj.isProductExist = str(
@@ -213,6 +286,8 @@ class VRGAutomation(object):
             self.formObj.set_is_product_exist("true")
         else:
             self.product_group_box_steps.setEnabled(LABEL_FALSE)
+        # If Transaction checkbox is checked, then transaction groupbox will
+        # be enabled otherwise disabled
         if self.transaction_checkbox_form_box.isChecked():
             self.transaction_group_box_steps.setEnabled(LABEL_TRUE)
             self.formObj.isTransactionExist = str(
@@ -221,10 +296,28 @@ class VRGAutomation(object):
             self.formObj.set_is_transaction_exist("true")
         else:
             self.transaction_group_box_steps.setEnabled(LABEL_FALSE)
+        # Disable the from group box disabled
+        self.form_group_box.setEnabled(LABEL_FALSE)
+        # Enable the step group box enables
+        self.step_group_box.setEnabled(LABEL_TRUE)
+        # For Every Step FormStep will be checked and disabled
+        self.form_steps.setChecked(LABEL_TRUE)
+        self.form_steps.setEnabled(LABEL_FALSE)
 
     def step_page_details(self):
+        """
+            This method responsible to map the form control and step control
+            values to Form and Steps member variable.
+        :return Steps:
+        """
+        # create an instance of Steps class
         steps_obj = Steps()
         steps_obj.set_step_name(str(self.step_name_steps.text()).lower())
+
+        # Evaluating the Application Type is Ember or not
+        # if Application Type is Ember then saving the page name,
+        # page hierarchy
+        # And Page Path in Ember Application Format
         if self.application_type_combo.currentText() == APPLICATION_EMBER:
             steps_obj.set_page_name(
                 str(self.page_hierarchy_steps.text().lower().replace(" ", "-"))
@@ -251,15 +344,17 @@ class VRGAutomation(object):
                     "."
                     )
                 )
-
+        # set the From and To Name Field Text of Transaction Details
         steps_obj.set_from_transaction(
             str(self.from_text_steps.text()).lower())
         steps_obj.set_to_transaction(str(self.to_text_steps.text()).lower())
+        # set the Transaction checked status
         if self.is_external_check_box_steps.isChecked():
             steps_obj.set_is_external("true")
         else:
             steps_obj.set_is_external("false")
-
+        # set the form events such as form view , form qualify , form steps
+        # form submit .
         if self.form_view_steps.isChecked():
             steps_obj.set_form_view("true")
         else:
@@ -274,10 +369,14 @@ class VRGAutomation(object):
         else:
             steps_obj.set_form_submit("false")
 
+        # set the product id of the steps
         steps_obj.set_product_id(str(self.product_id_steps.text()).lower())
+        # set parent product info for the Product ID selected
         steps_obj.set_parent_product(
             str(self.parent_product_steps.text()).lower())
+        # set the adjudication response of the product for step
         steps_obj.set_adjudication(str(self.adjudication_steps.text()).lower())
+        # set product positioning for the Product ID selected
         if self.positioning_combo_box_steps.currentText() == \
                 LABEL_NOT_APPLICABLE:
             steps_obj.set_product_positioning(LABEL_BLANK)
@@ -285,57 +384,72 @@ class VRGAutomation(object):
             steps_obj.set_product_positioning(
                 self.positioning_combo_box_steps.currentText()
                 )
+
+        # set grouping method associated with product from dropdown
         if self.grouping_combo_box.currentText() == LABEL_NOT_APPLICABLE:
             steps_obj.set_product_grouping(LABEL_BLANK)
         else:
             steps_obj.set_product_grouping(
                 self.grouping_combo_box.currentText())
+
+        # set fulfillment method associated with product from dropdown
         if self.fulfillment_combo_box_steps.currentText() == \
                 LABEL_NOT_APPLICABLE:
             steps_obj.set_fulfillment(LABEL_BLANK)
         else:
             steps_obj.set_fulfillment(
                 self.fulfillment_combo_box_steps.currentText())
-
+        # set if this is "personal details" or "applicant info" page of
+        # the form
         if self.personal_details_steps.isChecked():
             steps_obj.set_personal_details("true")
         else:
             steps_obj.set_personal_details("false")
+
+        # set if this is summary page of the form
         if self.summary_steps.isChecked():
             steps_obj.set_summary("true")
         else:
             steps_obj.set_summary("false")
+
+        # set if this is product recommendation page of the form
         if self.product_recommendation_steps.isChecked():
             steps_obj.set_product_recommendation("true")
         else:
             steps_obj.set_product_recommendation("false")
+        # set if this is terms & conditions page of the form
         if self.terms_and_condition_steps.isChecked():
             steps_obj.set_terms_and_condition("true")
         else:
             steps_obj.set_terms_and_condition("false")
+        # set  if this is confirmation page of the form
         if self.confirmation_steps.isChecked():
             steps_obj.set_confirmation("true")
         else:
             steps_obj.set_confirmation("false")
+        # set if e-statement option will be applicable
         if self.is_paperless_steps.isChecked():
             steps_obj.set_is_paperless("true")
         else:
             steps_obj.set_is_paperless("false")
 
+        # set the login values "Yes" if this page will be accessible
+        # to logged-in user Select ""Both"" if this page will be accessible
+        # to both logged-in and not logged-in user
+        # Select ""No"" if none of the them is applicable"
         if self.yes_login_group_box_steps.isChecked():
             steps_obj.set_user_id("{dynamic}")
             steps_obj.set_user_auth_state("{authenticated}")
             steps_obj.set_user_type("{dynamic}")
-
         elif self.both_login_group_box_steps.isChecked():
             steps_obj.set_user_id("{dynamic}")
             steps_obj.set_user_auth_state(
                 "{not-authenticated | authenticated}")
             steps_obj.set_user_type("{dynamic}")
-
         elif self.no_login_group_box_steps.isChecked():
             steps_obj.set_user_auth_state("{not-authenticated}")
-
+        # set the login values "Yes" to capture error info occurs on the page,
+        # otherwise select "No" to ignore
         if self.yes_error_steps_group_box.isChecked():
             steps_obj.set_event_error("true")
             steps_obj.set_error_message("{dynamic}")
@@ -343,9 +457,10 @@ class VRGAutomation(object):
             steps_obj.set_error_sub_type("{dynamic}")
             steps_obj.set_error_type("{dynamic}")
             steps_obj.set_error_field("{dynamic}")
-
+        # Select if this will be the immediate page post login
         if self.is_login_steps.isChecked():
             steps_obj.set_is_login("true")
+        # Select this checkbox to capture internal ad campaign
         if self.advertising_steps.isChecked():
             steps_obj.set_advertising("true")
             steps_obj.events_advertising = 'true'
@@ -353,112 +468,127 @@ class VRGAutomation(object):
             steps_obj.advertising_tracking_code = '{dynamic}'
             steps_obj.advertising_location = '{dynamic}'
             steps_obj.advertising_type = '{dynamic}'
+        # Select this if this page has OTVC authentication
         if self.otvc_steps.isChecked():
             steps_obj.set_is_otvc("true")
+        # Select if product/application is for multi user
         if self.is_joint_steps.isChecked():
             steps_obj.set_is_joint("true")
         return steps_obj
 
     def save_steps_information(self):
-        no_of_steps = int(self.no_of_steps_form_box.text())
-        steps_obj = Steps()
-        if len(self.steps) == 0:
-            steps_obj = self.step_page_details()
+        """
+        This Method is responsible to save the steps infromation
+        :return None:
+        """
+        confirm = QMessageBox.question(self.central_widget,
+                                       'Save Steps Information',
+                                       "Click <b> Yes </b> to save and <b> No </b> "
+                                       "to Cancel", QMessageBox.Yes
+                                       | QMessageBox.No, QMessageBox.No)
+        if confirm == QMessageBox.Yes:
+            no_of_steps = int(self.no_of_steps_form_box.text())
+            steps_obj = Steps()
+            if len(self.steps) == 0:
+                steps_obj = self.step_page_details()
 
-        elif len(self.steps) < no_of_steps:
-            steps_obj = self.step_page_details()
+            elif len(self.steps) < no_of_steps:
+                steps_obj = self.step_page_details()
 
-        elif len(self.steps) == no_of_steps:
-            steps_obj = self.step_page_details()
-            if self.product_checkbox_form_box.isChecked():
-                self.formObj.set_is_product_exist("true")
-            else:
-                self.formObj.set_is_product_exist("false")
+            elif len(self.steps) == no_of_steps:
+                steps_obj = self.step_page_details()
+                if self.product_checkbox_form_box.isChecked():
+                    self.formObj.set_is_product_exist("true")
+                else:
+                    self.formObj.set_is_product_exist("false")
 
-            if self.transaction_checkbox_form_box.isChecked():
-                self.formObj.set_is_transaction_exist("true")
-            else:
-                self.formObj.set_is_transaction_exist("false")
-            if self.edit_flag == 0:
+                if self.transaction_checkbox_form_box.isChecked():
+                    self.formObj.set_is_transaction_exist("true")
+                else:
+                    self.formObj.set_is_transaction_exist("false")
+                if self.edit_flag == 0:
+                    self.clear_product_steps_fields()
+
+            # if the edit flag is 1, then selected step from the dropdown will be
+            # edited .
+            if self.edit_flag == 1:
+                edit_name = self.list_combo_box.currentText()
+                steps_obj = self.step_page_details()
+                for i in range(0, len(self.vrg.forms)):
+                    for j in range(0, len(self.vrg.forms[i]["steps"])):
+                        if "step_name" in self.vrg.forms[i]["steps"][j]:
+                            f1 = self.vrg.forms[i]["form_name"] + "-"
+                            step_name_edit = str(edit_name).replace(str(f1), "")
+                            if self.vrg.forms[i]["steps"][j][
+                                "step_name"] == step_name_edit:
+                                step = json.dumps(steps_obj.__dict__)
+                                self.vrg.forms[i]["steps"][j] = json.loads(step)
+                                self.clear_steps_fields()
+                                self.clear_product_steps_fields()
+                                self.step_group_box.setEnabled(LABEL_FALSE)
+                                self.clear_form_values()
+                                self.form_group_box.setEnabled(LABEL_FALSE)
+                                self.add_flow.setEnabled(LABEL_TRUE)
+                                self.add_button.setEnabled(LABEL_TRUE)
+                                self.interaction_button.setEnabled(LABEL_TRUE)
+                                self.download_button.setEnabled(LABEL_TRUE)
+
+
+            self.vrg.set_project_name(
+                self.project_name.text().lower().replace(" ", "-"))
+            self.vrg.set_user_name(self.user_name.text().lower())
+            self.vrg.set_site_name(self.site_name.text().lower().replace(" ", "-"))
+            self.vrg.set_site_brand(
+                self.brand_combo_box.currentText().lower().replace(" ", "-")
+                )
+            self.vrg.set_application_types(
+                self.application_type_combo.currentText().lower().replace(" ", "-")
+                )
+            self.vrg.set_site_type(
+                self.site_type_combo.currentText().lower().replace(" ", "-")
+                )
+
+            if len(self.steps) >= 0 and self.edit_flag == 0:
+                step = json.dumps(steps_obj.__dict__)
+                self.steps.append(json.loads(step))
+                self.clear_steps_fields()
+            if len(self.steps) == no_of_steps and self.edit_flag == 0:
                 self.clear_product_steps_fields()
+                if self.product_checkbox_form_box.isChecked():
+                    self.product_group_box_steps.setEnabled(LABEL_TRUE)
+                    self.formObj.isProductExist = str(
+                        self.product_checkbox_form_box.isChecked()
+                        )
+                    self.formObj.set_is_product_exist("true")
+                else:
+                    self.product_group_box_steps.setEnabled(LABEL_FALSE)
+                    self.formObj.set_is_product_exist("false")
+                if self.transaction_checkbox_form_box.isChecked():
+                    self.transaction_group_box_steps.setEnabled(LABEL_TRUE)
+                    self.formObj.isTransactionExist = str(
+                        self.transaction_checkbox_form_box.isChecked()
+                        )
+                    self.formObj.set_is_transaction_exist("true")
+                else:
+                    self.transaction_group_box_steps.setEnabled(LABEL_FALSE)
+                    self.formObj.set_is_transaction_exist("false")
 
-        if self.edit_flag == 1:
-            edit_name = self.list_combo_box.currentText()
-            steps_obj = self.step_page_details()
-            for i in range(0, len(self.vrg.forms)):
-                for j in range(0, len(self.vrg.forms[i]["steps"])):
-                    if "step_name" in self.vrg.forms[i]["steps"][j]:
-                        f1 = self.vrg.forms[i]["form_name"] + "-"
-                        step_name_edit = str(edit_name).replace(str(f1), "")
-                        if self.vrg.forms[i]["steps"][j][
-                            "step_name"] == step_name_edit:
-                            step = json.dumps(steps_obj.__dict__)
-                            self.vrg.forms[i]["steps"][j] = json.loads(step)
-                            self.clear_steps_fields()
-                            self.clear_product_steps_fields()
-                            self.step_group_box.setEnabled(LABEL_FALSE)
-                            self.clear_form_values()
-                            self.form_group_box.setEnabled(LABEL_FALSE)
-                            self.add_flow.setEnabled(LABEL_TRUE)
-                            self.add_button.setEnabled(LABEL_TRUE)
-                            self.interaction_button.setEnabled(LABEL_TRUE)
-                            self.download_button.setEnabled(LABEL_TRUE)
-
-        self.vrg.set_project_name(
-            self.project_name.text().lower().replace(" ", "-"))
-        self.vrg.set_user_name(self.user_name.text().lower())
-        self.vrg.set_site_name(self.site_name.text().lower().replace(" ", "-"))
-        self.vrg.set_site_brand(
-            self.brand_combo_box.currentText().lower().replace(" ", "-")
-            )
-        self.vrg.set_application_types(
-            self.application_type_combo.currentText().lower().replace(" ", "-")
-            )
-        self.vrg.set_site_type(
-            self.site_type_combo.currentText().lower().replace(" ", "-")
-            )
-
-        if len(self.steps) >= 0 and self.edit_flag == 0:
-            step = json.dumps(steps_obj.__dict__)
-            self.steps.append(json.loads(step))
-            self.clear_steps_fields()
-        if len(self.steps) == no_of_steps and self.edit_flag == 0:
-            self.clear_product_steps_fields()
-            if self.product_checkbox_form_box.isChecked():
-                self.product_group_box_steps.setEnabled(LABEL_TRUE)
-                self.formObj.isProductExist = str(
-                    self.product_checkbox_form_box.isChecked()
-                    )
-                self.formObj.set_is_product_exist("true")
-            else:
-                self.product_group_box_steps.setEnabled(LABEL_FALSE)
-                self.formObj.set_is_product_exist("false")
-            if self.transaction_checkbox_form_box.isChecked():
-                self.transaction_group_box_steps.setEnabled(LABEL_TRUE)
-                self.formObj.isTransactionExist = str(
-                    self.transaction_checkbox_form_box.isChecked()
-                    )
-                self.formObj.set_is_transaction_exist("true")
-            else:
-                self.transaction_group_box_steps.setEnabled(LABEL_FALSE)
-                self.formObj.set_is_transaction_exist("false")
-
-            form_obj = {
-                "form_name": self.form_name_form_box.text().lower(),
-                "no_of_steps": self.no_of_steps_form_box.text(),
-                "is_product_exist": self.formObj.get_is_product_exist,
-                "is_transaction_exist": self.formObj.get_is_transaction_exist,
-                "steps": self.steps,
-                }
-            form_obj_dump = json.dumps(form_obj)
-            self.vrg.forms.append(json.loads(form_obj_dump))
-            self.step_group_box.setEnabled(LABEL_FALSE)
-            self.add_flow.setEnabled(LABEL_TRUE)
-            self.add_button.setEnabled(LABEL_TRUE)
-            self.interaction_button.setEnabled(LABEL_TRUE)
-            self.download_button.setEnabled(LABEL_TRUE)
-        self.edit_flag = 0
-        self.iterate_list_box()
+                form_obj = {
+                    "form_name": self.form_name_form_box.text().lower(),
+                    "no_of_steps": self.no_of_steps_form_box.text(),
+                    "is_product_exist": self.formObj.get_is_product_exist,
+                    "is_transaction_exist": self.formObj.get_is_transaction_exist,
+                    "steps": self.steps,
+                    }
+                form_obj_dump = json.dumps(form_obj)
+                self.vrg.forms.append(json.loads(form_obj_dump))
+                self.step_group_box.setEnabled(LABEL_FALSE)
+                self.add_flow.setEnabled(LABEL_TRUE)
+                self.add_button.setEnabled(LABEL_TRUE)
+                self.interaction_button.setEnabled(LABEL_TRUE)
+                self.download_button.setEnabled(LABEL_TRUE)
+            self.edit_flag = 0
+            self.iterate_list_box()
 
     def iterate_list_box(self):
         self.list_combo_box.clear()
@@ -488,24 +618,48 @@ class VRGAutomation(object):
                 self.list_combo_box.addItem(value)
 
     def clear_form_values(self):
+        """
+            This Method is responsible to clear/reset the form control such as
+            form Name,no_of_steps,is_product,is_transaction
+        :return None:
+        """
+        # Reset the Form Name Field Text to Empty
         self.form_name_form_box.setText("")
+        # Reset the No.Of Steps Field Text to Empty
         self.no_of_steps_form_box.setText("")
+        # Reset the Transaction Checkbox as Unchecked
         self.transaction_checkbox_form_box.setChecked(LABEL_FALSE)
+        # Reset the Product Checkbox as Unchecked
         self.product_checkbox_form_box.setChecked(LABEL_FALSE)
 
     def clear_steps_fields(self):
+        """
+            This Method is responsible to clear/reset the steps controls
+        :return None:
+        """
+        # Reset the Step Name Field Text to Empty
         self.step_name_steps.setText("")
+        # Reset the Page Name Field Text to Empty
         self.page_name_steps.setText("")
+        # Reset the Page Hierarchy Name Field Text to Empty
         self.page_hierarchy_steps.setText("")
+        # Reset the From Name Field Text From Transaction  is set to Empty
         self.from_text_steps.setText("")
+        # Reset the To Name Field Text From Transaction  is set to Empty
         self.to_text_steps.setText("")
+        self.is_external_check_box_steps.setChecked(LABEL_FALSE)
+        # Reset the Form view,Form Submit,Form Qualify Checkbox's as Unchecked
         self.form_view_steps.setChecked(LABEL_FALSE)
         self.form_submit_steps.setChecked(LABEL_FALSE)
         self.form_qualify_steps.setChecked(LABEL_FALSE)
-        self.is_external_check_box_steps.setChecked(LABEL_FALSE)
+        # Reset the login fields such as Yes,No and Both for Checkbox's as
+        # Unchecked
         self.yes_login_group_box_steps.setChecked(LABEL_FALSE)
         self.both_login_group_box_steps.setChecked(LABEL_FALSE)
         self.no_login_group_box_steps.setChecked(LABEL_FALSE)
+        # Reset the Product Events Checkboxes such as Personal Details,Summary
+        # Confirmation,product recommendation,terms and condition,is paperless
+        # and is joint to Unchecked
         self.personal_details_steps.setChecked(LABEL_FALSE)
         self.summary_steps.setChecked(LABEL_FALSE)
         self.confirmation_steps.setChecked(LABEL_FALSE)
@@ -513,8 +667,11 @@ class VRGAutomation(object):
         self.terms_and_condition_steps.setChecked(LABEL_FALSE)
         self.is_paperless_steps.setChecked(LABEL_FALSE)
         self.is_joint_steps.setChecked(LABEL_FALSE)
+        # Reset the advertising Checkbox as Unchecked
         self.advertising_steps.setChecked(LABEL_FALSE)
+        # Reset the is login Checkbox as Unchecked
         self.is_login_steps.setChecked(LABEL_FALSE)
+        # Reset the otvc (One time verification code) Checkbox as Unchecked
         self.otvc_steps.setChecked(LABEL_FALSE)
 
     def clear_product_steps_fields(self):
@@ -547,16 +704,32 @@ class VRGAutomation(object):
         application_object.generate_VRG(val)
 
     def add_flow_page(self):
+        """
+        This method is responsible  to enable the standalone Form section.
+        And disable the Standalone Page,Interaction and download section.
+        :return None:
+        """
+        # Disable the standalone groupbox
         self.standalone_page_box.setEnabled(LABEL_FALSE)
+        # Enable the Form Groupbox
         self.form_group_box.setEnabled(LABEL_TRUE)
         self.step_group_box.setEnabled(LABEL_FALSE)
-        self.add_button.setEnabled(LABEL_FALSE)
-        self.add_flow.setEnabled(LABEL_FALSE)
+        # Disable the downlaod button
         self.download_button.setEnabled(LABEL_FALSE)
+        # Disable the Interaction button
         self.interaction_button.setEnabled(LABEL_FALSE)
+        # Disable the Add Page
+        self.add_button.setEnabled(LABEL_FALSE)
+        # Disable the Add Flow Button
+        self.add_flow.setEnabled(LABEL_FALSE)
+        # Disable the Project Information
         self.disable_project_info()
+        # Reset the Form control values
         self.clear_form_values()
+        # Reset the Step control values
         self.clear_steps_fields()
+        # Tooltip information for form and steps
+        self.tooltip_for_flow()
         self.steps.clear()
 
     def application_type(self):
@@ -584,23 +757,38 @@ class VRGAutomation(object):
             self.vrg.set_site_type("responsive")
 
     def disable_project_info(self):
+        # Disable the Project Name
         self.project_name.setEnabled(LABEL_FALSE)
+        # Disable the site brand
         self.brand_combo_box.setEnabled(LABEL_FALSE)
+        # Disable the application type
         self.application_type_combo.setEnabled(LABEL_FALSE)
+        # Disable the site type
         self.site_type_combo.setEnabled(LABEL_FALSE)
+        # Disable the site name
         self.site_name.setEnabled(LABEL_FALSE)
 
     def add_page_button(self):
+        """
+        This method is responsible to to enable the standalone page section.
+        And disable the Form,Interaction and download section.
+        :return:
+        """
         self.standalone_page_box.setEnabled(LABEL_TRUE)
+        # Disable the form and step section
         self.form_group_box.setEnabled(LABEL_FALSE)
         self.step_group_box.setEnabled(LABEL_FALSE)
+        # Disable the interaction section
+        self.interaction_group_box.setEnabled(LABEL_FALSE)
+        # Disable the download section
+        self.download_group_box.setEnabled(LABEL_FALSE)
+        # Disable Standalone,Form ,Download and Interaction button
         self.add_button.setEnabled(LABEL_FALSE)
         self.add_flow.setEnabled(LABEL_FALSE)
         self.download_button.setEnabled(LABEL_FALSE)
         self.interaction_button.setEnabled(LABEL_FALSE)
-        self.interaction_group_box.setEnabled(LABEL_FALSE)
-        self.download_group_box.setEnabled(LABEL_FALSE)
         self.disable_project_info()
+        self.tooltip_for_standalone()
 
     def interaction_button_page(self):
         self.interaction_group_box.setEnabled(LABEL_TRUE)
@@ -688,8 +876,30 @@ class VRGAutomation(object):
         self.iterate_list_box()
 
     def save_standalone_page(self):
+        # Confirmation window to save the standalone page with Option
+        # Yes and No
+        confirm = QMessageBox.question(self.central_widget,
+                                       'Save Standalone Information',
+                                       "Click <b> Yes </b> to save and <b> No </b> "
+                                       "to Cancel", QMessageBox.Yes
+                                       | QMessageBox.No, QMessageBox.No)
+        # if confirm is 'YES' then the standalone page information will be
+        # saved.
+        if confirm == QMessageBox.Yes:
+            self.save_standalone_info()
+        # if confirm is 'No' then the standalone page information won't be
+        # saved.
+        if confirm == QMessageBox.No:
+            pass
+
+    def save_standalone_info(self):
         edit_name = self.list_combo_box.currentText()
+        # created an instance of Standalone Object
         standalone_page_obj = StandalonePage()
+        # Evaluating the Application Type is Ember or not
+        # if Application Type is Ember then saving the page name,
+        # page hierarchy
+        # And Page Path in Ember Application Format
         if self.application_type_combo.currentText() == APPLICATION_EMBER:
             standalone_page_obj.set_page_name(
                 str(self.page_hierarchy_standalone.text().lower().replace(" ",
@@ -705,6 +915,9 @@ class VRGAutomation(object):
                 str(self.page_hierarchy_standalone.text().lower().replace(" ",
                                                                           "-"))
                 )
+        # if Application Type is Angular then saving the page name,
+        # page hierarchy
+        # And Page Path in Ember Application Format
         if self.application_type_combo.currentText() == APPLICATION_ANGULAR:
             standalone_page_obj.set_page_name(
                 str(self.page_name_standalone.text().lower().replace(" ", "-"))
@@ -718,8 +931,8 @@ class VRGAutomation(object):
             standalone_page_obj.set_page_path(
                 str(self.page_name_standalone.text().lower().replace(" ", "-"))
                 )
-
-        # Error Code Checked or Unchecked
+        # if the Error Checkbox is Selected as "Yes" then capture error info
+        # Else if it is selected as "No" to ignore
         if self.yes_error_standalone.isChecked():
             standalone_page_obj.set_event_error("true")
             standalone_page_obj.set_error_message("{dynamic}")
@@ -727,18 +940,21 @@ class VRGAutomation(object):
             standalone_page_obj.set_error_type("{dynamic}")
             standalone_page_obj.set_error_sub_type("{dynamic}")
             standalone_page_obj.set_error_field("{dynamic}")
-
-        # Login Code Checked or Unchecked
+        # if the login is Selected "Yes" then this page will be accessible
+        # to only logged-in user.
         if self.yes_login_standalone.isChecked():
             standalone_page_obj.set_user_id("{dynamic}")
             standalone_page_obj.set_user_auth_state("{authenticated}")
             standalone_page_obj.set_user_type("{dynamic}")
             standalone_page_obj.set_login_event("true")
+        # if the login is Selected  "No" then none of the them is applicable
         elif self.no_login_standalone.isChecked():
             standalone_page_obj.set_user_id("")
             standalone_page_obj.set_user_auth_state("non-authenticated")
             standalone_page_obj.set_user_type("")
             standalone_page_obj.set_event_error("false")
+        # if the login is Selected "Both" then this page will be accessible to
+        # both logged-in and not logged-in user
         elif self.both_login_standalone.isChecked():
             standalone_page_obj.set_user_id("{dynamic}")
             standalone_page_obj.set_user_auth_state(
@@ -746,8 +962,11 @@ class VRGAutomation(object):
                 )
             standalone_page_obj.set_user_type("{dynamic}")
             standalone_page_obj.set_login_event("true")
+        # Select if this will be the immediate page post login
         if self.is_login_standalone.isChecked():
             standalone_page_obj.set_is_login("true")
+        # Select this checkbox to capture internal ad campaign,ad tracking code
+        # ad Type , ad Location
         if self.advertising_standalone.isChecked():
             standalone_page_obj.set_advertising("true")
             standalone_page_obj.set_events_advertising("true")
@@ -755,21 +974,25 @@ class VRGAutomation(object):
             standalone_page_obj.set_advertising_tracking_code("{dynamic}")
             standalone_page_obj.set_advertising_location("{dynamic}")
             standalone_page_obj.set_advertising_type("{dynamic}")
+        # Select this if this page has OTVC (One Time Verification Code)
+        # authentication
         if self.otvc_standalone.isChecked():
             standalone_page_obj.set_is_otvc("true")
+        # if the edit flag is 1, then the edited information will be entered
+        # in an instance.
         if self.edit_flag == 1:
             for i in range(0, len(self.vrg.pages)):
                 if "page_name" in self.vrg.pages[i]:
                     if self.vrg.pages[i]["page_name"] == edit_name:
                         page = json.dumps(standalone_page_obj.__dict__)
-                        v = json.loads(page)
-                        self.vrg.pages[i] = v
-
+                        json_standalone_page = json.loads(page)
+                        self.vrg.pages[i] = json_standalone_page
         if len(self.vrg.pages) >= 0 and self.edit_flag == 0:
             page = json.dumps(standalone_page_obj.__dict__)
             self.vrg.pages.append(json.loads(page))
-
+        # Reset the Standalone Form Controls
         self.reset_standalone_page()
+        # reset the edit_flag to 0
         self.edit_flag = 0
         self.iterate_list_box()
 
@@ -973,9 +1196,9 @@ class VRGAutomation(object):
                                 self.vrg.forms[i]["steps"][j]["page_name"]
                                 )
                             page_hierarchy_steps_str = \
-                            self.vrg.forms[i]["steps"][j][
-                                "page_hierarchy"
-                            ]
+                                self.vrg.forms[i]["steps"][j][
+                                    "page_hierarchy"
+                                ]
                             page_hierarchy_steps_str = ".".join(
                                 page_hierarchy_steps_str
                                 )
@@ -1324,6 +1547,7 @@ class VRGAutomation(object):
         self.project_name = QtWidgets.QLineEdit(self.central_widget)
         self.project_name.setGeometry(QtCore.QRect(150, 70, 231, 28))
         self.project_name.setObjectName("project_name")
+        self.project_name.setToolTip(TOOLTIP_PROJECT_NAME)
 
         self.user_name_label = QtWidgets.QLabel(self.central_widget)
         self.user_name_label.setGeometry(QtCore.QRect(490, 70, 90, 28))
@@ -1347,6 +1571,7 @@ class VRGAutomation(object):
         self.brand_combo_box.addItem("")
         self.brand_combo_box.addItem("")
         self.brand_combo_box.addItem("")
+        self.brand_combo_box.setToolTip(TOOLTIP_SITE_BRAND)
 
         self.application_type_label = QtWidgets.QLabel(self.central_widget)
         self.application_type_label.setGeometry(
@@ -1363,6 +1588,7 @@ class VRGAutomation(object):
         self.application_type_combo.addItem("")
         self.application_type_combo.currentIndexChanged.connect(
             self.application_type)
+        self.application_type_combo.setToolTip(TOOLTIP_APPLICATION_TYPE)
 
         self.add_button = QtWidgets.QPushButton(self.central_widget)
         self.add_button.setGeometry(QtCore.QRect(100, 240, 93, 28))
@@ -1399,7 +1625,6 @@ class VRGAutomation(object):
             self.standalone_page_box)
         self.page_name_standalone.setGeometry(QtCore.QRect(185, 40, 191, 28))
         self.page_name_standalone.setObjectName("page_name_standalone")
-
         self.page_hierarchy_standalone_label = QtWidgets.QLabel(
             self.standalone_page_box
             )
@@ -1465,6 +1690,7 @@ class VRGAutomation(object):
         self.advertising_standalone.setGeometry(
             QtCore.QRect(150, 260, 120, 28))
         self.advertising_standalone.setObjectName("advertising_standalone")
+        self.advertising_standalone.setToolTip(TOOLTIP_ADVERTISING)
 
         self.otvc_standalone = QtWidgets.QCheckBox(self.standalone_page_box)
         self.otvc_standalone.setGeometry(QtCore.QRect(270, 260, 93, 28))
@@ -1493,6 +1719,7 @@ class VRGAutomation(object):
         self.site_type_combo.addItem("")
         self.site_type_combo.addItem("")
         self.site_type_combo.currentIndexChanged.connect(self.site_type)
+        self.site_type_combo.setToolTip(TOOLTIP_SITE_TYPE)
 
         self.site_type_label = QtWidgets.QLabel(self.central_widget)
         self.site_type_label.setGeometry(QtCore.QRect(20, 180, 81, 28))
@@ -1505,6 +1732,7 @@ class VRGAutomation(object):
         self.site_name = QtWidgets.QLineEdit(self.central_widget)
         self.site_name.setGeometry(QtCore.QRect(620, 180, 241, 28))
         self.site_name.setObjectName("site_name")
+        self.site_name.setToolTip(TOOLTIP_SITE_NAME)
 
         self.form_group_box = QtWidgets.QGroupBox(self.central_widget)
         self.form_group_box.setGeometry(QtCore.QRect(460, 290, 411, 351))
@@ -1608,7 +1836,6 @@ class VRGAutomation(object):
         self.no_login_group_box_steps.setGeometry(
             QtCore.QRect(110, 40, 95, 20))
         self.no_login_group_box_steps.setObjectName("no_login_group_box_steps")
-
         self.both_login_group_box_steps = QtWidgets.QRadioButton(
             self.login_group_box_steps
             )
@@ -1890,6 +2117,7 @@ class VRGAutomation(object):
         self.download_name = QtWidgets.QLineEdit(self.download_group_box)
         self.download_name.setGeometry(QtCore.QRect(160, 50, 180, 28))
         self.download_name.setObjectName("download_name")
+        self.download_name.setToolTip(TOOLTIP_FILE_NAME)
 
         self.download_type_label = QtWidgets.QLabel(self.download_group_box)
         self.download_type_label.setGeometry(QtCore.QRect(30, 100, 180, 28))
@@ -1899,11 +2127,13 @@ class VRGAutomation(object):
             self.download_group_box)
         self.download_type_combo_box.setGeometry(
             QtCore.QRect(160, 100, 180, 28))
+
         self.download_type_combo_box.setObjectName("download_type_combo_box")
         self.download_type_combo_box.addItem("")
         self.download_type_combo_box.addItem("")
         self.download_type_combo_box.addItem("")
         self.download_type_combo_box.addItem("")
+        self.download_type_combo_box.setToolTip(TOOLTIP_FILE_TYPE)
 
         self.download_save_button = QtWidgets.QPushButton(
             self.download_group_box)
@@ -1926,6 +2156,7 @@ class VRGAutomation(object):
         self.interaction_name = QtWidgets.QLineEdit(self.interaction_group_box)
         self.interaction_name.setGeometry(QtCore.QRect(160, 50, 180, 28))
         self.interaction_name.setObjectName("interaction_name")
+        self.interaction_name.setToolTip(TOOLTIP_INTERACTION)
 
         self.interaction_save_button = QtWidgets.QPushButton(
             self.interaction_group_box)
