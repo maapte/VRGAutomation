@@ -186,7 +186,8 @@ class VRGAutomation(object):
             This method is responsible to provide tooltip information to
             Form and Step group-box controls such as Page Name, Page Hierarchy
             or Route Name, Error Information, Login Information ,is_login,otvc
-            form_name,no.of_steps, Product information, Transaction information,
+            form_name,no.of_steps, Product information, Transaction
+            information,
             etc.
         :return None:
         """
@@ -215,16 +216,23 @@ class VRGAutomation(object):
         self.confirmation_steps.setToolTip(TOOLTIP_PRODUCT_CONFIRMATION)
         self.is_joint_steps.setToolTip(LABEL_IS_JOINT)
         self.product_recommendation_steps.setToolTip(
-                    TOOLTIP_PRODUCT_RECOMMENDATION)
+            TOOLTIP_PRODUCT_RECOMMENDATION)
         self.terms_and_condition_steps.setToolTip(TOOLTIP_TERMS_AND_CONDITION)
         self.is_paperless_steps.setToolTip(TOOLTIP_IS_PAPERLESS)
         self.product_id_steps.setToolTip(TOOLTIP_PRODUCT_ID)
         self.parent_product_steps.setToolTip(TOOLTIP_PARENT_PRODUCT_NAME)
         self.adjudication_steps.setToolTip(TOOLTIP_ADJUDICATION)
         self.positioning_combo_box_steps.setToolTip(
-                    TOOLTIP_PRODUCT_POSITIONING)
+            TOOLTIP_PRODUCT_POSITIONING)
         self.grouping_combo_box.setToolTip(TOOLTIP_PRODUCT_GROUPING)
         self.fulfillment_combo_box_steps.setToolTip(TOOLTIP_PRODUCT_GROUPING)
+
+    def tooltip_for_interaction(self):
+        self.interaction_name.setToolTip(TOOLTIP_INTERACTION)
+
+    def tooltip_for_download(self):
+        self.download_name.setToolTip(TOOLTIP_FILE_NAME)
+        self.download_type_combo_box.setToolTip(TOOLTIP_FILE_TYPE)
 
     @staticmethod
     def close_button(self):
@@ -483,7 +491,8 @@ class VRGAutomation(object):
         """
         confirm = QMessageBox.question(self.central_widget,
                                        'Save Steps Information',
-                                       "Click <b> Yes </b> to save and <b> No </b> "
+                                       "Click <b> Yes </b> to save and <b> "
+                                       "No </b> "
                                        "to Cancel", QMessageBox.Yes
                                        | QMessageBox.No, QMessageBox.No)
         if confirm == QMessageBox.Yes:
@@ -509,7 +518,8 @@ class VRGAutomation(object):
                 if self.edit_flag == 0:
                     self.clear_product_steps_fields()
 
-            # if the edit flag is 1, then selected step from the dropdown will be
+            # if the edit flag is 1, then selected step from the dropdown
+            # will be
             # edited .
             if self.edit_flag == 1:
                 edit_name = self.list_combo_box.currentText()
@@ -518,11 +528,13 @@ class VRGAutomation(object):
                     for j in range(0, len(self.vrg.forms[i]["steps"])):
                         if "step_name" in self.vrg.forms[i]["steps"][j]:
                             f1 = self.vrg.forms[i]["form_name"] + "-"
-                            step_name_edit = str(edit_name).replace(str(f1), "")
+                            step_name_edit = str(edit_name).replace(str(f1),
+                                                                    "")
                             if self.vrg.forms[i]["steps"][j][
                                 "step_name"] == step_name_edit:
                                 step = json.dumps(steps_obj.__dict__)
-                                self.vrg.forms[i]["steps"][j] = json.loads(step)
+                                self.vrg.forms[i]["steps"][j] = json.loads(
+                                    step)
                                 self.clear_steps_fields()
                                 self.clear_product_steps_fields()
                                 self.step_group_box.setEnabled(LABEL_FALSE)
@@ -533,16 +545,17 @@ class VRGAutomation(object):
                                 self.interaction_button.setEnabled(LABEL_TRUE)
                                 self.download_button.setEnabled(LABEL_TRUE)
 
-
             self.vrg.set_project_name(
                 self.project_name.text().lower().replace(" ", "-"))
             self.vrg.set_user_name(self.user_name.text().lower())
-            self.vrg.set_site_name(self.site_name.text().lower().replace(" ", "-"))
+            self.vrg.set_site_name(
+                self.site_name.text().lower().replace(" ", "-"))
             self.vrg.set_site_brand(
                 self.brand_combo_box.currentText().lower().replace(" ", "-")
                 )
             self.vrg.set_application_types(
-                self.application_type_combo.currentText().lower().replace(" ", "-")
+                self.application_type_combo.currentText().lower().replace(" ",
+                                                                          "-")
                 )
             self.vrg.set_site_type(
                 self.site_type_combo.currentText().lower().replace(" ", "-")
@@ -577,7 +590,8 @@ class VRGAutomation(object):
                     "form_name": self.form_name_form_box.text().lower(),
                     "no_of_steps": self.no_of_steps_form_box.text(),
                     "is_product_exist": self.formObj.get_is_product_exist,
-                    "is_transaction_exist": self.formObj.get_is_transaction_exist,
+                    "is_transaction_exist":
+                        self.formObj.get_is_transaction_exist,
                     "steps": self.steps,
                     }
                 form_obj_dump = json.dumps(form_obj)
@@ -791,96 +805,133 @@ class VRGAutomation(object):
         self.tooltip_for_standalone()
 
     def interaction_button_page(self):
+        # Enable the interaction groupbox
         self.interaction_group_box.setEnabled(LABEL_TRUE)
+        # Disable the Standalone  groupbox
         self.standalone_page_box.setEnabled(LABEL_FALSE)
+        # Disable the form groupbox
         self.form_group_box.setEnabled(LABEL_FALSE)
+        # Disable the step groupbox
         self.step_group_box.setEnabled(LABEL_FALSE)
+        # Disable the Add Stanalone button
         self.add_button.setEnabled(LABEL_FALSE)
+        # Disable the Add Flow button
         self.add_flow.setEnabled(LABEL_FALSE)
+        # Disable the Add Interaction button
         self.interaction_button.setEnabled(LABEL_FALSE)
+        # Disable the Add Download button
         self.download_button.setEnabled(LABEL_FALSE)
+        # Disable the project level information
         self.disable_project_info()
+        # Tooltip of the interaction section
+        self.tooltip_for_interaction()
 
     def download_button_page(self):
+        # Enable the Download groupbox
         self.download_group_box.setEnabled(LABEL_TRUE)
+        # Disable the standalone page groupbox
         self.standalone_page_box.setEnabled(LABEL_FALSE)
+        # Disable the Form Groupbox
         self.form_group_box.setEnabled(LABEL_FALSE)
+        # Disable the step groupbox
         self.step_group_box.setEnabled(LABEL_FALSE)
+        # Disable the Add Stanalone button
         self.add_button.setEnabled(LABEL_FALSE)
+        # Disable the Add Flow button
         self.add_flow.setEnabled(LABEL_FALSE)
+        # Disable the Add Interaction button
         self.interaction_button.setEnabled(LABEL_FALSE)
+        # Disable the Add Download button
         self.download_button.setEnabled(LABEL_FALSE)
-        self.interaction_group_box.setEnabled(LABEL_FALSE)
+        # Disable the project level information
         self.disable_project_info()
+        # Tooltip of the interaction section
+        self.tooltip_for_download()
 
     def save_download_information(self):
-        edit_name = self.list_combo_box.currentText()
-        download_obj = Download()
-        download_obj.download_file_name = str(
-            self.download_name.text().lower().replace(" ", "-")
-            )
-        download_obj.download_file_type = str(
-            self.download_type_combo_box.currentText().lower().replace(" ",
-                                                                       "-")
-            )
+        confirm = QMessageBox.question(self.central_widget,
+                                       'Save Download Information',
+                                       "Click <b> Yes </b> to save and <b> "
+                                       "No </b> "
+                                       "to Cancel", QMessageBox.Yes
+                                       | QMessageBox.No, QMessageBox.No)
+        if confirm == QMessageBox.Yes:
+            edit_name = self.list_combo_box.currentText()
+            download_obj = Download()
+            download_obj.download_file_name = str(
+                self.download_name.text().lower().replace(" ", "-")
+                )
+            download_obj.download_file_type = str(
+                self.download_type_combo_box.currentText().lower().replace(" ",
+                                                                           "-")
+                )
 
-        if self.edit_flag == 1:
-            for i in range(0, len(self.vrg.download)):
-                if "download_file_name" in self.vrg.download[i]:
-                    if self.vrg.download[i]["download_file_name"] == edit_name:
-                        down_temp = json.dumps(download_obj.__dict__)
-                        down_page = json.loads(down_temp)
-                        self.vrg.download[i] = down_page
-        if len(self.vrg.download) >= 0 and self.edit_flag == 0:
-            download_section = json.dumps(download_obj.__dict__)
-            self.vrg.download.append(json.loads(download_section))
+            if self.edit_flag == 1:
+                for i in range(0, len(self.vrg.download)):
+                    if "download_file_name" in self.vrg.download[i]:
+                        if self.vrg.download[i][
+                            "download_file_name"] == edit_name:
+                            down_temp = json.dumps(download_obj.__dict__)
+                            down_page = json.loads(down_temp)
+                            self.vrg.download[i] = down_page
+            if len(self.vrg.download) >= 0 and self.edit_flag == 0:
+                download_section = json.dumps(download_obj.__dict__)
+                self.vrg.download.append(json.loads(download_section))
 
-        self.download_name.setText("")
-        self.download_type_combo_box.setCurrentIndex(0)
+            self.download_name.setText("")
+            self.download_type_combo_box.setCurrentIndex(0)
 
-        self.download_group_box.setEnabled(LABEL_FALSE)
-        self.add_button.setEnabled(LABEL_TRUE)
-        self.interaction_button.setEnabled(LABEL_TRUE)
-        self.download_button.setEnabled(LABEL_TRUE)
-        self.add_flow.setEnabled(LABEL_TRUE)
-        self.edit_flag = 0
-        self.iterate_list_box()
+            self.download_group_box.setEnabled(LABEL_FALSE)
+            self.add_button.setEnabled(LABEL_TRUE)
+            self.interaction_button.setEnabled(LABEL_TRUE)
+            self.download_button.setEnabled(LABEL_TRUE)
+            self.add_flow.setEnabled(LABEL_TRUE)
+            self.edit_flag = 0
+            self.iterate_list_box()
 
     def save_interaction_information(self):
-        edit_name = self.list_combo_box.currentText()
-        interaction = InteractionPage()
-        interaction.set_site_interaction_event("true")
-        interaction.set_interaction_name(
-            str(self.interaction_name.text().lower()))
+        confirm = QMessageBox.question(self.central_widget,
+                                       'Save Interaction Information',
+                                       "Click <b> Yes </b> to save and <b> "
+                                       "No </b> "
+                                       "to Cancel", QMessageBox.Yes
+                                       | QMessageBox.No, QMessageBox.No)
+        if confirm == QMessageBox.Yes:
+            edit_name = self.list_combo_box.currentText()
+            interaction = InteractionPage()
+            interaction.set_site_interaction_event("true")
+            interaction.set_interaction_name(
+                str(self.interaction_name.text().lower()))
 
-        if self.edit_flag == 1:
-            for i in range(0, len(self.vrg.interaction)):
-                if "interaction_name" in self.vrg.interaction[i]:
-                    if self.vrg.interaction[i][
-                        "interaction_name"] == edit_name:
-                        interaction_temp = json.dumps(interaction.__dict__)
-                        interaction_page = json.loads(interaction_temp)
-                        self.vrg.interaction[i] = interaction_page
-                        break
-        if len(self.vrg.interaction) >= 0 and self.edit_flag == 0:
-            interaction_section = json.dumps(interaction.__dict__)
-            self.vrg.interaction.append(json.loads(interaction_section))
+            if self.edit_flag == 1:
+                for i in range(0, len(self.vrg.interaction)):
+                    if "interaction_name" in self.vrg.interaction[i]:
+                        if self.vrg.interaction[i][
+                            "interaction_name"] == edit_name:
+                            interaction_temp = json.dumps(interaction.__dict__)
+                            interaction_page = json.loads(interaction_temp)
+                            self.vrg.interaction[i] = interaction_page
+                            break
+            if len(self.vrg.interaction) >= 0 and self.edit_flag == 0:
+                interaction_section = json.dumps(interaction.__dict__)
+                self.vrg.interaction.append(json.loads(interaction_section))
 
-        self.interaction_name.setText("")
-        self.interaction_group_box.setEnabled(LABEL_FALSE)
-        self.add_button.setEnabled(LABEL_TRUE)
-        self.interaction_button.setEnabled(LABEL_TRUE)
-        self.download_button.setEnabled(LABEL_TRUE)
-        self.add_flow.setEnabled(LABEL_TRUE)
-        self.edit_flag = 0
-        self.iterate_list_box()
+            self.interaction_name.setText("")
+            self.interaction_group_box.setEnabled(LABEL_FALSE)
+            self.add_button.setEnabled(LABEL_TRUE)
+            self.interaction_button.setEnabled(LABEL_TRUE)
+            self.download_button.setEnabled(LABEL_TRUE)
+            self.add_flow.setEnabled(LABEL_TRUE)
+            self.edit_flag = 0
+            self.iterate_list_box()
 
     def save_standalone_page(self):
         # Confirmation window to save the standalone page with Option
         # Yes and No
         confirm = QMessageBox.question(self.central_widget,
                                        'Save Standalone Information',
-                                       "Click <b> Yes </b> to save and <b> No </b> "
+                                       "Click <b> Yes </b> to save and <b> "
+                                       "No </b> "
                                        "to Cancel", QMessageBox.Yes
                                        | QMessageBox.No, QMessageBox.No)
         # if confirm is 'YES' then the standalone page information will be
@@ -2117,7 +2168,6 @@ class VRGAutomation(object):
         self.download_name = QtWidgets.QLineEdit(self.download_group_box)
         self.download_name.setGeometry(QtCore.QRect(160, 50, 180, 28))
         self.download_name.setObjectName("download_name")
-        self.download_name.setToolTip(TOOLTIP_FILE_NAME)
 
         self.download_type_label = QtWidgets.QLabel(self.download_group_box)
         self.download_type_label.setGeometry(QtCore.QRect(30, 100, 180, 28))
@@ -2133,7 +2183,6 @@ class VRGAutomation(object):
         self.download_type_combo_box.addItem("")
         self.download_type_combo_box.addItem("")
         self.download_type_combo_box.addItem("")
-        self.download_type_combo_box.setToolTip(TOOLTIP_FILE_TYPE)
 
         self.download_save_button = QtWidgets.QPushButton(
             self.download_group_box)
@@ -2156,7 +2205,6 @@ class VRGAutomation(object):
         self.interaction_name = QtWidgets.QLineEdit(self.interaction_group_box)
         self.interaction_name.setGeometry(QtCore.QRect(160, 50, 180, 28))
         self.interaction_name.setObjectName("interaction_name")
-        self.interaction_name.setToolTip(TOOLTIP_INTERACTION)
 
         self.interaction_save_button = QtWidgets.QPushButton(
             self.interaction_group_box)
