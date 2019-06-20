@@ -210,20 +210,17 @@ class VRGAutomation(object):
         self.is_external_check_box_steps.setToolTip(TOOLTIP_IS_EXTERNAL)
         self.form_name_form_box.setToolTip(TOOLTIP_FORM_NAME)
         self.step_name_steps.setToolTip(TOOLTIP_STEP_NAME)
-        self.personal_details_steps.setToolTip(
-            TOOLTIP_PRODUCT_PERSONAL_DETAILS)
+        self.personal_details_steps.setToolTip(TOOLTIP_PRODUCT_PERSONAL_DETAILS)
         self.summary_steps.setToolTip(TOOLTIP_PRODUCT_SUMMARY)
         self.confirmation_steps.setToolTip(TOOLTIP_PRODUCT_CONFIRMATION)
         self.is_joint_steps.setToolTip(LABEL_IS_JOINT)
-        self.product_recommendation_steps.setToolTip(
-            TOOLTIP_PRODUCT_RECOMMENDATION)
+        self.product_recommendation_steps.setToolTip(TOOLTIP_PRODUCT_RECOMMENDATION)
         self.terms_and_condition_steps.setToolTip(TOOLTIP_TERMS_AND_CONDITION)
         self.is_paperless_steps.setToolTip(TOOLTIP_IS_PAPERLESS)
         self.product_id_steps.setToolTip(TOOLTIP_PRODUCT_ID)
         self.parent_product_steps.setToolTip(TOOLTIP_PARENT_PRODUCT_NAME)
         self.adjudication_steps.setToolTip(TOOLTIP_ADJUDICATION)
-        self.positioning_combo_box_steps.setToolTip(
-            TOOLTIP_PRODUCT_POSITIONING)
+        self.positioning_combo_box_steps.setToolTip(TOOLTIP_PRODUCT_POSITIONING)
         self.grouping_combo_box.setToolTip(TOOLTIP_PRODUCT_GROUPING)
         self.fulfillment_combo_box_steps.setToolTip(TOOLTIP_PRODUCT_GROUPING)
 
@@ -290,7 +287,7 @@ class VRGAutomation(object):
             self.product_group_box_steps.setEnabled(LABEL_TRUE)
             self.formObj.isProductExist = str(
                 self.product_checkbox_form_box.isChecked()
-                )
+            )
             self.formObj.set_is_product_exist("true")
         else:
             self.product_group_box_steps.setEnabled(LABEL_FALSE)
@@ -300,7 +297,7 @@ class VRGAutomation(object):
             self.transaction_group_box_steps.setEnabled(LABEL_TRUE)
             self.formObj.isTransactionExist = str(
                 self.transaction_checkbox_form_box.isChecked()
-                )
+            )
             self.formObj.set_is_transaction_exist("true")
         else:
             self.transaction_group_box_steps.setEnabled(LABEL_FALSE)
@@ -329,32 +326,29 @@ class VRGAutomation(object):
         if self.application_type_combo.currentText() == APPLICATION_EMBER:
             steps_obj.set_page_name(
                 str(self.page_hierarchy_steps.text().lower().replace(" ", "-"))
-                )
+            )
             steps_obj.set_page_hierarchy(
-                str(self.page_hierarchy_steps.text().lower().replace(" ",
-                                                                     "-")).split(
+                str(self.page_hierarchy_steps.text().lower().replace(" ", "-")).split(
                     "."
-                    )
                 )
+            )
             steps_obj.set_page_path(
                 str(self.page_hierarchy_steps.text().lower().replace(" ", "-"))
-                )
+            )
         if self.application_type_combo.currentText() == APPLICATION_ANGULAR:
             steps_obj.set_page_name(
                 str(self.page_name_steps.text().lower().replace(" ", "-"))
-                )
+            )
             steps_obj.set_page_path(
                 str(self.page_name_steps.text().lower().replace(" ", "-"))
-                )
+            )
             steps_obj.set_page_hierarchy(
-                str(self.page_hierarchy_steps.text().lower().replace(" ",
-                                                                     "-")).split(
+                str(self.page_hierarchy_steps.text().lower().replace(" ", "-")).split(
                     "."
-                    )
                 )
+            )
         # set the From and To Name Field Text of Transaction Details
-        steps_obj.set_from_transaction(
-            str(self.from_text_steps.text()).lower())
+        steps_obj.set_from_transaction(str(self.from_text_steps.text()).lower())
         steps_obj.set_to_transaction(str(self.to_text_steps.text()).lower())
         # set the Transaction checked status
         if self.is_external_check_box_steps.isChecked():
@@ -380,33 +374,28 @@ class VRGAutomation(object):
         # set the product id of the steps
         steps_obj.set_product_id(str(self.product_id_steps.text()).lower())
         # set parent product info for the Product ID selected
-        steps_obj.set_parent_product(
-            str(self.parent_product_steps.text()).lower())
+        steps_obj.set_parent_product(str(self.parent_product_steps.text()).lower())
         # set the adjudication response of the product for step
         steps_obj.set_adjudication(str(self.adjudication_steps.text()).lower())
         # set product positioning for the Product ID selected
-        if self.positioning_combo_box_steps.currentText() == \
-                LABEL_NOT_APPLICABLE:
+        if self.positioning_combo_box_steps.currentText() == LABEL_NOT_APPLICABLE:
             steps_obj.set_product_positioning(LABEL_BLANK)
         else:
             steps_obj.set_product_positioning(
                 self.positioning_combo_box_steps.currentText()
-                )
+            )
 
         # set grouping method associated with product from dropdown
         if self.grouping_combo_box.currentText() == LABEL_NOT_APPLICABLE:
             steps_obj.set_product_grouping(LABEL_BLANK)
         else:
-            steps_obj.set_product_grouping(
-                self.grouping_combo_box.currentText())
+            steps_obj.set_product_grouping(self.grouping_combo_box.currentText())
 
         # set fulfillment method associated with product from dropdown
-        if self.fulfillment_combo_box_steps.currentText() == \
-                LABEL_NOT_APPLICABLE:
+        if self.fulfillment_combo_box_steps.currentText() == LABEL_NOT_APPLICABLE:
             steps_obj.set_fulfillment(LABEL_BLANK)
         else:
-            steps_obj.set_fulfillment(
-                self.fulfillment_combo_box_steps.currentText())
+            steps_obj.set_fulfillment(self.fulfillment_combo_box_steps.currentText())
         # set if this is "personal details" or "applicant info" page of
         # the form
         if self.personal_details_steps.isChecked():
@@ -451,8 +440,7 @@ class VRGAutomation(object):
             steps_obj.set_user_type("{dynamic}")
         elif self.both_login_group_box_steps.isChecked():
             steps_obj.set_user_id("{dynamic}")
-            steps_obj.set_user_auth_state(
-                "{not-authenticated | authenticated}")
+            steps_obj.set_user_auth_state("{not-authenticated | authenticated}")
             steps_obj.set_user_type("{dynamic}")
         elif self.no_login_group_box_steps.isChecked():
             steps_obj.set_user_auth_state("{not-authenticated}")
@@ -471,11 +459,11 @@ class VRGAutomation(object):
         # Select this checkbox to capture internal ad campaign
         if self.advertising_steps.isChecked():
             steps_obj.set_advertising("true")
-            steps_obj.events_advertising = 'true'
-            steps_obj.events_ad_click = 'true'
-            steps_obj.advertising_tracking_code = '{dynamic}'
-            steps_obj.advertising_location = '{dynamic}'
-            steps_obj.advertising_type = '{dynamic}'
+            steps_obj.events_advertising = "true"
+            steps_obj.events_ad_click = "true"
+            steps_obj.advertising_tracking_code = "{dynamic}"
+            steps_obj.advertising_location = "{dynamic}"
+            steps_obj.advertising_type = "{dynamic}"
         # Select this if this page has OTVC authentication
         if self.otvc_steps.isChecked():
             steps_obj.set_is_otvc("true")
@@ -489,12 +477,13 @@ class VRGAutomation(object):
         This Method is responsible to save the steps infromation
         :return None:
         """
-        confirm = QMessageBox.question(self.central_widget,
-                                       'Save Steps Information',
-                                       "Click <b> Yes </b> to save and <b> "
-                                       "No </b> "
-                                       "to Cancel", QMessageBox.Yes
-                                       | QMessageBox.No, QMessageBox.No)
+        confirm = QMessageBox.question(
+            self.central_widget,
+            "Save Steps Information",
+            "Click <b> Yes </b> to save and <b> " "No </b> " "to Cancel",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
         if confirm == QMessageBox.Yes:
             no_of_steps = int(self.no_of_steps_form_box.text())
             steps_obj = Steps()
@@ -528,13 +517,13 @@ class VRGAutomation(object):
                     for j in range(0, len(self.vrg.forms[i]["steps"])):
                         if "step_name" in self.vrg.forms[i]["steps"][j]:
                             f1 = self.vrg.forms[i]["form_name"] + "-"
-                            step_name_edit = str(edit_name).replace(str(f1),
-                                                                    "")
-                            if self.vrg.forms[i]["steps"][j][
-                                "step_name"] == step_name_edit:
+                            step_name_edit = str(edit_name).replace(str(f1), "")
+                            if (
+                                self.vrg.forms[i]["steps"][j]["step_name"]
+                                == step_name_edit
+                            ):
                                 step = json.dumps(steps_obj.__dict__)
-                                self.vrg.forms[i]["steps"][j] = json.loads(
-                                    step)
+                                self.vrg.forms[i]["steps"][j] = json.loads(step)
                                 self.clear_steps_fields()
                                 self.clear_product_steps_fields()
                                 self.step_group_box.setEnabled(LABEL_FALSE)
@@ -546,20 +535,19 @@ class VRGAutomation(object):
                                 self.download_button.setEnabled(LABEL_TRUE)
 
             self.vrg.set_project_name(
-                self.project_name.text().lower().replace(" ", "-"))
+                self.project_name.text().lower().replace(" ", "-")
+            )
             self.vrg.set_user_name(self.user_name.text().lower())
-            self.vrg.set_site_name(
-                self.site_name.text().lower().replace(" ", "-"))
+            self.vrg.set_site_name(self.site_name.text().lower().replace(" ", "-"))
             self.vrg.set_site_brand(
                 self.brand_combo_box.currentText().lower().replace(" ", "-")
-                )
+            )
             self.vrg.set_application_types(
-                self.application_type_combo.currentText().lower().replace(" ",
-                                                                          "-")
-                )
+                self.application_type_combo.currentText().lower().replace(" ", "-")
+            )
             self.vrg.set_site_type(
                 self.site_type_combo.currentText().lower().replace(" ", "-")
-                )
+            )
 
             if len(self.steps) >= 0 and self.edit_flag == 0:
                 step = json.dumps(steps_obj.__dict__)
@@ -571,7 +559,7 @@ class VRGAutomation(object):
                     self.product_group_box_steps.setEnabled(LABEL_TRUE)
                     self.formObj.isProductExist = str(
                         self.product_checkbox_form_box.isChecked()
-                        )
+                    )
                     self.formObj.set_is_product_exist("true")
                 else:
                     self.product_group_box_steps.setEnabled(LABEL_FALSE)
@@ -580,7 +568,7 @@ class VRGAutomation(object):
                     self.transaction_group_box_steps.setEnabled(LABEL_TRUE)
                     self.formObj.isTransactionExist = str(
                         self.transaction_checkbox_form_box.isChecked()
-                        )
+                    )
                     self.formObj.set_is_transaction_exist("true")
                 else:
                     self.transaction_group_box_steps.setEnabled(LABEL_FALSE)
@@ -590,10 +578,9 @@ class VRGAutomation(object):
                     "form_name": self.form_name_form_box.text().lower(),
                     "no_of_steps": self.no_of_steps_form_box.text(),
                     "is_product_exist": self.formObj.get_is_product_exist,
-                    "is_transaction_exist":
-                        self.formObj.get_is_transaction_exist,
+                    "is_transaction_exist": self.formObj.get_is_transaction_exist,
                     "steps": self.steps,
-                    }
+                }
                 form_obj_dump = json.dumps(form_obj)
                 self.vrg.forms.append(json.loads(form_obj_dump))
                 self.step_group_box.setEnabled(LABEL_FALSE)
@@ -615,9 +602,9 @@ class VRGAutomation(object):
             for j in range(0, len(self.vrg.forms[i]["steps"])):
                 if "step_name" in self.vrg.forms[i]["steps"][j]:
                     f1 = (
-                            self.vrg.forms[i]["form_name"]
-                            + "-"
-                            + self.vrg.forms[i]["steps"][j]["step_name"]
+                        self.vrg.forms[i]["form_name"]
+                        + "-"
+                        + self.vrg.forms[i]["steps"][j]["step_name"]
                     )
                     self.list_combo_box.addItem(f1)
 
@@ -697,25 +684,24 @@ class VRGAutomation(object):
         self.fulfillment_combo_box_steps.setCurrentText(LABEL_NOT_APPLICABLE)
 
     def generate_button(self):
-        self.vrg.set_project_name(
-            self.project_name.text().lower().replace(" ", "-"))
+        self.vrg.set_project_name(self.project_name.text().lower().replace(" ", "-"))
         self.vrg.set_user_name(self.user_name.text().lower())
         self.vrg.set_site_name(self.site_name.text().lower().replace(" ", "-"))
         self.vrg.set_site_brand(
             self.brand_combo_box.currentText().lower().replace(" ", "-")
-            )
+        )
         self.vrg.set_application_types(
             self.application_type_combo.currentText().lower().replace(" ", "-")
-            )
+        )
         self.vrg.set_site_type(
             self.site_type_combo.currentText().lower().replace(" ", "-")
-            )
+        )
         obj = self.vrg
         json_page = json.dumps(obj.__dict__)
         application_object = GenerateVrg()
         val = json.loads(json_page)
         print("GENERATE: ", val)
-        application_object.generate_VRG(val)
+        application_object.generate_VRG(val, obj)
 
     def add_flow_page(self):
         """
@@ -849,28 +835,27 @@ class VRGAutomation(object):
         self.tooltip_for_download()
 
     def save_download_information(self):
-        confirm = QMessageBox.question(self.central_widget,
-                                       'Save Download Information',
-                                       "Click <b> Yes </b> to save and <b> "
-                                       "No </b> "
-                                       "to Cancel", QMessageBox.Yes
-                                       | QMessageBox.No, QMessageBox.No)
+        confirm = QMessageBox.question(
+            self.central_widget,
+            "Save Download Information",
+            "Click <b> Yes </b> to save and <b> " "No </b> " "to Cancel",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
         if confirm == QMessageBox.Yes:
             edit_name = self.list_combo_box.currentText()
             download_obj = Download()
             download_obj.download_file_name = str(
                 self.download_name.text().lower().replace(" ", "-")
-                )
+            )
             download_obj.download_file_type = str(
-                self.download_type_combo_box.currentText().lower().replace(" ",
-                                                                           "-")
-                )
+                self.download_type_combo_box.currentText().lower().replace(" ", "-")
+            )
 
             if self.edit_flag == 1:
                 for i in range(0, len(self.vrg.download)):
                     if "download_file_name" in self.vrg.download[i]:
-                        if self.vrg.download[i][
-                            "download_file_name"] == edit_name:
+                        if self.vrg.download[i]["download_file_name"] == edit_name:
                             down_temp = json.dumps(download_obj.__dict__)
                             down_page = json.loads(down_temp)
                             self.vrg.download[i] = down_page
@@ -890,24 +875,23 @@ class VRGAutomation(object):
             self.iterate_list_box()
 
     def save_interaction_information(self):
-        confirm = QMessageBox.question(self.central_widget,
-                                       'Save Interaction Information',
-                                       "Click <b> Yes </b> to save and <b> "
-                                       "No </b> "
-                                       "to Cancel", QMessageBox.Yes
-                                       | QMessageBox.No, QMessageBox.No)
+        confirm = QMessageBox.question(
+            self.central_widget,
+            "Save Interaction Information",
+            "Click <b> Yes </b> to save and <b> " "No </b> " "to Cancel",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
         if confirm == QMessageBox.Yes:
             edit_name = self.list_combo_box.currentText()
             interaction = InteractionPage()
             interaction.set_site_interaction_event("true")
-            interaction.set_interaction_name(
-                str(self.interaction_name.text().lower()))
+            interaction.set_interaction_name(str(self.interaction_name.text().lower()))
 
             if self.edit_flag == 1:
                 for i in range(0, len(self.vrg.interaction)):
                     if "interaction_name" in self.vrg.interaction[i]:
-                        if self.vrg.interaction[i][
-                            "interaction_name"] == edit_name:
+                        if self.vrg.interaction[i]["interaction_name"] == edit_name:
                             interaction_temp = json.dumps(interaction.__dict__)
                             interaction_page = json.loads(interaction_temp)
                             self.vrg.interaction[i] = interaction_page
@@ -928,12 +912,13 @@ class VRGAutomation(object):
     def save_standalone_page(self):
         # Confirmation window to save the standalone page with Option
         # Yes and No
-        confirm = QMessageBox.question(self.central_widget,
-                                       'Save Standalone Information',
-                                       "Click <b> Yes </b> to save and <b> "
-                                       "No </b> "
-                                       "to Cancel", QMessageBox.Yes
-                                       | QMessageBox.No, QMessageBox.No)
+        confirm = QMessageBox.question(
+            self.central_widget,
+            "Save Standalone Information",
+            "Click <b> Yes </b> to save and <b> " "No </b> " "to Cancel",
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No,
+        )
         # if confirm is 'YES' then the standalone page information will be
         # saved.
         if confirm == QMessageBox.Yes:
@@ -953,35 +938,31 @@ class VRGAutomation(object):
         # And Page Path in Ember Application Format
         if self.application_type_combo.currentText() == APPLICATION_EMBER:
             standalone_page_obj.set_page_name(
-                str(self.page_hierarchy_standalone.text().lower().replace(" ",
-                                                                          "-"))
-                )
+                str(self.page_hierarchy_standalone.text().lower().replace(" ", "-"))
+            )
             standalone_page_obj.set_page_hierarchy(
                 str(
-                    self.page_hierarchy_standalone.text().lower().replace(" ",
-                                                                          "-")
-                    ).split(".")
-                )
+                    self.page_hierarchy_standalone.text().lower().replace(" ", "-")
+                ).split(".")
+            )
             standalone_page_obj.set_page_path(
-                str(self.page_hierarchy_standalone.text().lower().replace(" ",
-                                                                          "-"))
-                )
+                str(self.page_hierarchy_standalone.text().lower().replace(" ", "-"))
+            )
         # if Application Type is Angular then saving the page name,
         # page hierarchy
         # And Page Path in Ember Application Format
         if self.application_type_combo.currentText() == APPLICATION_ANGULAR:
             standalone_page_obj.set_page_name(
                 str(self.page_name_standalone.text().lower().replace(" ", "-"))
-                )
+            )
             standalone_page_obj.set_page_hierarchy(
                 str(
-                    self.page_hierarchy_standalone.text().lower().replace(" ",
-                                                                          "-")
-                    ).split(".")
-                )
+                    self.page_hierarchy_standalone.text().lower().replace(" ", "-")
+                ).split(".")
+            )
             standalone_page_obj.set_page_path(
                 str(self.page_name_standalone.text().lower().replace(" ", "-"))
-                )
+            )
         # if the Error Checkbox is Selected as "Yes" then capture error info
         # Else if it is selected as "No" to ignore
         if self.yes_error_standalone.isChecked():
@@ -1010,7 +991,7 @@ class VRGAutomation(object):
             standalone_page_obj.set_user_id("{dynamic}")
             standalone_page_obj.set_user_auth_state(
                 "{not-authenticated | authenticated}"
-                )
+            )
             standalone_page_obj.set_user_type("{dynamic}")
             standalone_page_obj.set_login_event("true")
         # Select if this will be the immediate page post login
@@ -1092,15 +1073,13 @@ class VRGAutomation(object):
         if flag != "PAGES" and flag != "DOWNLOAD" or flag == "":
             for i in range(0, len(self.vrg.forms)):
                 for j in range(0, len(self.vrg.forms[i]["steps"])):
-                    if "step_name" in self.vrg.forms[i]["steps"][
-                        j] and flag != "STEPS":
+                    if "step_name" in self.vrg.forms[i]["steps"][j] and flag != "STEPS":
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(name).replace(str(f1), "")
-                        if self.vrg.forms[i]["steps"][j][
-                            "step_name"] == step_name_edit:
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             flag = "STEPS"
                             break
-        print("falg", flag)
+
         if flag == "PAGES":
             for i in range(0, len(self.vrg.pages)):
                 if "page_name" in self.vrg.pages[i]:
@@ -1108,18 +1087,16 @@ class VRGAutomation(object):
                         self.standalone_page_box.setEnabled(LABEL_TRUE)
                         standalone_page_detail.set_page_name(
                             self.vrg.pages[i]["page_name"]
-                            )
-                        page_hierarchy_str = self.vrg.pages[i][
-                            "page_hierarchy"]
+                        )
+                        page_hierarchy_str = self.vrg.pages[i]["page_hierarchy"]
                         page_hierarchy_str = ".".join(page_hierarchy_str)
                         standalone_page_detail.set_page_referrer(
                             self.vrg.pages[i]["page_referrer"]
-                            )
+                        )
                         standalone_page_detail.set_page_path(
                             self.vrg.pages[i]["page_path"]
-                            )
-                        standalone_page_detail.set_page_hierarchy(
-                            page_hierarchy_str)
+                        )
+                        standalone_page_detail.set_page_hierarchy(page_hierarchy_str)
                         if len(self.vrg.pages[i]["user_id"]) == 0:
                             standalone_page_detail.set_user_id("false")
                         else:
@@ -1130,54 +1107,51 @@ class VRGAutomation(object):
                             standalone_page_detail.set_error_code("true")
                         self.page_name_standalone.setText(
                             standalone_page_detail.get_page_name
-                            )
+                        )
                         self.page_hierarchy_standalone.setText(
                             standalone_page_detail.get_page_hierarchy
-                            )
-                        if self.vrg.pages[i][
-                            "user_auth_state"] == "{authenticated}":
+                        )
+                        if self.vrg.pages[i]["user_auth_state"] == "{authenticated}":
                             standalone_page_detail.set_user_auth_state(
                                 "{authenticated}"
-                                )
+                            )
                         if (
-                                self.vrg.pages[i]["user_auth_state"]
-                                == "{not-authenticated}"
+                            self.vrg.pages[i]["user_auth_state"]
+                            == "{not-authenticated}"
                         ):
                             standalone_page_detail.set_user_auth_state(
                                 "{not-authenticated}"
-                                )
+                            )
                         if (
-                                self.vrg.pages[i]["user_auth_state"]
-                                == "{not-authenticated | authenticated}"
+                            self.vrg.pages[i]["user_auth_state"]
+                            == "{not-authenticated | authenticated}"
                         ):
                             standalone_page_detail.set_user_auth_state(
                                 "{not-authenticated | authenticated}"
-                                )
+                            )
 
                         if self.vrg.pages[i]["advertising"] == "true":
                             standalone_page_detail.set_advertising("true")
-                            standalone_page_detail.set_events_advertising(
-                                "true")
+                            standalone_page_detail.set_events_advertising("true")
                             standalone_page_detail.set_events_ad_click("true")
                             standalone_page_detail.set_advertising_tracking_code(
-                                "{dynamic}")
-                            standalone_page_detail.set_advertising_location(
-                                "{dynamic}")
-                            standalone_page_detail.set_advertising_type(
-                                "{dynamic}")
+                                "{dynamic}"
+                            )
+                            standalone_page_detail.set_advertising_location("{dynamic}")
+                            standalone_page_detail.set_advertising_type("{dynamic}")
                         if self.vrg.pages[i]["is_login"] == "true":
                             standalone_page_detail.set_is_login("true")
                         if self.vrg.pages[i]["is_otvc"] == "true":
                             standalone_page_detail.set_is_otvc("true")
 
                         if (
-                                standalone_page_detail.get_user_auth_state
-                                == "{authenticated}"
+                            standalone_page_detail.get_user_auth_state
+                            == "{authenticated}"
                         ):
                             self.yes_login_standalone.setChecked(LABEL_TRUE)
                         elif (
-                                standalone_page_detail.get_user_auth_state
-                                == "{not-authenticated | authenticated}"
+                            standalone_page_detail.get_user_auth_state
+                            == "{not-authenticated | authenticated}"
                         ):
                             self.both_login_standalone.setChecked(LABEL_TRUE)
                         else:
@@ -1200,168 +1174,145 @@ class VRGAutomation(object):
             for i in range(0, len(self.vrg.forms)):
                 for j in range(0, len(self.vrg.forms[i]["steps"])):
                     if (
-                            "step_name" in self.vrg.forms[i]["steps"][j]
-                            and self.steps_edit == 0
+                        "step_name" in self.vrg.forms[i]["steps"][j]
+                        and self.steps_edit == 0
                     ):
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(name).replace(str(f1), "")
-                        if self.vrg.forms[i]["steps"][j][
-                            "step_name"] == step_name_edit:
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             self.steps_edit = 1
                             self.form_name_form_box.setText(
                                 str(self.vrg.forms[i]["form_name"])
-                                )
+                            )
                             self.no_of_steps_form_box.setText(
                                 str(self.vrg.forms[i]["no_of_steps"])
-                                )
+                            )
                             if self.vrg.forms[i]["is_product_exist"] == "true":
-                                self.product_checkbox_form_box.setChecked(
-                                    LABEL_TRUE)
-                                self.product_group_box_steps.setEnabled(
-                                    LABEL_TRUE)
+                                self.product_checkbox_form_box.setChecked(LABEL_TRUE)
+                                self.product_group_box_steps.setEnabled(LABEL_TRUE)
                             else:
-                                self.product_checkbox_form_box.setChecked(
-                                    LABEL_FALSE)
-                                self.product_group_box_steps.setEnabled(
-                                    LABEL_FALSE)
-                            if self.vrg.forms[i][
-                                "is_transaction_exist"] == "true":
+                                self.product_checkbox_form_box.setChecked(LABEL_FALSE)
+                                self.product_group_box_steps.setEnabled(LABEL_FALSE)
+                            if self.vrg.forms[i]["is_transaction_exist"] == "true":
                                 self.transaction_checkbox_form_box.setChecked(
                                     LABEL_TRUE
-                                    )
-                                self.transaction_group_box_steps.setEnabled(
-                                    LABEL_TRUE)
+                                )
+                                self.transaction_group_box_steps.setEnabled(LABEL_TRUE)
                             else:
                                 self.transaction_checkbox_form_box.setChecked(
                                     LABEL_FALSE
-                                    )
-                                self.transaction_group_box_steps.setEnabled(
-                                    LABEL_FALSE)
+                                )
+                                self.transaction_group_box_steps.setEnabled(LABEL_FALSE)
 
                             self.step_group_box.setEnabled(LABEL_TRUE)
                             steps_obj = Steps()
                             steps_obj.set_step_name(
                                 self.vrg.forms[i]["steps"][j]["step_name"]
-                                )
+                            )
                             steps_obj.set_page_name(
                                 self.vrg.forms[i]["steps"][j]["page_name"]
-                                )
-                            page_hierarchy_steps_str = \
-                                self.vrg.forms[i]["steps"][j][
-                                    "page_hierarchy"
-                                ]
+                            )
+                            page_hierarchy_steps_str = self.vrg.forms[i]["steps"][j][
+                                "page_hierarchy"
+                            ]
                             page_hierarchy_steps_str = ".".join(
                                 page_hierarchy_steps_str
-                                )
-                            steps_obj.set_page_hierarchy(
-                                page_hierarchy_steps_str)
+                            )
+                            steps_obj.set_page_hierarchy(page_hierarchy_steps_str)
                             steps_obj.set_user_id(
                                 self.vrg.forms[i]["steps"][j]["user_id"]
-                                )
+                            )
                             steps_obj.set_user_type(
                                 self.vrg.forms[i]["steps"][j]["user_type"]
-                                )
+                            )
                             steps_obj.set_user_auth_state(
-                                self.vrg.forms[i]["steps"][j][
-                                    "user_auth_state"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["user_auth_state"]
+                            )
                             steps_obj.set_from_transaction(
-                                self.vrg.forms[i]["steps"][j][
-                                    "from_transaction"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["from_transaction"]
+                            )
                             steps_obj.set_to_transaction(
                                 self.vrg.forms[i]["steps"][j]["to_transaction"]
-                                )
+                            )
                             steps_obj.set_is_external(
                                 self.vrg.forms[i]["steps"][j]["is_external"]
-                                )
+                            )
                             steps_obj.set_form_view(
                                 self.vrg.forms[i]["steps"][j]["form_view"]
-                                )
+                            )
                             steps_obj.set_form_qualify(
                                 self.vrg.forms[i]["steps"][j]["form_qualify"]
-                                )
+                            )
                             steps_obj.set_form_submit(
                                 self.vrg.forms[i]["steps"][j]["form_submit"]
-                                )
+                            )
                             steps_obj.set_product_id(
                                 self.vrg.forms[i]["steps"][j]["product_id"]
-                                )
+                            )
                             steps_obj.set_parent_product(
                                 self.vrg.forms[i]["steps"][j]["parent_product"]
-                                )
+                            )
                             steps_obj.set_adjudication(
                                 self.vrg.forms[i]["steps"][j]["adjudication"]
-                                )
+                            )
                             steps_obj.set_product_positioning(
-                                self.vrg.forms[i]["steps"][j][
-                                    "product_positioning"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["product_positioning"]
+                            )
                             steps_obj.set_product_grouping(
-                                self.vrg.forms[i]["steps"][j][
-                                    "product_grouping"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["product_grouping"]
+                            )
                             steps_obj.set_fulfillment(
                                 self.vrg.forms[i]["steps"][j]["fulfillment"]
-                                )
+                            )
                             steps_obj.set_event_error(
                                 self.vrg.forms[i]["steps"][j]["event_error"]
-                                )
+                            )
                             steps_obj.set_personal_details(
-                                self.vrg.forms[i]["steps"][j][
-                                    "personal_details"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["personal_details"]
+                            )
                             steps_obj.set_summary(
                                 self.vrg.forms[i]["steps"][j]["summary"]
-                                )
+                            )
                             steps_obj.set_product_recommendation(
-                                self.vrg.forms[i]["steps"][j][
-                                    "product_recommendation"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["product_recommendation"]
+                            )
                             steps_obj.set_terms_and_condition(
-                                self.vrg.forms[i]["steps"][j][
-                                    "terms_and_condition"]
-                                )
+                                self.vrg.forms[i]["steps"][j]["terms_and_condition"]
+                            )
                             steps_obj.set_confirmation(
                                 self.vrg.forms[i]["steps"][j]["confirmation"]
-                                )
+                            )
                             steps_obj.set_is_paperless(
                                 self.vrg.forms[i]["steps"][j]["is_paperless"]
-                                )
+                            )
 
                             steps_obj.set_advertising(
                                 self.vrg.forms[i]["steps"][j]["advertising"]
-                                )
-                            steps_obj.events_advertising = 'true'
-                            steps_obj.events_ad_click = 'true'
-                            steps_obj.advertising_tracking_code = '{dynamic}'
-                            steps_obj.advertising_location = '{dynamic}'
-                            steps_obj.advertising_type = '{dynamic}'
+                            )
+                            steps_obj.events_advertising = "true"
+                            steps_obj.events_ad_click = "true"
+                            steps_obj.advertising_tracking_code = "{dynamic}"
+                            steps_obj.advertising_location = "{dynamic}"
+                            steps_obj.advertising_type = "{dynamic}"
                             steps_obj.set_is_login(
                                 self.vrg.forms[i]["steps"][j]["is_login"]
-                                )
+                            )
                             steps_obj.set_is_otvc(
                                 self.vrg.forms[i]["steps"][j]["is_otvc"]
-                                )
+                            )
 
                             self.step_group_box.setEnabled(LABEL_TRUE)
-                            self.step_name_steps.setText(
-                                steps_obj.get_step_name)
-                            self.page_name_steps.setText(
-                                steps_obj.get_page_name)
+                            self.step_name_steps.setText(steps_obj.get_step_name)
+                            self.page_name_steps.setText(steps_obj.get_page_name)
                             self.page_hierarchy_steps.setText(
                                 steps_obj.get_page_hierarchy
-                                )
-                            self.from_text_steps.setText(
-                                steps_obj.get_from_transaction)
-                            self.to_text_steps.setText(
-                                steps_obj.get_to_transaction)
+                            )
+                            self.from_text_steps.setText(steps_obj.get_from_transaction)
+                            self.to_text_steps.setText(steps_obj.get_to_transaction)
                             if steps_obj.get_is_external == "true":
-                                self.is_external_check_box_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.is_external_check_box_steps.setChecked(LABEL_TRUE)
                             else:
-                                self.is_external_check_box_steps.setChecked(
-                                    LABEL_FALSE)
+                                self.is_external_check_box_steps.setChecked(LABEL_FALSE)
                             if steps_obj.get_form_view == "true":
                                 self.form_view_steps.setChecked(LABEL_TRUE)
                             else:
@@ -1379,29 +1330,25 @@ class VRGAutomation(object):
 
                                 self.form_steps.setChecked(LABEL_TRUE)
 
-                            self.product_id_steps.setText(
-                                steps_obj.get_product_id)
+                            self.product_id_steps.setText(steps_obj.get_product_id)
                             self.parent_product_steps.setText(
                                 steps_obj.get_parent_product
-                                )
-                            self.adjudication_steps.setText(
-                                steps_obj.get_adjudication)
+                            )
+                            self.adjudication_steps.setText(steps_obj.get_adjudication)
                             self.positioning_combo_box_steps.setCurrentText(
                                 steps_obj.get_product_positioning
-                                )
+                            )
                             self.grouping_combo_box.setCurrentText(
                                 steps_obj.get_product_grouping
-                                )
+                            )
                             self.fulfillment_combo_box_steps.setCurrentText(
                                 steps_obj.get_fulfillment
-                                )
+                            )
 
                             if steps_obj.get_personal_details == "true":
-                                self.personal_details_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.personal_details_steps.setChecked(LABEL_TRUE)
                             else:
-                                self.personal_details_steps.setChecked(
-                                    LABEL_FALSE)
+                                self.personal_details_steps.setChecked(LABEL_FALSE)
 
                             if steps_obj.get_summary == "true":
                                 self.summary_steps.setChecked(LABEL_TRUE)
@@ -1409,19 +1356,16 @@ class VRGAutomation(object):
                                 self.summary_steps.setChecked(LABEL_FALSE)
 
                             if steps_obj.get_product_recommendation == "true":
-                                self.product_recommendation_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.product_recommendation_steps.setChecked(LABEL_TRUE)
                             else:
                                 self.product_recommendation_steps.setChecked(
                                     LABEL_FALSE
-                                    )
+                                )
 
                             if steps_obj.get_terms_and_condition == "true":
-                                self.terms_and_condition_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.terms_and_condition_steps.setChecked(LABEL_TRUE)
                             else:
-                                self.terms_and_condition_steps.setChecked(
-                                    LABEL_FALSE)
+                                self.terms_and_condition_steps.setChecked(LABEL_FALSE)
 
                             if steps_obj.get_confirmation == "true":
                                 self.confirmation_steps.setChecked(LABEL_TRUE)
@@ -1434,24 +1378,19 @@ class VRGAutomation(object):
                                 self.is_paperless_steps.setChecked(LABEL_FALSE)
 
                             if steps_obj.get_user_auth_state == "{authenticated}":
-                                self.yes_login_group_box_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.yes_login_group_box_steps.setChecked(LABEL_TRUE)
                             elif (
-                                    steps_obj.get_user_auth_state
-                                    == "{not-authenticated | authenticated}"
+                                steps_obj.get_user_auth_state
+                                == "{not-authenticated | authenticated}"
                             ):
-                                self.both_login_group_box_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.both_login_group_box_steps.setChecked(LABEL_TRUE)
                             else:
-                                self.no_login_group_box_steps.setChecked(
-                                    LABEL_TRUE)
+                                self.no_login_group_box_steps.setChecked(LABEL_TRUE)
 
                             if steps_obj.get_event_error == "true":
-                                self.yes_error_steps_group_box.setChecked(
-                                    LABEL_TRUE)
+                                self.yes_error_steps_group_box.setChecked(LABEL_TRUE)
                             else:
-                                self.no_error_steps_group_box.setChecked(
-                                    LABEL_TRUE)
+                                self.no_error_steps_group_box.setChecked(LABEL_TRUE)
                             if steps_obj.get_advertising == "true":
                                 self.advertising_steps.setChecked(LABEL_TRUE)
                             if steps_obj.get_is_login == "true":
@@ -1468,21 +1407,17 @@ class VRGAutomation(object):
                         download_obj = Download()
                         download_obj.set_download_file_name(
                             str(self.vrg.download[i]["download_file_name"])
-                            )
+                        )
                         download_obj.set_download_file_type(
                             str(self.vrg.download[i]["download_file_type"])
-                            )
+                        )
 
-                        self.download_name.setText(
-                            download_obj.get_download_file_name)
-                        if download_obj.get_download_file_type.upper() == \
-                                LABEL_PDF:
+                        self.download_name.setText(download_obj.get_download_file_name)
+                        if download_obj.get_download_file_type.upper() == LABEL_PDF:
                             self.download_type_combo_box.setCurrentIndex(1)
-                        if download_obj.get_download_file_type.upper() == \
-                                LABEL_JPEG:
+                        if download_obj.get_download_file_type.upper() == LABEL_JPEG:
                             self.download_type_combo_box.setCurrentIndex(2)
-                        if download_obj.get_download_file_type.upper() == \
-                                LABEL_OTHER:
+                        if download_obj.get_download_file_type.upper() == LABEL_OTHER:
                             self.download_type_combo_box.setCurrentIndex(3)
                         break
         if flag == "INTERACTION":
@@ -1494,10 +1429,10 @@ class VRGAutomation(object):
                         interaction_obj.set_site_interaction_event("true")
                         interaction_obj.set_interaction_name(
                             str(self.vrg.interaction[i]["interaction_name"])
-                            )
+                        )
                         self.interaction_name.setText(
                             interaction_obj.get_interaction_name
-                            )
+                        )
                         break
 
     def delete_page_information(self):
@@ -1505,8 +1440,8 @@ class VRGAutomation(object):
         self.page_delete_flag = 0
         for i in range(0, len(self.vrg.pages)):
             if (
-                    "page_name" in self.vrg.pages[i]
-                    and self.vrg.pages[i]["page_name"] == name
+                "page_name" in self.vrg.pages[i]
+                and self.vrg.pages[i]["page_name"] == name
             ):
                 del self.vrg.pages[i]
                 self.page_delete_flag = 1
@@ -1514,8 +1449,8 @@ class VRGAutomation(object):
 
         for i in range(0, len(self.vrg.download)):
             if (
-                    "download_file_name" in self.vrg.download[i]
-                    and self.vrg.download[i]["download_file_name"] == name
+                "download_file_name" in self.vrg.download[i]
+                and self.vrg.download[i]["download_file_name"] == name
             ):
                 del self.vrg.download[i]
                 self.page_delete_flag = 1
@@ -1523,8 +1458,8 @@ class VRGAutomation(object):
 
         for i in range(0, len(self.vrg.interaction)):
             if (
-                    "interaction_name" in self.vrg.interaction[i]
-                    and self.vrg.interaction[i]["interaction_name"] == name
+                "interaction_name" in self.vrg.interaction[i]
+                and self.vrg.interaction[i]["interaction_name"] == name
             ):
                 del self.vrg.interaction[i]
                 self.page_delete_flag = 1
@@ -1536,12 +1471,11 @@ class VRGAutomation(object):
                     if "step_name" in self.vrg.forms[i]["steps"][j]:
                         f1 = self.vrg.forms[i]["form_name"] + "-"
                         step_name_edit = str(name).replace(str(f1), "")
-                        if self.vrg.forms[i]["steps"][j][
-                            "step_name"] == step_name_edit:
+                        if self.vrg.forms[i]["steps"][j]["step_name"] == step_name_edit:
                             if len(self.steps) > 0:
                                 self.no_of_steps_form_box.setText(
                                     str(len(self.steps) - 1)
-                                    )
+                                )
                                 self.vrg.forms[i][
                                     "no_of_steps"
                                 ] = self.no_of_steps_form_box.text()
@@ -1625,20 +1559,17 @@ class VRGAutomation(object):
         self.brand_combo_box.setToolTip(TOOLTIP_SITE_BRAND)
 
         self.application_type_label = QtWidgets.QLabel(self.central_widget)
-        self.application_type_label.setGeometry(
-            QtCore.QRect(490, 130, 125, 28))
+        self.application_type_label.setGeometry(QtCore.QRect(490, 130, 125, 28))
         self.application_type_label.setObjectName("application_type_label")
 
         self.application_type_combo = QtWidgets.QComboBox(self.central_widget)
-        self.application_type_combo.setGeometry(
-            QtCore.QRect(620, 130, 241, 28))
+        self.application_type_combo.setGeometry(QtCore.QRect(620, 130, 241, 28))
         self.application_type_combo.setObjectName("application_type_combo")
         self.application_type_combo.setItemText(0, "")
         self.application_type_combo.addItem("")
         self.application_type_combo.addItem("")
         self.application_type_combo.addItem("")
-        self.application_type_combo.currentIndexChanged.connect(
-            self.application_type)
+        self.application_type_combo.currentIndexChanged.connect(self.application_type)
         self.application_type_combo.setToolTip(TOOLTIP_APPLICATION_TYPE)
 
         self.add_button = QtWidgets.QPushButton(self.central_widget)
@@ -1665,81 +1596,63 @@ class VRGAutomation(object):
         self.standalone_page_box.setGeometry(QtCore.QRect(30, 290, 421, 351))
         self.standalone_page_box.setObjectName("standalone_page_box")
 
-        self.page_name_standalone_label = QtWidgets.QLabel(
-            self.standalone_page_box)
-        self.page_name_standalone_label.setGeometry(
-            QtCore.QRect(50, 40, 91, 28))
-        self.page_name_standalone_label.setObjectName(
-            "page_name_standalone_label")
+        self.page_name_standalone_label = QtWidgets.QLabel(self.standalone_page_box)
+        self.page_name_standalone_label.setGeometry(QtCore.QRect(50, 40, 91, 28))
+        self.page_name_standalone_label.setObjectName("page_name_standalone_label")
 
-        self.page_name_standalone = QtWidgets.QLineEdit(
-            self.standalone_page_box)
+        self.page_name_standalone = QtWidgets.QLineEdit(self.standalone_page_box)
         self.page_name_standalone.setGeometry(QtCore.QRect(185, 40, 191, 28))
         self.page_name_standalone.setObjectName("page_name_standalone")
         self.page_hierarchy_standalone_label = QtWidgets.QLabel(
             self.standalone_page_box
-            )
-        self.page_hierarchy_standalone_label.setGeometry(
-            QtCore.QRect(50, 80, 115, 28))
+        )
+        self.page_hierarchy_standalone_label.setGeometry(QtCore.QRect(50, 80, 115, 28))
         self.page_hierarchy_standalone_label.setObjectName(
             "page_hierarchy_standalone_label"
-            )
+        )
 
-        self.page_hierarchy_standalone = QtWidgets.QLineEdit(
-            self.standalone_page_box)
-        self.page_hierarchy_standalone.setGeometry(
-            QtCore.QRect(185, 80, 191, 28))
-        self.page_hierarchy_standalone.setObjectName(
-            "page_hierarchy_standalone")
+        self.page_hierarchy_standalone = QtWidgets.QLineEdit(self.standalone_page_box)
+        self.page_hierarchy_standalone.setGeometry(QtCore.QRect(185, 80, 191, 28))
+        self.page_hierarchy_standalone.setObjectName("page_hierarchy_standalone")
 
-        self.error_group_box_standalone = QtWidgets.QGroupBox(
-            self.standalone_page_box)
-        self.error_group_box_standalone.setGeometry(
-            QtCore.QRect(50, 115, 291, 61))
-        self.error_group_box_standalone.setObjectName(
-            "error_group_box_standalone")
+        self.error_group_box_standalone = QtWidgets.QGroupBox(self.standalone_page_box)
+        self.error_group_box_standalone.setGeometry(QtCore.QRect(50, 115, 291, 61))
+        self.error_group_box_standalone.setObjectName("error_group_box_standalone")
 
         self.yes_error_standalone = QtWidgets.QRadioButton(
             self.error_group_box_standalone
-            )
+        )
         self.yes_error_standalone.setGeometry(QtCore.QRect(70, 20, 95, 20))
         self.yes_error_standalone.setObjectName("yes_error_standalone")
 
         self.no_error_standalone = QtWidgets.QRadioButton(
             self.error_group_box_standalone
-            )
+        )
         self.no_error_standalone.setGeometry(QtCore.QRect(140, 20, 95, 20))
         self.no_error_standalone.setObjectName("no_error_standalone")
 
-        self.login_group_box_page = QtWidgets.QGroupBox(
-            self.standalone_page_box)
+        self.login_group_box_page = QtWidgets.QGroupBox(self.standalone_page_box)
         self.login_group_box_page.setGeometry(QtCore.QRect(50, 180, 291, 80))
         self.login_group_box_page.setObjectName("login_group_box_page")
 
-        self.yes_login_standalone = QtWidgets.QRadioButton(
-            self.login_group_box_page)
+        self.yes_login_standalone = QtWidgets.QRadioButton(self.login_group_box_page)
         self.yes_login_standalone.setGeometry(QtCore.QRect(20, 30, 95, 20))
         self.yes_login_standalone.setObjectName("yes_login_standalone")
 
-        self.no_login_standalone = QtWidgets.QRadioButton(
-            self.login_group_box_page)
+        self.no_login_standalone = QtWidgets.QRadioButton(self.login_group_box_page)
         self.no_login_standalone.setGeometry(QtCore.QRect(80, 30, 95, 20))
         self.no_login_standalone.setObjectName("no_login_standalone")
 
-        self.both_login_standalone = QtWidgets.QRadioButton(
-            self.login_group_box_page)
+        self.both_login_standalone = QtWidgets.QRadioButton(self.login_group_box_page)
         self.both_login_standalone.setGeometry(QtCore.QRect(150, 30, 95, 20))
         self.both_login_standalone.setObjectName("both_login_standalone")
 
-        self.is_login_standalone = QtWidgets.QCheckBox(
-            self.standalone_page_box)
+        self.is_login_standalone = QtWidgets.QCheckBox(self.standalone_page_box)
         self.is_login_standalone.setGeometry(QtCore.QRect(50, 260, 93, 28))
         self.is_login_standalone.setObjectName("is_login_standalone")
 
-        self.advertising_standalone = QtWidgets.QCheckBox(
-            self.standalone_page_box)
-        self.advertising_standalone.setGeometry(
-            QtCore.QRect(150, 260, 120, 28))
+        self.advertising_standalone = QtWidgets.QCheckBox(self.standalone_page_box)
+        self.advertising_standalone.setGeometry(QtCore.QRect(150, 260, 120, 28))
         self.advertising_standalone.setObjectName("advertising_standalone")
         self.advertising_standalone.setToolTip(TOOLTIP_ADVERTISING)
 
@@ -1747,16 +1660,13 @@ class VRGAutomation(object):
         self.otvc_standalone.setGeometry(QtCore.QRect(270, 260, 93, 28))
         self.otvc_standalone.setObjectName("otvc_standalone")
 
-        self.save_button_standalone = QtWidgets.QPushButton(
-            self.standalone_page_box)
+        self.save_button_standalone = QtWidgets.QPushButton(self.standalone_page_box)
         self.save_button_standalone.setGeometry(QtCore.QRect(50, 300, 93, 28))
         self.save_button_standalone.setObjectName("save_button_standalone")
         self.save_button_standalone.clicked.connect(self.save_standalone_page)
 
-        self.cancel_button_standalone = QtWidgets.QPushButton(
-            self.standalone_page_box)
-        self.cancel_button_standalone.setGeometry(
-            QtCore.QRect(200, 300, 93, 28))
+        self.cancel_button_standalone = QtWidgets.QPushButton(self.standalone_page_box)
+        self.cancel_button_standalone.setGeometry(QtCore.QRect(200, 300, 93, 28))
         self.cancel_button_standalone.setObjectName("cancel_button_standalone")
 
         self.standalone_page_box.setEnabled(LABEL_FALSE)
@@ -1798,42 +1708,31 @@ class VRGAutomation(object):
         self.form_name_form_box.setObjectName("form_name_form_box")
 
         self.no_of_steps_label_form_box = QtWidgets.QLabel(self.form_group_box)
-        self.no_of_steps_label_form_box.setGeometry(
-            QtCore.QRect(30, 130, 93, 28))
-        self.no_of_steps_label_form_box.setObjectName(
-            "no_of_steps_label_form_box")
+        self.no_of_steps_label_form_box.setGeometry(QtCore.QRect(30, 130, 93, 28))
+        self.no_of_steps_label_form_box.setObjectName("no_of_steps_label_form_box")
 
         self.no_of_steps_form_box = QtWidgets.QLineEdit(self.form_group_box)
         self.no_of_steps_form_box.setGeometry(QtCore.QRect(150, 120, 201, 28))
         self.no_of_steps_form_box.setObjectName("no_of_steps_form_box")
 
-        self.product_checkbox_form_box = QtWidgets.QCheckBox(
-            self.form_group_box)
-        self.product_checkbox_form_box.setGeometry(
-            QtCore.QRect(50, 200, 84, 20))
-        self.product_checkbox_form_box.setObjectName(
-            "product_checkbox_form_box")
+        self.product_checkbox_form_box = QtWidgets.QCheckBox(self.form_group_box)
+        self.product_checkbox_form_box.setGeometry(QtCore.QRect(50, 200, 84, 20))
+        self.product_checkbox_form_box.setObjectName("product_checkbox_form_box")
         self.product_checkbox_form_box.stateChanged.connect(
-            lambda: self.product_checkbox_button(
-                self.product_checkbox_form_box)
-            )
+            lambda: self.product_checkbox_button(self.product_checkbox_form_box)
+        )
 
-        self.transaction_checkbox_form_box = QtWidgets.QCheckBox(
-            self.form_group_box)
-        self.transaction_checkbox_form_box.setGeometry(
-            QtCore.QRect(160, 200, 111, 20))
+        self.transaction_checkbox_form_box = QtWidgets.QCheckBox(self.form_group_box)
+        self.transaction_checkbox_form_box.setGeometry(QtCore.QRect(160, 200, 111, 20))
         self.transaction_checkbox_form_box.setObjectName(
             "transaction_checkbox_form_box"
-            )
+        )
         self.transaction_checkbox_form_box.stateChanged.connect(
-            lambda: self.transaction_checkbox_button(
-                self.transaction_checkbox_form_box)
-            )
+            lambda: self.transaction_checkbox_button(self.transaction_checkbox_form_box)
+        )
 
-        self.generate_steps_form_box = QtWidgets.QPushButton(
-            self.form_group_box)
-        self.generate_steps_form_box.setGeometry(
-            QtCore.QRect(120, 260, 121, 28))
+        self.generate_steps_form_box = QtWidgets.QPushButton(self.form_group_box)
+        self.generate_steps_form_box.setGeometry(QtCore.QRect(120, 260, 121, 28))
         self.generate_steps_form_box.setObjectName("generate_steps_form_box")
         self.generate_steps_form_box.clicked.connect(self.save_form_page)
 
@@ -1860,10 +1759,8 @@ class VRGAutomation(object):
         self.step_name_steps.setObjectName("step_name_steps")
 
         self.page_hierarchy_label_steps = QtWidgets.QLabel(self.step_group_box)
-        self.page_hierarchy_label_steps.setGeometry(
-            QtCore.QRect(520, 80, 115, 28))
-        self.page_hierarchy_label_steps.setObjectName(
-            "page_hierarchy_label_steps")
+        self.page_hierarchy_label_steps.setGeometry(QtCore.QRect(520, 80, 115, 28))
+        self.page_hierarchy_label_steps.setObjectName("page_hierarchy_label_steps")
 
         self.page_hierarchy_steps = QtWidgets.QLineEdit(self.step_group_box)
         self.page_hierarchy_steps.setGeometry(QtCore.QRect(640, 80, 200, 28))
@@ -1875,25 +1772,20 @@ class VRGAutomation(object):
 
         self.yes_login_group_box_steps = QtWidgets.QRadioButton(
             self.login_group_box_steps
-            )
-        self.yes_login_group_box_steps.setGeometry(
-            QtCore.QRect(10, 40, 95, 20))
-        self.yes_login_group_box_steps.setObjectName(
-            "yes_login_group_box_steps")
+        )
+        self.yes_login_group_box_steps.setGeometry(QtCore.QRect(10, 40, 95, 20))
+        self.yes_login_group_box_steps.setObjectName("yes_login_group_box_steps")
 
         self.no_login_group_box_steps = QtWidgets.QRadioButton(
             self.login_group_box_steps
-            )
-        self.no_login_group_box_steps.setGeometry(
-            QtCore.QRect(110, 40, 95, 20))
+        )
+        self.no_login_group_box_steps.setGeometry(QtCore.QRect(110, 40, 95, 20))
         self.no_login_group_box_steps.setObjectName("no_login_group_box_steps")
         self.both_login_group_box_steps = QtWidgets.QRadioButton(
             self.login_group_box_steps
-            )
-        self.both_login_group_box_steps.setGeometry(
-            QtCore.QRect(220, 40, 95, 20))
-        self.both_login_group_box_steps.setObjectName(
-            "both_login_group_box_steps")
+        )
+        self.both_login_group_box_steps.setGeometry(QtCore.QRect(220, 40, 95, 20))
+        self.both_login_group_box_steps.setObjectName("both_login_group_box_steps")
 
         self.form_group_box_steps = QtWidgets.QGroupBox(self.step_group_box)
         self.form_group_box_steps.setGeometry(QtCore.QRect(512, 230, 412, 91))
@@ -1907,8 +1799,7 @@ class VRGAutomation(object):
         self.form_submit_steps.setGeometry(QtCore.QRect(50, 60, 121, 20))
         self.form_submit_steps.setObjectName("form_submit_steps")
 
-        self.form_qualify_steps = QtWidgets.QCheckBox(
-            self.form_group_box_steps)
+        self.form_qualify_steps = QtWidgets.QCheckBox(self.form_group_box_steps)
         self.form_qualify_steps.setGeometry(QtCore.QRect(260, 20, 161, 20))
         self.form_qualify_steps.setObjectName("form_qualify_steps")
 
@@ -1928,131 +1819,103 @@ class VRGAutomation(object):
         self.otvc_steps.setGeometry(QtCore.QRect(800, 350, 102, 28))
         self.otvc_steps.setObjectName("otvc_steps")
 
-        self.error_form_group_box_steps = QtWidgets.QGroupBox(
-            self.form_group_box_steps)
-        self.error_form_group_box_steps.setGeometry(
-            QtCore.QRect(470, 110, 201, 91))
-        self.error_form_group_box_steps.setObjectName(
-            "error_form_group_box_steps")
+        self.error_form_group_box_steps = QtWidgets.QGroupBox(self.form_group_box_steps)
+        self.error_form_group_box_steps.setGeometry(QtCore.QRect(470, 110, 201, 91))
+        self.error_form_group_box_steps.setObjectName("error_form_group_box_steps")
 
         self.yes_error_form_group_box_steps = QtWidgets.QRadioButton(
             self.error_form_group_box_steps
-            )
-        self.yes_error_form_group_box_steps.setGeometry(
-            QtCore.QRect(40, 30, 95, 20))
+        )
+        self.yes_error_form_group_box_steps.setGeometry(QtCore.QRect(40, 30, 95, 20))
         self.yes_error_form_group_box_steps.setObjectName(
             "yes_error_form_group_box_steps"
-            )
+        )
 
         self.no_error_form_group_box_steps = QtWidgets.QRadioButton(
             self.error_form_group_box_steps
-            )
-        self.no_error_form_group_box_steps.setGeometry(
-            QtCore.QRect(120, 30, 95, 20))
+        )
+        self.no_error_form_group_box_steps.setGeometry(QtCore.QRect(120, 30, 95, 20))
         self.no_error_form_group_box_steps.setObjectName(
             "no_error_form_group_box_steps"
-            )
+        )
 
         self.product_group_box_steps = QtWidgets.QGroupBox(self.step_group_box)
-        self.product_group_box_steps.setGeometry(
-            QtCore.QRect(40, 400, 930, 301))
+        self.product_group_box_steps.setGeometry(QtCore.QRect(40, 400, 930, 301))
         self.product_group_box_steps.setObjectName("product_group_box_steps")
 
         self.product_app_group_box_steps = QtWidgets.QGroupBox(
             self.product_group_box_steps
-            )
-        self.product_app_group_box_steps.setGeometry(
-            QtCore.QRect(30, 140, 891, 131))
-        self.product_app_group_box_steps.setObjectName(
-            "product_app_group_box_steps")
+        )
+        self.product_app_group_box_steps.setGeometry(QtCore.QRect(30, 140, 891, 131))
+        self.product_app_group_box_steps.setObjectName("product_app_group_box_steps")
 
         self.personal_details_steps = QtWidgets.QCheckBox(
             self.product_app_group_box_steps
-            )
+        )
         self.personal_details_steps.setGeometry(QtCore.QRect(80, 30, 210, 20))
         self.personal_details_steps.setObjectName("personal_details_steps")
 
-        self.summary_steps = QtWidgets.QCheckBox(
-            self.product_app_group_box_steps)
+        self.summary_steps = QtWidgets.QCheckBox(self.product_app_group_box_steps)
         self.summary_steps.setGeometry(QtCore.QRect(340, 30, 120, 21))
         self.summary_steps.setObjectName("summary_steps")
 
-        self.confirmation_steps = QtWidgets.QCheckBox(
-            self.product_app_group_box_steps)
+        self.confirmation_steps = QtWidgets.QCheckBox(self.product_app_group_box_steps)
         self.confirmation_steps.setGeometry(QtCore.QRect(550, 30, 131, 20))
         self.confirmation_steps.setObjectName("confirmation_steps")
 
-        self.is_joint_steps = QtWidgets.QCheckBox(
-            self.product_app_group_box_steps)
+        self.is_joint_steps = QtWidgets.QCheckBox(self.product_app_group_box_steps)
         self.is_joint_steps.setGeometry(QtCore.QRect(710, 30, 131, 20))
         self.is_joint_steps.setObjectName("is_joint_steps")
 
         self.product_recommendation_steps = QtWidgets.QCheckBox(
             self.product_app_group_box_steps
-            )
-        self.product_recommendation_steps.setGeometry(
-            QtCore.QRect(80, 60, 210, 20))
-        self.product_recommendation_steps.setObjectName(
-            "product_recommendation_steps")
+        )
+        self.product_recommendation_steps.setGeometry(QtCore.QRect(80, 60, 210, 20))
+        self.product_recommendation_steps.setObjectName("product_recommendation_steps")
 
         self.terms_and_condition_steps = QtWidgets.QCheckBox(
             self.product_app_group_box_steps
-            )
-        self.terms_and_condition_steps.setGeometry(
-            QtCore.QRect(340, 60, 180, 20))
-        self.terms_and_condition_steps.setObjectName(
-            "terms_and_condition_steps")
+        )
+        self.terms_and_condition_steps.setGeometry(QtCore.QRect(340, 60, 180, 20))
+        self.terms_and_condition_steps.setObjectName("terms_and_condition_steps")
 
-        self.is_paperless_steps = QtWidgets.QCheckBox(
-            self.product_app_group_box_steps)
+        self.is_paperless_steps = QtWidgets.QCheckBox(self.product_app_group_box_steps)
         self.is_paperless_steps.setGeometry(QtCore.QRect(550, 60, 131, 20))
         self.is_paperless_steps.setObjectName("is_paperless_steps")
 
-        self.product_id_label_steps = QtWidgets.QLabel(
-            self.product_group_box_steps)
+        self.product_id_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
         self.product_id_label_steps.setGeometry(QtCore.QRect(10, 40, 91, 28))
         self.product_id_label_steps.setObjectName("product_id_label_steps")
 
-        self.product_id_steps = QtWidgets.QLineEdit(
-            self.product_group_box_steps)
+        self.product_id_steps = QtWidgets.QLineEdit(self.product_group_box_steps)
         self.product_id_steps.setGeometry(QtCore.QRect(110, 40, 161, 28))
         self.product_id_steps.setObjectName("product_id_steps")
 
-        self.parent_product_label_steps = QtWidgets.QLabel(
-            self.product_group_box_steps)
-        self.parent_product_label_steps.setGeometry(
-            QtCore.QRect(300, 40, 121, 28))
-        self.parent_product_label_steps.setObjectName(
-            "parent_product_label_steps")
+        self.parent_product_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
+        self.parent_product_label_steps.setGeometry(QtCore.QRect(300, 40, 121, 28))
+        self.parent_product_label_steps.setObjectName("parent_product_label_steps")
 
-        self.parent_product_steps = QtWidgets.QLineEdit(
-            self.product_group_box_steps)
+        self.parent_product_steps = QtWidgets.QLineEdit(self.product_group_box_steps)
         self.parent_product_steps.setGeometry(QtCore.QRect(430, 40, 181, 28))
         self.parent_product_steps.setObjectName("parent_product_steps")
 
-        self.adjudication_label_steps = QtWidgets.QLabel(
-            self.product_group_box_steps)
-        self.adjudication_label_steps.setGeometry(
-            QtCore.QRect(640, 40, 130, 28))
+        self.adjudication_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
+        self.adjudication_label_steps.setGeometry(QtCore.QRect(640, 40, 130, 28))
         self.adjudication_label_steps.setObjectName("adjudication_label_steps")
 
-        self.adjudication_steps = QtWidgets.QLineEdit(
-            self.product_group_box_steps)
+        self.adjudication_steps = QtWidgets.QLineEdit(self.product_group_box_steps)
         self.adjudication_steps.setGeometry(QtCore.QRect(740, 40, 181, 28))
         self.adjudication_steps.setObjectName("adjudication_steps")
 
-        self.positioning_label_steps = QtWidgets.QLabel(
-            self.product_group_box_steps)
+        self.positioning_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
         self.positioning_label_steps.setGeometry(QtCore.QRect(10, 90, 111, 28))
         self.positioning_label_steps.setObjectName("positioning_label_steps")
 
         self.positioning_combo_box_steps = QtWidgets.QComboBox(
             self.product_group_box_steps
-            )
-        self.positioning_combo_box_steps.setGeometry(
-            QtCore.QRect(110, 90, 161, 28))
-        self.positioning_combo_box_steps.setObjectName(
-            "positioning_combo_box_steps")
+        )
+        self.positioning_combo_box_steps.setGeometry(QtCore.QRect(110, 90, 161, 28))
+        self.positioning_combo_box_steps.setObjectName("positioning_combo_box_steps")
         self.positioning_combo_box_steps.addItem("")
         self.positioning_combo_box_steps.addItem("")
         self.positioning_combo_box_steps.addItem("")
@@ -2061,13 +1924,11 @@ class VRGAutomation(object):
         self.positioning_combo_box_steps.addItem("")
         self.positioning_combo_box_steps.addItem("")
 
-        self.grouping_label_steps = QtWidgets.QLabel(
-            self.product_group_box_steps)
+        self.grouping_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
         self.grouping_label_steps.setGeometry(QtCore.QRect(300, 90, 160, 28))
         self.grouping_label_steps.setObjectName("grouping_label_steps")
 
-        self.grouping_combo_box = QtWidgets.QComboBox(
-            self.product_group_box_steps)
+        self.grouping_combo_box = QtWidgets.QComboBox(self.product_group_box_steps)
         self.grouping_combo_box.setGeometry(QtCore.QRect(430, 90, 181, 28))
         self.grouping_combo_box.setObjectName("grouping_combobox")
         self.grouping_combo_box.addItem("")
@@ -2075,19 +1936,15 @@ class VRGAutomation(object):
         self.grouping_combo_box.addItem("")
         self.grouping_combo_box.addItem("")
 
-        self.fulfillment_label_steps = QtWidgets.QLabel(
-            self.product_group_box_steps)
-        self.fulfillment_label_steps.setGeometry(
-            QtCore.QRect(640, 90, 180, 28))
+        self.fulfillment_label_steps = QtWidgets.QLabel(self.product_group_box_steps)
+        self.fulfillment_label_steps.setGeometry(QtCore.QRect(640, 90, 180, 28))
         self.fulfillment_label_steps.setObjectName("fulfillment_label_steps")
 
         self.fulfillment_combo_box_steps = QtWidgets.QComboBox(
             self.product_group_box_steps
-            )
-        self.fulfillment_combo_box_steps.setGeometry(
-            QtCore.QRect(740, 90, 180, 28))
-        self.fulfillment_combo_box_steps.setObjectName(
-            "fulfillment_combo_box_steps")
+        )
+        self.fulfillment_combo_box_steps.setGeometry(QtCore.QRect(740, 90, 180, 28))
+        self.fulfillment_combo_box_steps.setObjectName("fulfillment_combo_box_steps")
         self.fulfillment_combo_box_steps.addItem("")
         self.fulfillment_combo_box_steps.addItem("")
         self.fulfillment_combo_box_steps.addItem("")
@@ -2095,59 +1952,46 @@ class VRGAutomation(object):
         self.fulfillment_combo_box_steps.addItem("")
         self.fulfillment_combo_box_steps.addItem("")
 
-        self.transaction_group_box_steps = QtWidgets.QGroupBox(
-            self.step_group_box)
-        self.transaction_group_box_steps.setGeometry(
-            QtCore.QRect(50, 190, 351, 191))
-        self.transaction_group_box_steps.setObjectName(
-            "transaction_group_box_steps")
+        self.transaction_group_box_steps = QtWidgets.QGroupBox(self.step_group_box)
+        self.transaction_group_box_steps.setGeometry(QtCore.QRect(50, 190, 351, 191))
+        self.transaction_group_box_steps.setObjectName("transaction_group_box_steps")
 
-        self.from_label_steps = QtWidgets.QLabel(
-            self.transaction_group_box_steps)
+        self.from_label_steps = QtWidgets.QLabel(self.transaction_group_box_steps)
         self.from_label_steps.setGeometry(QtCore.QRect(40, 40, 55, 28))
         self.from_label_steps.setObjectName("from_label_steps")
 
-        self.from_text_steps = QtWidgets.QLineEdit(
-            self.transaction_group_box_steps)
+        self.from_text_steps = QtWidgets.QLineEdit(self.transaction_group_box_steps)
         self.from_text_steps.setGeometry(QtCore.QRect(130, 40, 151, 28))
         self.from_text_steps.setObjectName("from_text_steps")
 
-        self.to_label_steps = QtWidgets.QLabel(
-            self.transaction_group_box_steps)
+        self.to_label_steps = QtWidgets.QLabel(self.transaction_group_box_steps)
         self.to_label_steps.setGeometry(QtCore.QRect(40, 90, 55, 28))
         self.to_label_steps.setObjectName("to_label_steps")
 
-        self.to_text_steps = QtWidgets.QLineEdit(
-            self.transaction_group_box_steps)
+        self.to_text_steps = QtWidgets.QLineEdit(self.transaction_group_box_steps)
         self.to_text_steps.setGeometry(QtCore.QRect(130, 90, 151, 28))
         self.to_text_steps.setObjectName("to_text_steps")
 
         self.is_external_check_box_steps = QtWidgets.QCheckBox(
             self.transaction_group_box_steps
-            )
-        self.is_external_check_box_steps.setGeometry(
-            QtCore.QRect(130, 140, 141, 20))
-        self.is_external_check_box_steps.setObjectName(
-            "is_external_check_box_steps")
+        )
+        self.is_external_check_box_steps.setGeometry(QtCore.QRect(130, 140, 141, 20))
+        self.is_external_check_box_steps.setObjectName("is_external_check_box_steps")
 
         self.error_steps_group_box = QtWidgets.QGroupBox(self.step_group_box)
-        self.error_steps_group_box.setGeometry(
-            QtCore.QRect(510, 110, 411, 101))
+        self.error_steps_group_box.setGeometry(QtCore.QRect(510, 110, 411, 101))
         self.error_steps_group_box.setObjectName("error_steps_group_box")
 
         self.yes_error_steps_group_box = QtWidgets.QRadioButton(
             self.error_steps_group_box
-            )
-        self.yes_error_steps_group_box.setGeometry(
-            QtCore.QRect(50, 50, 95, 20))
-        self.yes_error_steps_group_box.setObjectName(
-            "yes_error_steps_group_box")
+        )
+        self.yes_error_steps_group_box.setGeometry(QtCore.QRect(50, 50, 95, 20))
+        self.yes_error_steps_group_box.setObjectName("yes_error_steps_group_box")
 
         self.no_error_steps_group_box = QtWidgets.QRadioButton(
             self.error_steps_group_box
-            )
-        self.no_error_steps_group_box.setGeometry(
-            QtCore.QRect(170, 50, 95, 20))
+        )
+        self.no_error_steps_group_box.setGeometry(QtCore.QRect(170, 50, 95, 20))
         self.no_error_steps_group_box.setObjectName("no_error_steps_group_box")
 
         self.save_and_next_steps = QtWidgets.QPushButton(self.step_group_box)
@@ -2173,10 +2017,8 @@ class VRGAutomation(object):
         self.download_type_label.setGeometry(QtCore.QRect(30, 100, 180, 28))
         self.download_type_label.setObjectName("download_type_label")
 
-        self.download_type_combo_box = QtWidgets.QComboBox(
-            self.download_group_box)
-        self.download_type_combo_box.setGeometry(
-            QtCore.QRect(160, 100, 180, 28))
+        self.download_type_combo_box = QtWidgets.QComboBox(self.download_group_box)
+        self.download_type_combo_box.setGeometry(QtCore.QRect(160, 100, 180, 28))
 
         self.download_type_combo_box.setObjectName("download_type_combo_box")
         self.download_type_combo_box.addItem("")
@@ -2184,18 +2026,15 @@ class VRGAutomation(object):
         self.download_type_combo_box.addItem("")
         self.download_type_combo_box.addItem("")
 
-        self.download_save_button = QtWidgets.QPushButton(
-            self.download_group_box)
+        self.download_save_button = QtWidgets.QPushButton(self.download_group_box)
         self.download_save_button.setGeometry(QtCore.QRect(180, 150, 93, 28))
         self.download_save_button.setObjectName("download_save_button")
-        self.download_save_button.clicked.connect(
-            self.save_download_information)
+        self.download_save_button.clicked.connect(self.save_download_information)
 
         self.download_group_box.setEnabled(LABEL_FALSE)
 
         self.interaction_group_box = QtWidgets.QGroupBox(self.central_widget)
-        self.interaction_group_box.setGeometry(
-            QtCore.QRect(450, 650, 400, 190))
+        self.interaction_group_box.setGeometry(QtCore.QRect(450, 650, 400, 190))
         self.interaction_group_box.setObjectName("interaction_group_box")
 
         self.interaction_label = QtWidgets.QLabel(self.interaction_group_box)
@@ -2206,13 +2045,10 @@ class VRGAutomation(object):
         self.interaction_name.setGeometry(QtCore.QRect(160, 50, 180, 28))
         self.interaction_name.setObjectName("interaction_name")
 
-        self.interaction_save_button = QtWidgets.QPushButton(
-            self.interaction_group_box)
-        self.interaction_save_button.setGeometry(
-            QtCore.QRect(180, 150, 100, 28))
+        self.interaction_save_button = QtWidgets.QPushButton(self.interaction_group_box)
+        self.interaction_save_button.setGeometry(QtCore.QRect(180, 150, 100, 28))
         self.interaction_save_button.setObjectName("interaction_save_button")
-        self.interaction_save_button.clicked.connect(
-            self.save_interaction_information)
+        self.interaction_save_button.clicked.connect(self.save_interaction_information)
 
         self.interaction_group_box.setEnabled(LABEL_FALSE)
 
@@ -2266,47 +2102,38 @@ class VRGAutomation(object):
         translate = QtCore.QCoreApplication.translate
         central.setWindowTitle(translate("central", APPLICATION_TITLE))
         self.application_title.setText(translate("central", APPLICATION_NAME))
-        self.project_name_label.setText(
-            translate("central", LABEL_PROJECT_NAME))
+        self.project_name_label.setText(translate("central", LABEL_PROJECT_NAME))
         self.user_name_label.setText(translate("central", LABEL_PREPARED_BY))
         self.brand_label.setText(translate("central", LABEL_BRAND_NAME))
         self.brand_combo_box.setItemText(1, translate("central", LABEL_CIBC))
-        self.brand_combo_box.setItemText(2,
-                                         translate("central", LABEL_CIBC_US))
-        self.brand_combo_box.setItemText(3,
-                                         translate("central", LABEL_SIMPLII))
+        self.brand_combo_box.setItemText(2, translate("central", LABEL_CIBC_US))
+        self.brand_combo_box.setItemText(3, translate("central", LABEL_SIMPLII))
         self.application_type_label.setText(
             translate("central", LABEL_APPLICATION_TYPE)
-            )
+        )
         self.application_type_combo.setItemText(
             1, translate("central", APPLICATION_EMBER)
-            )
+        )
         self.application_type_combo.setItemText(
             2, translate("central", APPLICATION_ANGULAR)
-            )
-        self.site_type_combo.setItemText(1,
-                                         translate("central", LABEL_DESKTOP))
+        )
+        self.site_type_combo.setItemText(1, translate("central", LABEL_DESKTOP))
         self.site_type_combo.setItemText(2, translate("central", LABEL_MOBILE))
-        self.site_type_combo.setItemText(3, translate("central",
-                                                      LABEL_RESPONSIVE))
+        self.site_type_combo.setItemText(3, translate("central", LABEL_RESPONSIVE))
         self.site_type_label.setText(translate("central", LABEL_SITE_TYPE))
         self.site_name_label.setText(translate("central", LABEL_SITE_NAME))
 
         self.add_button.setText(translate("central", LABEL_ADD_PAGE))
         self.add_flow.setText(translate("central", LABEL_ADD_FLOW))
         self.download_button.setText(translate("central", LABEL_ADD_DOWNLOAD))
-        self.interaction_button.setText(
-            translate("central", LABEL_ADD_INTERACTION))
+        self.interaction_button.setText(translate("central", LABEL_ADD_INTERACTION))
 
-        self.standalone_page_box.setTitle(
-            translate("central", LABEL_STANDALONE_PAGE))
-        self.page_name_standalone_label.setText(
-            translate("central", LABEL_PAGE_NAME))
+        self.standalone_page_box.setTitle(translate("central", LABEL_STANDALONE_PAGE))
+        self.page_name_standalone_label.setText(translate("central", LABEL_PAGE_NAME))
         self.page_hierarchy_standalone_label.setText(
             translate("central", LABEL_PAGE_HIERARCHY)
-            )
-        self.error_group_box_standalone.setTitle(
-            translate("central", LABEL_ERROR))
+        )
+        self.error_group_box_standalone.setTitle(translate("central", LABEL_ERROR))
         self.yes_error_standalone.setText(translate("central", LABEL_YES))
         self.no_error_standalone.setText(translate("central", LABEL_NO))
         self.login_group_box_page.setTitle(translate("central", LABEL_LOGIN))
@@ -2314,139 +2141,116 @@ class VRGAutomation(object):
         self.no_login_standalone.setText(translate("central", LABEL_NO))
         self.both_login_standalone.setText(translate("central", LABEL_BOTH))
         self.is_login_standalone.setText(translate("central", LABEL_IS_LOGIN))
-        self.advertising_standalone.setText(
-            translate("central", LABEL_ADVERTISING))
+        self.advertising_standalone.setText(translate("central", LABEL_ADVERTISING))
         self.otvc_standalone.setText(translate("central", LABEL_OTVC))
         self.save_button_standalone.setText(translate("central", LABEL_SAVE))
-        self.cancel_button_standalone.setText(
-            translate("central", LABEL_CANCEL))
+        self.cancel_button_standalone.setText(translate("central", LABEL_CANCEL))
 
         self.form_group_box.setTitle(translate("central", LABEL_FORM_FLOW))
-        self.form_name_label_form_box.setText(
-            translate("central", LABEL_FORM_NAME))
-        self.no_of_steps_label_form_box.setText(
-            translate("central", LABEL_NO_OF_STEPS))
-        self.product_checkbox_form_box.setText(
-            translate("central", LABEL_PRODUCTS))
+        self.form_name_label_form_box.setText(translate("central", LABEL_FORM_NAME))
+        self.no_of_steps_label_form_box.setText(translate("central", LABEL_NO_OF_STEPS))
+        self.product_checkbox_form_box.setText(translate("central", LABEL_PRODUCTS))
         self.transaction_checkbox_form_box.setText(
             translate("central", LABEL_TRANSACTION)
-            )
-        self.generate_steps_form_box.setText(
-            translate("central", LABEL_GENERATE_STEPS))
+        )
+        self.generate_steps_form_box.setText(translate("central", LABEL_GENERATE_STEPS))
 
         self.step_group_box.setTitle(translate("central", LABEL_STEPS))
-        self.page_name_label_steps.setText(
-            translate("central", LABEL_PAGE_NAME))
-        self.step_name_label_steps.setText(
-            translate("central", LABEL_STEP_NAME))
+        self.page_name_label_steps.setText(translate("central", LABEL_PAGE_NAME))
+        self.step_name_label_steps.setText(translate("central", LABEL_STEP_NAME))
         self.page_hierarchy_label_steps.setText(
             translate("central", LABEL_PAGE_HIERARCHY)
-            )
+        )
         self.login_group_box_steps.setTitle(translate("central", LABEL_LOGIN))
         self.yes_login_group_box_steps.setText(translate("central", LABEL_YES))
         self.no_login_group_box_steps.setText(translate("central", LABEL_NO))
-        self.both_login_group_box_steps.setText(
-            translate("central", LABEL_BOTH))
+        self.both_login_group_box_steps.setText(translate("central", LABEL_BOTH))
         self.form_group_box.setTitle(translate("central", LABEL_FORM_STEPS))
         self.form_view_steps.setText(translate("central", LABEL_FORM_VIEW))
         self.form_submit_steps.setText(translate("central", LABEL_FORM_SUBMIT))
-        self.form_qualify_steps.setText(
-            translate("central", LABEL_FORM_QUALIFY))
+        self.form_qualify_steps.setText(translate("central", LABEL_FORM_QUALIFY))
         self.form_steps.setText(translate("central", LABEL_FORM_STEPS))
-        self.error_form_group_box_steps.setTitle(
-            translate("central", LABEL_ERROR))
-        self.yes_error_form_group_box_steps.setText(
-            translate("central", LABEL_YES))
-        self.no_error_form_group_box_steps.setText(
-            translate("central", LABEL_NO))
+        self.error_form_group_box_steps.setTitle(translate("central", LABEL_ERROR))
+        self.yes_error_form_group_box_steps.setText(translate("central", LABEL_YES))
+        self.no_error_form_group_box_steps.setText(translate("central", LABEL_NO))
         self.product_group_box_steps.setTitle(
             translate("central", LABEL_PRODUCT_INFORMATION)
-            )
+        )
         self.product_app_group_box_steps.setTitle(
             translate("central", LABEL_PRODUCT_APPLICATION_STEPS)
-            )
+        )
         self.personal_details_steps.setText(
             translate("central", LABEL_PERSONAL_DETAILS)
-            )
+        )
         self.summary_steps.setText(translate("central", LABEL_SUMMARY))
-        self.confirmation_steps.setText(
-            translate("central", LABEL_CONFIRMATION))
+        self.confirmation_steps.setText(translate("central", LABEL_CONFIRMATION))
         self.is_joint_steps.setText(translate("central", LABEL_IS_JOINT))
         self.product_recommendation_steps.setText(
             translate("central", LABEL_PRODUCT_RECOMMENDATION)
-            )
+        )
         self.terms_and_condition_steps.setText(
             translate("central", LABEL_TERMS_AND_CONDITION)
-            )
-        self.is_paperless_steps.setText(
-            translate("central", LABEL_IS_PAPERLESS))
-        self.product_id_label_steps.setText(
-            translate("central", LABEL_PRODUCT_ID))
+        )
+        self.is_paperless_steps.setText(translate("central", LABEL_IS_PAPERLESS))
+        self.product_id_label_steps.setText(translate("central", LABEL_PRODUCT_ID))
         self.parent_product_label_steps.setText(
             translate("central", LABEL_PARENT_PRODUCT)
-            )
-        self.adjudication_label_steps.setText(
-            translate("central", LABEL_ADJUDICATION))
-        self.positioning_label_steps.setText(
-            translate("central", LABEL_POSTIONING))
+        )
+        self.adjudication_label_steps.setText(translate("central", LABEL_ADJUDICATION))
+        self.positioning_label_steps.setText(translate("central", LABEL_POSTIONING))
         self.positioning_combo_box_steps.setItemText(
             0, translate("central", LABEL_NOT_APPLICABLE)
-            )
+        )
         self.positioning_combo_box_steps.setItemText(
             1, translate("central", LABEL_UP_SELL)
-            )
+        )
         self.positioning_combo_box_steps.setItemText(
             2, translate("central", LABEL_DOWN_SELL)
-            )
+        )
         self.positioning_combo_box_steps.setItemText(
             3, translate("central", LABEL_CROSS_SELL)
-            )
+        )
         self.positioning_combo_box_steps.setItemText(
             4, translate("central", LABEL_USER_SELECTED)
-            )
+        )
         self.positioning_combo_box_steps.setItemText(
             5, translate("central", LABEL_SYSTEM_RECOMMENDED)
-            )
+        )
         self.positioning_combo_box_steps.setItemText(
             6, translate("central", LABEL_DYNAMIC)
-            )
+        )
         self.grouping_label_steps.setText(translate("central", LABEL_GROUPING))
         self.grouping_combo_box.setItemText(
             0, translate("central", LABEL_NOT_APPLICABLE)
-            )
-        self.grouping_combo_box.setItemText(1, translate("central",
-                                                         LABEL_BUNDLE_ID))
-        self.grouping_combo_box.setItemText(2, translate("central",
-                                                         LABEL_NO_GROUPING))
-        self.grouping_combo_box.setItemText(3, translate("central",
-                                                         LABEL_DYNAMIC))
-        self.fulfillment_label_steps.setText(
-            translate("central", LABEL_FULFILLMENT))
+        )
+        self.grouping_combo_box.setItemText(1, translate("central", LABEL_BUNDLE_ID))
+        self.grouping_combo_box.setItemText(2, translate("central", LABEL_NO_GROUPING))
+        self.grouping_combo_box.setItemText(3, translate("central", LABEL_DYNAMIC))
+        self.fulfillment_label_steps.setText(translate("central", LABEL_FULFILLMENT))
         self.fulfillment_combo_box_steps.setItemText(
             0, translate("central", LABEL_NOT_APPLICABLE)
-            )
+        )
         self.fulfillment_combo_box_steps.setItemText(
             1, translate("central", LABEL_BRANCH)
-            )
+        )
         self.fulfillment_combo_box_steps.setItemText(
             2, translate("central", LABEL_ESIG)
-            )
-        self.fulfillment_combo_box_steps.setItemText(3, translate("central",
-                                                                  LABEL_RDC))
+        )
+        self.fulfillment_combo_box_steps.setItemText(3, translate("central", LABEL_RDC))
         self.fulfillment_combo_box_steps.setItemText(
             4, translate("central", LABEL_DIRECT)
-            )
+        )
         self.fulfillment_combo_box_steps.setItemText(
             5, translate("central", LABEL_DYNAMIC)
-            )
+        )
         self.transaction_group_box_steps.setTitle(
             translate("central", LABEL_TRANSACTION)
-            )
+        )
         self.from_label_steps.setText(translate("central", LABEL_FROM))
         self.to_label_steps.setText(translate("central", LABEL_TO))
         self.is_external_check_box_steps.setText(
             translate("central", LABEL_IS_EXTERNAL)
-            )
+        )
 
         self.is_login_steps.setText(translate("central", LABEL_IS_LOGIN))
         self.advertising_steps.setText(translate("central", LABEL_ADVERTISING))
@@ -2457,28 +2261,21 @@ class VRGAutomation(object):
         self.no_error_steps_group_box.setText(translate("central", LABEL_NO))
 
         self.save_and_next_steps.setText(translate("central", LABEL_SAVE_NEXT))
-        self.generate_vrg_button.setText(
-            translate("central", LABEL_GENERATE_VRG))
+        self.generate_vrg_button.setText(translate("central", LABEL_GENERATE_VRG))
         self.close_vrg_button.setText(translate("central", LABEL_CLOSE))
         self.reset_button.setText(translate("central", LABEL_RESET))
 
         self.download_group_box.setTitle(translate("central", LABEL_DOWNLOAD))
         self.download_type_label.setText(translate("central", LABEL_FILE_TYPE))
-        self.download_type_combo_box.setItemText(0, translate("central",
-                                                              LABEL_BLANK))
-        self.download_type_combo_box.setItemText(1, translate("central",
-                                                              LABEL_PDF))
-        self.download_type_combo_box.setItemText(2, translate("central",
-                                                              LABEL_JPEG))
-        self.download_type_combo_box.setItemText(3, translate("central",
-                                                              LABEL_OTHER))
+        self.download_type_combo_box.setItemText(0, translate("central", LABEL_BLANK))
+        self.download_type_combo_box.setItemText(1, translate("central", LABEL_PDF))
+        self.download_type_combo_box.setItemText(2, translate("central", LABEL_JPEG))
+        self.download_type_combo_box.setItemText(3, translate("central", LABEL_OTHER))
         self.download_label.setText(translate("central", LABEL_FILE_NAME))
         self.download_save_button.setText(translate("central", LABEL_SAVE))
 
-        self.interaction_group_box.setTitle(
-            translate("central", LABEL_INTERACTION))
-        self.interaction_label.setText(
-            translate("central", LABEL_INTERACTION_NAME))
+        self.interaction_group_box.setTitle(translate("central", LABEL_INTERACTION))
+        self.interaction_label.setText(translate("central", LABEL_INTERACTION_NAME))
         self.interaction_save_button.setText(translate("central", LABEL_SAVE))
 
         self.list_group_box.setTitle(translate("central", LABEL_LIST_OF_PAGES))

@@ -33,8 +33,11 @@ class StandalonePage:
         self.advertising_tracking_code = ""
         self.advertising_location = ""
         self.advertising_type = ""
-        self.is_login = "false"
+        self.is_login = ""
         self.is_otvc = "false"
+        self.is_otvc_prompt = ""
+        self.is_otvc_success = ""
+
 
     @property
     def get_page_name(self):
@@ -224,3 +227,17 @@ class StandalonePage:
 
     def set_is_otvc(self, is_otvc):
         self.is_otvc = is_otvc
+
+    @property
+    def get_is_otvc_prompt(self):
+        return self.is_otvc_prompt
+
+    def set_is_otvc_prompt(self, is_otvc_prompt):
+        self.is_otvc_prompt = is_otvc_prompt
+
+    @property
+    def get_is_otvc_success(self):
+        return self.is_otvc_success
+
+    def set_is_otvc_success(self, is_otvc_success):
+        self.is_otvc_success = is_otvc_success

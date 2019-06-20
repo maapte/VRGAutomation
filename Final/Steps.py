@@ -70,6 +70,8 @@ class Steps:
         self.is_login = "false"
         self.is_otvc = "false"
         self.is_joint = "false"
+        self.is_otvc_prompt_steps = ""
+        self.is_otvc_success_steps = ""
 
     @property
     def get_page_name(self):
@@ -427,3 +429,53 @@ class Steps:
 
     def set_is_joint(self, is_joint):
         self.is_joint = is_joint
+
+    @property
+    def get_is_otvc_prompt_steps(self):
+        return self.is_otvc_prompt_steps
+
+    def set_is_otvc_prompt_steps(self, is_otvc_prompt_steps):
+        self.is_otvc_prompt_steps = is_otvc_prompt_steps
+
+    @property
+    def get_is_otvc_success_steps(self):
+        return self.is_otvc_success_steps
+
+    def set_is_otvc_success_steps(self, is_otvc_success_steps):
+        self.is_otvc_success_steps = is_otvc_success_steps
+
+    @property
+    def get_events_advertising(self):
+        return self.events_advertising
+
+    def set_events_advertising(self, events_advertising):
+        self.events_advertising = events_advertising
+
+    @property
+    def get_events_ad_click(self):
+        return self.events_ad_click
+
+    def set_events_ad_click(self, events_ad_click):
+        self.events_ad_click = events_ad_click
+
+    @property
+    def get_advertising_tracking_code(self):
+        return self.advertising_tracking_code
+
+    def set_advertising_tracking_code(self, advertising_tracking_code):
+        self.advertising_tracking_code = advertising_tracking_code
+
+    @property
+    def get_advertising_location(self):
+        return self.advertising_location
+
+    def set_advertising_location(self, advertising_location):
+        self.advertising_location = advertising_location
+
+    @property
+    def get_advertising_type(self):
+        return self.advertising_type
+
+    def set_advertising_type(self, advertising_type):
+        self.advertising_type = advertising_type
+
