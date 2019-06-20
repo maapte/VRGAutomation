@@ -24,9 +24,7 @@ TOOLTIP_IS_PAPERLESS = "<pre>Select if e-statement option will be applicable </p
 
 TOOLTIP_ADVERTISING = "<pre>Select this checkbox to capture internal ad campaign</pre>"
 TOOLTIP_OTVC = "<pre> Select this if this page has OTVC <b>(ONE TIME VERIFICATION AUTHENTICATION)</b> <br/> authentication </pre>"
-TOOLTIP_IS_LOGIN = "<pre> Select 'Yes' if this page will be accessible to logged-in user <br/>"\
-                    "Select 'Both' if this page will be accesible to both logged-in and not logged-in user <br/>"\
-                    "Select 'No' if none of the them is applicable </pre>"
+TOOLTIP_IS_LOGIN = "<pre> Select if this will be the immediate page post login </pre>"
 
 """
     Transaction ToolTip Message Constant
